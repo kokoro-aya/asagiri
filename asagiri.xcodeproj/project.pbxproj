@@ -46,6 +46,8 @@
 		F751E7A72B067FAC007828D6 /* asagiriUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = asagiriUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F751E7AB2B067FAC007828D6 /* asagiriUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = asagiriUITests.swift; sourceTree = "<group>"; };
 		F751E7AD2B067FAC007828D6 /* asagiriUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = asagiriUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F7CA2FE72B08E8270068EDC2 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		F7CA2FE82B08E8270068EDC2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,9 +75,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F72BFF032B10060B0090EED7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F751E7922B067FAB007828D6 /* Item.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F72BFF042B1006100090EED7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		F751E7822B067FAA007828D6 = {
 			isa = PBXGroup;
 			children = (
+				F7CA2FE72B08E8270068EDC2 /* LICENSE.md */,
+				F7CA2FE82B08E8270068EDC2 /* README.md */,
 				F751E78D2B067FAB007828D6 /* asagiri */,
 				F751E7A02B067FAC007828D6 /* asagiriTests */,
 				F751E7AA2B067FAC007828D6 /* asagiriUITests */,
@@ -96,9 +115,10 @@
 		F751E78D2B067FAB007828D6 /* asagiri */ = {
 			isa = PBXGroup;
 			children = (
+				F72BFF042B1006100090EED7 /* Views */,
+				F72BFF032B10060B0090EED7 /* Models */,
 				F751E78E2B067FAB007828D6 /* asagiriApp.swift */,
 				F751E7902B067FAB007828D6 /* ContentView.swift */,
-				F751E7922B067FAB007828D6 /* Item.swift */,
 				F751E7942B067FAC007828D6 /* Assets.xcassets */,
 				F751E7962B067FAC007828D6 /* Preview Content */,
 			);
