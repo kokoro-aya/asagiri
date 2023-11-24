@@ -12,6 +12,8 @@ import SwiftData
 final class JobDescription {
     var title: String
     
+    var company: Company
+    
     var type: CareerType?
     
     var intro: String = ""
@@ -24,8 +26,9 @@ final class JobDescription {
     
 //    var comments: String = ""
     
-    init(title: String, type: CareerType) {
+    init(title: String, company: Company, type: CareerType) {
         self.title = title
+        self.company = company
         self.type = type
     }
 }

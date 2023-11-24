@@ -8,11 +8,31 @@
 import SwiftUI
 
 struct ApplicationCard: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    
+    let app: Application
+    
+    init(application: Application) {
+        self.app = application
     }
-}
-
-#Preview {
-    ApplicationCard()
+    
+    var body: some View {
+        VStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(app.jobDescription.title)
+                        .font(.headline)
+                    Text(app.jobDescription.company.name)
+                        .font(.subheadline)
+                }
+                Spacer()
+                VStack(alignment: .trailing) {
+                    Text(app.status.description)
+                        .font(.subheadline)
+                    Text(app.dateCreated.formatted(.dateTime.day().month().year()))
+                        .font(.caption)
+                }
+            }
+            Divider()
+        }
+    }
 }

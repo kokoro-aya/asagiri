@@ -13,7 +13,10 @@ struct ApplicationListView: View {
     @Query private var applications: [Application]
     
     var body: some View {
-        Text("\(applications.count)")
+        ForEach(applications) { app in
+            ApplicationCard(application: app)
+                .padding([.leading, .trailing], 10)
+        }
     }
 }
 
@@ -47,9 +50,9 @@ struct ApplicationListView: View {
         fatalError(error.localizedDescription)
     }
     
-    let app1 = Application(jobDescription: JobDescription(title: "junior DevOps", type: CareerType(name: "DevOps")))
+    let app1 = Application(jobDescription: JobDescription(title: "junior DevOps", company: Company(name: "Company 1", website: "company.com"), type: CareerType(name: "DevOps")))
     
-    let app2 = Application(jobDescription: JobDescription(title: "Fullstack developer", type: CareerType(name: "Fullstack")))
+    let app2 = Application(jobDescription: JobDescription(title: "Fullstack developer", company: Company(name: "Company 1", website: "company.com"), type: CareerType(name: "Fullstack")))
     
     previewContainer.mainContext.insert(app1)
     previewContainer.mainContext.insert(app2)

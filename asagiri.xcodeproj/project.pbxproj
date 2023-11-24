@@ -25,6 +25,7 @@
 		F751E7A22B067FAC007828D6 /* asagiriTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E7A12B067FAC007828D6 /* asagiriTests.swift */; };
 		F751E7AC2B067FAC007828D6 /* asagiriUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E7AB2B067FAC007828D6 /* asagiriUITests.swift */; };
 		F751E7AE2B067FAC007828D6 /* asagiriUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E7AD2B067FAC007828D6 /* asagiriUITestsLaunchTests.swift */; };
+		F7B9E4432B111C4C00964F46 /* ApplicationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4422B111C4C00964F46 /* ApplicationCard.swift */; };
 		F7DC61739942F5938B707020 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F7DC677E5D07E71E9B72A920 /* .gitignore */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		F751E7A72B067FAC007828D6 /* asagiriUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = asagiriUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F751E7AB2B067FAC007828D6 /* asagiriUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = asagiriUITests.swift; sourceTree = "<group>"; };
 		F751E7AD2B067FAC007828D6 /* asagiriUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = asagiriUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F7B9E4422B111C4C00964F46 /* ApplicationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCard.swift; sourceTree = "<group>"; };
 		F7CA2FE72B08E8270068EDC2 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		F7CA2FE82B08E8270068EDC2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F7DC677E5D07E71E9B72A920 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		F72BFF042B1006100090EED7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F7B9E4412B111C4500964F46 /* Parts */,
 				F72BFF062B10085A0090EED7 /* CreateNewApplicationView.swift */,
 				F72BFF082B1008720090EED7 /* ApplicationListView.swift */,
 			);
@@ -191,6 +194,14 @@
 				F751E7AD2B067FAC007828D6 /* asagiriUITestsLaunchTests.swift */,
 			);
 			path = asagiriUITests;
+			sourceTree = "<group>";
+		};
+		F7B9E4412B111C4500964F46 /* Parts */ = {
+			isa = PBXGroup;
+			children = (
+				F7B9E4422B111C4C00964F46 /* ApplicationCard.swift */,
+			);
+			path = Parts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,6 +337,7 @@
 			files = (
 				F72BFF0B2B1008A60090EED7 /* ApplicationModel.swift in Sources */,
 				F72BFF192B10E38E0090EED7 /* CareerModels.swift in Sources */,
+				F7B9E4432B111C4C00964F46 /* ApplicationCard.swift in Sources */,
 				F72BFF092B1008720090EED7 /* ApplicationListView.swift in Sources */,
 				F72BFF112B100AFC0090EED7 /* ApplicationStatus.swift in Sources */,
 				F751E7912B067FAB007828D6 /* ContentView.swift in Sources */,
