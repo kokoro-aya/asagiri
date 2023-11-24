@@ -13,6 +13,32 @@ struct ContentView: View {
     @Query private var items: [Item]
 
     var body: some View {
+        /*
+         
+         NavigationStack(path: $pathManager.path) {
+            List {
+                // All different views go here
+            }
+            .navigationDestination(for: Company.self) { target
+                switch target {
+                    case nil:
+                        CreateNewJDView()
+                    default:
+                        CreateNewJDView(target)
+                }
+            }
+            .navigationDestination(for: Application.self) { ... }
+         }
+         .environmentObject(pathManager)
+         .task {
+            ...
+         }
+         
+         // source: https://fatbobman.com/posts/new_navigator_of_SwiftUI_4/
+         
+         */
+        
+        
         NavigationSplitView {
             List {
                 ForEach(items) { item in
