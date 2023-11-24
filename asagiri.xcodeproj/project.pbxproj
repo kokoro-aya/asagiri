@@ -28,6 +28,7 @@
 		F7B9E4432B111C4C00964F46 /* ApplicationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4422B111C4C00964F46 /* ApplicationCard.swift */; };
 		F7B9E4452B1121C600964F46 /* CreateNewJDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */; };
 		F7B9E4472B11374100964F46 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4462B11374100964F46 /* Utils.swift */; };
+		F7B9E4492B114BDF00964F46 /* CreateNewCompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */; };
 		F7DC61739942F5938B707020 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F7DC677E5D07E71E9B72A920 /* .gitignore */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		F7B9E4422B111C4C00964F46 /* ApplicationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCard.swift; sourceTree = "<group>"; };
 		F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewJDView.swift; sourceTree = "<group>"; };
 		F7B9E4462B11374100964F46 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCompanyView.swift; sourceTree = "<group>"; };
 		F7CA2FE72B08E8270068EDC2 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		F7CA2FE82B08E8270068EDC2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F7DC677E5D07E71E9B72A920 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				F72BFF062B10085A0090EED7 /* CreateNewApplicationView.swift */,
 				F72BFF082B1008720090EED7 /* ApplicationListView.swift */,
 				F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */,
+				F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */,
 				F7B9E4462B11374100964F46 /* Utils.swift */,
 			);
 			path = Views;
@@ -343,6 +346,7 @@
 			files = (
 				F72BFF0B2B1008A60090EED7 /* ApplicationModel.swift in Sources */,
 				F72BFF192B10E38E0090EED7 /* CareerModels.swift in Sources */,
+				F7B9E4492B114BDF00964F46 /* CreateNewCompanyView.swift in Sources */,
 				F7B9E4432B111C4C00964F46 /* ApplicationCard.swift in Sources */,
 				F72BFF092B1008720090EED7 /* ApplicationListView.swift in Sources */,
 				F7B9E4452B1121C600964F46 /* CreateNewJDView.swift in Sources */,
