@@ -40,9 +40,19 @@ struct ApplicationListView: View {
         }
     }()
     
-    let app = Application(jobDescription: JobDescription(title: "junior DevOps", type: CareerType(name: "DevOps")))
+    // Remove existing applications just for preview
+    do {
+        try previewContainer.mainContext.delete(model: Application.self)
+    } catch {
+        fatalError(error.localizedDescription)
+    }
     
-    previewContainer.mainContext.insert(app)
+    let app1 = Application(jobDescription: JobDescription(title: "junior DevOps", type: CareerType(name: "DevOps")))
+    
+    let app2 = Application(jobDescription: JobDescription(title: "Fullstack developer", type: CareerType(name: "Fullstack")))
+    
+    previewContainer.mainContext.insert(app1)
+    previewContainer.mainContext.insert(app2)
     
     return ApplicationListView()
         .modelContainer(previewContainer)
