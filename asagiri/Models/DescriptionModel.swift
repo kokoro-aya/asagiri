@@ -12,7 +12,7 @@ import SwiftData
 final class JobDescription {
     var title: String
     
-    var type: CareerType
+    var type: CareerType?
     
     var intro: String = ""
     

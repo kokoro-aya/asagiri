@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ApplicationStatus {
+enum ApplicationStatus : Codable {
     case not_started
     case preparation
     case applied
@@ -16,3 +16,6 @@ enum ApplicationStatus {
     case rejected
     case offer
 }
+
+// must conform `Codable` protocol otherwise compiler will yell
+//   "No exact matches in call to instance method 'getValue'" for usage in models
