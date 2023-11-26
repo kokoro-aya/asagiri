@@ -23,43 +23,41 @@ struct CreateNewCompanyView: View {
     }
     
     var body: some View {
-        NavigationView {
-            VStack {
+        VStack {
+            HStack {
+                Text("Create a new company")
+                    .font(.caption)
+                Spacer()
+            }
+            Divider()
+            VStack(alignment: .leading) {
                 HStack {
-                    Text("Create a new company")
-                        .font(.caption)
+                    Text("Name")
+                        .font(.title3)
                     Spacer()
                 }
-                Divider()
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text("Name")
-                            .font(.title3)
-                        Spacer()
-                    }
-                    TextField("Company name", text: $name)
-                        .padding([.leading], 6)
-                    HStack {
-                        Text("Website")
-                            .font(.title3)
-                        Spacer()
-                    }
-                    TextField("Website", text: $website)
-                        .padding([.leading], 6)
+                TextField("Company name", text: $name)
+                    .padding([.leading], 6)
+                HStack {
+                    Text("Website")
+                        .font(.title3)
+                    Spacer()
                 }
-                Spacer()
-                Divider()
-                Button {
-                    onCompletion(Company(name: name, website: website))
-                    presentationMode.wrappedValue.dismiss()
-                    
-                } label: {
-                    Label("Save", systemImage: "paperplane.fill")
-                        .padding(12)
-                }
+                TextField("Website", text: $website)
+                    .padding([.leading], 6)
+            }
+            Spacer()
+            Divider()
+            Button {
+                onCompletion(Company(name: name, website: website))
+                presentationMode.wrappedValue.dismiss()
                 
-            }.padding(16)
-        }
+            } label: {
+                Label("Save", systemImage: "paperplane.fill")
+                    .padding(12)
+            }
+            
+        }.padding(16)
     }
 }
 

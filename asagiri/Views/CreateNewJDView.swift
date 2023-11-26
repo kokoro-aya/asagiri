@@ -54,108 +54,106 @@ struct CreateNewJDView: View {
     }
     
     var body: some View {
-        NavigationView {
-            VStack {
-                HStack {
-                    Text("Create a new job description")
-                        .font(.caption)
-                    Spacer()
-                }
-                Divider()
-                ScrollView {
-                    VStack(alignment: .leading) {
-                        HStack(alignment: .top) {
-                            VStack(alignment: .leading) {
-                                Text("Job title")
-                                    .font(.title3)
-                                TextField("Title", text: $title)
-                                    .padding([.leading], 6)
-                            }
-                            Spacer()
-                            
-                            JobTypeDropdownSelector(allJobTypes: allJobTypes, jobType: $type)
-                        }
-                        HStack(alignment: .top) {
-                            VStack(alignment: .leading) {
-                                Text("Company")
-                                    .font(.title3)
-                            }
-                            Spacer()
-                            
-                            CompanyDropdownSelector(allCompanies: allCompanies, company: $company)
-                        }
-                        Divider()
-                        HStack {
-                            Text("Introduction")
+        VStack {
+            HStack {
+                Text("Create a new job description")
+                    .font(.caption)
+                Spacer()
+            }
+            Divider()
+            ScrollView {
+                VStack(alignment: .leading) {
+                    HStack(alignment: .top) {
+                        VStack(alignment: .leading) {
+                            Text("Job title")
                                 .font(.title3)
-                            Spacer()
-                            CollapseToggle(toggled: $expanded.0) {
-                                expanded.0 = !(expanded.0)
-                            }
+                            TextField("Title", text: $title)
+                                .padding([.leading], 6)
                         }
-                        if (expanded.0) {
-                            CustomTextEditor(text: $intro, height: 60)
-                        } else {
-                            Spacer()
-                                .frame(height: 16)
-                        }
-                        Divider()
-                        HStack {
-                            Text("Company Intro")
+                        Spacer()
+                        
+                        JobTypeDropdownSelector(allJobTypes: allJobTypes, jobType: $type)
+                    }
+                    HStack(alignment: .top) {
+                        VStack(alignment: .leading) {
+                            Text("Company")
                                 .font(.title3)
-                            Spacer()
-                            CollapseToggle(toggled: $expanded.1) {
-                                expanded.1 = !(expanded.1)
-                            }
                         }
-                        if (expanded.1) {
-                            CustomTextEditor(text: $companyIntro, height: 60)
-                        } else {
-                            Spacer()
-                                .frame(height: 16)
-                        }
-                        Divider()
-                        HStack {
-                            Text("Responsibilities")
-                                .font(.title3)
-                            Spacer()
-                            CollapseToggle(toggled: $expanded.2) {
-                                expanded.2 = !(expanded.2)
-                            }
-                        }
-                        if (expanded.2) {
-                            CustomTextEditor(text: $responsibilities, height: 60)
-                        } else {
-                            Spacer()
-                                .frame(height: 16)
-                        }
-                        Divider()
-                        HStack {
-                            Text("Complementary")
-                                .font(.title3)
-                            Spacer()
-                            CollapseToggle(toggled: $expanded.3) {
-                                expanded.3 = !(expanded.3)
-                            }
-                        }
-                        if (expanded.3) {
-                            CustomTextEditor(text: $complementary, height: 60)
-                        } else {
-                            Spacer()
-                                .frame(height: 16)
+                        Spacer()
+                        
+                        CompanyDropdownSelector(allCompanies: allCompanies, company: $company)
+                    }
+                    Divider()
+                    HStack {
+                        Text("Introduction")
+                            .font(.title3)
+                        Spacer()
+                        CollapseToggle(toggled: $expanded.0) {
+                            expanded.0 = !(expanded.0)
                         }
                     }
+                    if (expanded.0) {
+                        CustomTextEditor(text: $intro, height: 60)
+                    } else {
+                        Spacer()
+                            .frame(height: 16)
+                    }
+                    Divider()
+                    HStack {
+                        Text("Company Intro")
+                            .font(.title3)
+                        Spacer()
+                        CollapseToggle(toggled: $expanded.1) {
+                            expanded.1 = !(expanded.1)
+                        }
+                    }
+                    if (expanded.1) {
+                        CustomTextEditor(text: $companyIntro, height: 60)
+                    } else {
+                        Spacer()
+                            .frame(height: 16)
+                    }
+                    Divider()
+                    HStack {
+                        Text("Responsibilities")
+                            .font(.title3)
+                        Spacer()
+                        CollapseToggle(toggled: $expanded.2) {
+                            expanded.2 = !(expanded.2)
+                        }
+                    }
+                    if (expanded.2) {
+                        CustomTextEditor(text: $responsibilities, height: 60)
+                    } else {
+                        Spacer()
+                            .frame(height: 16)
+                    }
+                    Divider()
+                    HStack {
+                        Text("Complementary")
+                            .font(.title3)
+                        Spacer()
+                        CollapseToggle(toggled: $expanded.3) {
+                            expanded.3 = !(expanded.3)
+                        }
+                    }
+                    if (expanded.3) {
+                        CustomTextEditor(text: $complementary, height: 60)
+                    } else {
+                        Spacer()
+                            .frame(height: 16)
+                    }
                 }
-                Divider()
-                Button {
-                    //                NavigationLink(destination: <#T##() -> View#>, label: <#T##() -> View#>)
-                } label: {
-                    Label("Save", systemImage: "paperplane.fill")
-                        .padding(12)
-                }
-                .disabled(!incomplete)
-            }.padding(16)
-        }
+            }
+            Divider()
+            Button {
+                //                NavigationLink(destination: <#T##() -> View#>, label: <#T##() -> View#>)
+            } label: {
+                Label("Save", systemImage: "paperplane.fill")
+                    .padding(12)
+            }
+            .disabled(!incomplete)
+        }.padding(16)
     }
 }
 
