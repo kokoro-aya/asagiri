@@ -31,4 +31,14 @@ final class JobDescription {
         self.company = company
         self.type = type
     }
+    
+    init(title: String, company: Company, type: CareerType, intro: String, companyIntro: String, responsibilities: String, complementary: String) {
+        self.title = title
+        self.company = company
+        self.type = type
+        self.intro = intro
+        self.companyIntro = companyIntro
+        self.responsibilities = responsibilities
+        self.complementary = complementary
+    }
 }

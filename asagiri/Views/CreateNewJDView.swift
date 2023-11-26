@@ -10,6 +10,8 @@ import SwiftData
 
 struct CreateNewJDView: View {
     
+    @EnvironmentObject var pathManager:PathManager
+    
     init(pendingJD: JobDescription, allJobTypes: [CareerType], allCompanies: [Company]) {
         self.title = pendingJD.title
         self.company = pendingJD.company
@@ -51,6 +53,7 @@ struct CreateNewJDView: View {
     var incomplete: Bool {
         return title.count > 0
             && company != nil
+            && type != nil
     }
     
     var body: some View {
@@ -146,11 +149,21 @@ struct CreateNewJDView: View {
                 }
             }
             Divider()
+            
             Button {
-                //                NavigationLink(destination: <#T##() -> View#>, label: <#T##() -> View#>)
+                let generatedJD = JobDescription(
+                    title: title,
+                    company: self.company!,
+                    type: self.type!,
+                    intro: self.intro,
+                    companyIntro: self.companyIntro,
+                    responsibilities: self.responsibilities,
+                    complementary: self.complementary)
+                
+                pathManager.path.append(generatedJD)
             } label: {
                 Label("Save", systemImage: "paperplane.fill")
-                    .padding(12)
+                .padding(12)
             }
             .disabled(!incomplete)
         }.padding(16)
