@@ -18,8 +18,8 @@ struct CreateNewCompanyView: View {
     
     var onCompletion: (_ company: Company) -> ()
     
-    init () {
-        self.onCompletion = { _ in }
+    init (onCompletion: @escaping (_ company: Company) -> ()) {
+        self.onCompletion = onCompletion
     }
     
     var body: some View {
@@ -66,7 +66,7 @@ struct CreateNewCompanyView: View {
         var previewContainer: ModelContainer = initializePreviewContainer()
         
         
-        return CreateNewCompanyView()
+        return CreateNewCompanyView(onCompletion: { _ in })
             .modelContainer(previewContainer)
     }
 }

@@ -224,7 +224,7 @@ struct CompanyDropdownSelector : View {
                 }
             }
             Divider()
-            NavigationLink(destination: CreateNewCompanyView()) {
+            NavigationLink(destination: CreateNewCompanyView(onCompletion: { newCo in self.company = newCo })) {
                 Label("Create new one", systemImage: "plus")
             }
             Button(role: .destructive) {

@@ -34,13 +34,9 @@ struct AppNavigationStack : View {
         NavigationStack(path: $pathManager.path) {
             List {
                 NavigationLink("Create New Job Description", destination: CreateNewJDView(allJobTypes: allJobTypes, allCompanies: companies))
-                NavigationLink("Create New Company", destination: CreateNewCompanyView())
             }
             .navigationDestination(for: JobDescription.self) { jd in
                 CreateNewJDView(pendingJD: jd, allJobTypes: self.allJobTypes, allCompanies: self.companies)
-            }
-            .navigationDestination(for: Company.self) { com in
-                CreateNewCompanyView()
             }
             .environmentObject(pathManager)
         }
