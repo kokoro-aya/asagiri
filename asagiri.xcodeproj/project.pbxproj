@@ -30,6 +30,7 @@
 		F7B9E4472B11374100964F46 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4462B11374100964F46 /* Utils.swift */; };
 		F7B9E4492B114BDF00964F46 /* CreateNewCompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */; };
 		F7DC61739942F5938B707020 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F7DC677E5D07E71E9B72A920 /* .gitignore */; };
+		F7F698282B13D60C0007622B /* AppNavigationStacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F698272B13D60C0007622B /* AppNavigationStacks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		F7CA2FE72B08E8270068EDC2 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		F7CA2FE82B08E8270068EDC2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F7DC677E5D07E71E9B72A920 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
+		F7F698272B13D60C0007622B /* AppNavigationStacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationStacks.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				F72BFF032B10060B0090EED7 /* Models */,
 				F751E78E2B067FAB007828D6 /* asagiriApp.swift */,
 				F751E7902B067FAB007828D6 /* ContentView.swift */,
+				F7F698272B13D60C0007622B /* AppNavigationStacks.swift */,
 				F751E7942B067FAC007828D6 /* Assets.xcassets */,
 				F751E7962B067FAC007828D6 /* Preview Content */,
 			);
@@ -352,6 +355,7 @@
 				F7B9E4452B1121C600964F46 /* CreateNewJDView.swift in Sources */,
 				F72BFF112B100AFC0090EED7 /* ApplicationStatus.swift in Sources */,
 				F751E7912B067FAB007828D6 /* ContentView.swift in Sources */,
+				F7F698282B13D60C0007622B /* AppNavigationStacks.swift in Sources */,
 				F7B9E4472B11374100964F46 /* Utils.swift in Sources */,
 				F72BFF0D2B1008B60090EED7 /* CompanyModel.swift in Sources */,
 				F751E7932B067FAB007828D6 /* Item.swift in Sources */,
