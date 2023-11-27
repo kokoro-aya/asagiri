@@ -13,9 +13,10 @@ enum ApplicationStatus : Codable {
     case preparation
     case applied
     case phone_screen
-    case interview(round: Int?)
+    case interview(round: Int)
     case rejected
     case offer
+    case ghost
     
     func color() -> Color {
         return switch self {
@@ -26,6 +27,20 @@ enum ApplicationStatus : Codable {
             case .interview(_): .orange
             case .rejected: .gray
             case .offer: .green
+            case .ghost: .red
+        }
+    }
+    
+    func possibleNexts() -> [ApplicationStatus] {
+        return switch self {
+        case .not_started: [.preparation, .applied]
+        case .preparation: [.applied]
+        case .applied: [.phone_screen, .interview(round: 1), .rejected, .offer]
+        case .phone_screen: [.interview(round: 1), .rejected, .offer]
+        case .interview(let round): [.interview(round: round + 1), .rejected, .offer]
+        case .rejected: []
+        case .offer: [.rejected, .ghost]
+        case .ghost: []
         }
     }
 }
@@ -40,9 +55,10 @@ extension ApplicationStatus : CustomStringConvertible {
             case .preparation: "Preparation"
             case .applied: "Applied"
             case .phone_screen: "Phone Screen"
-            case .interview(let round): round == nil ? "Interview" : "Int. round \(round!)"
+            case .interview(let round): "Int. round \(round)"
             case .rejected: "Rejected"
             case .offer: "Offer"
+            case .ghost: "Ghosted"
         }
     }
 }
