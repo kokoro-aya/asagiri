@@ -22,11 +22,19 @@ final class Application {
     var events: [Event] = []
 
     var status: ApplicationStatus {
-        events.last?.type ?? .not_started
+        events.sorted(by: { $0.updateTime < $1.updateTime }).last?.type ?? .not_started
+    }
+    
+    var lastEvent: Event? {
+        events.sorted(by: { $0.updateTime < $1.updateTime }).last
     }
 
-    init(jobDescription: JobDescription) {
+    init(jobDescription: JobDescription, resume: Resume? = nil, cover: CoverLetter? = nil, dateCreated: Date = .now, events: [Event] = []) {
         self.jobDescription = jobDescription
         self.dateCreated = Date.now
+        self.resume = resume
+        self.cover = cover
+        self.dateCreated = dateCreated
+        self.events = events
     }
 }

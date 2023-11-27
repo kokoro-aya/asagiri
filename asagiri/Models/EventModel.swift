@@ -14,8 +14,8 @@ final class Event {
 
     var updateTime: Date
 
-    init(type: ApplicationStatus) {
+    init(type: ApplicationStatus, updateTime: Date = .now) {
         self.type = type
-        updateTime = Date.now
+        self.updateTime = updateTime
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum ApplicationStatus : Codable {
     case not_started
@@ -15,6 +16,18 @@ enum ApplicationStatus : Codable {
     case interview(round: Int?)
     case rejected
     case offer
+    
+    func color() -> Color {
+        return switch self {
+            case .not_started: .black
+            case .preparation: .black
+            case .applied: .yellow
+            case .phone_screen: .orange
+            case .interview(_): .orange
+            case .rejected: .gray
+            case .offer: .green
+        }
+    }
 }
 
 // must conform `Codable` protocol otherwise compiler will yell
@@ -27,7 +40,7 @@ extension ApplicationStatus : CustomStringConvertible {
             case .preparation: "Preparation"
             case .applied: "Applied"
             case .phone_screen: "Phone Screen"
-            case .interview(let round): round == nil ? "Interview" : "Interview round \(round!)"
+            case .interview(let round): round == nil ? "Interview" : "Int. round \(round!)"
             case .rejected: "Rejected"
             case .offer: "Offer"
         }
