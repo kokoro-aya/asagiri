@@ -8,6 +8,10 @@
 import SwiftUI
 import SwiftData
 
+enum CareerEdit {
+    case none, adding, editing
+}
+
 struct CareerManageView: View {
     
     @State private var displayMenuBar = false
@@ -20,10 +24,12 @@ struct CareerManageView: View {
     
     @FocusState private var focusedCareer: CareerType?
     
-    @State private var adding = false
+    @State private var editingCareer: CareerType?
+    
+    @State private var editing: CareerEdit = .none
     
     var editingList: [CareerType] {
-        if (adding) {
+        if (editing == .adding) {
             return careerTypes + [CareerType.empty]
         } else {
             return careerTypes
@@ -61,10 +67,42 @@ struct CareerManageView: View {
                                     modelContext.insert(CareerType(name: text))
                                 }
                                 text = ""
+                                editing = .none
                             }
                         }
                     } else {
-                        Text(item.name)
+                        if (editingCareer == item) {
+                            TextField("Edit item", text: $text) {
+                                
+                            }
+                            .focused($focusedCareer, equals: item)
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                    self.focusedCareer = item
+                                }
+                            }
+                            .onChange(of: focusedCareer) { foc in
+                                if (foc != item) {
+                                    if (text != "") {
+                                        item.name = text
+                                    }
+                                    text = ""
+                                    editing = .none
+                                    editingCareer = nil
+                                }
+                            }
+                        } else {
+                            Text(item.name)
+                                .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                    Button {
+                                        editingCareer = item
+                                        editing = .editing
+                                    } label: {
+                                        Label("Edit", systemImage: "pencil")
+                                    }
+                                    .tint(.blue)
+                            }
+                        }
                     }
                 }
                 .onDelete(perform: removeRows)
@@ -72,12 +110,12 @@ struct CareerManageView: View {
             Spacer()
             Button {
                 
-                if (adding == true && text.count > 0) {
-                    adding = false
+                if (editing == .adding && text.count > 0) {
+                    editing = .none
                     self.focusedCareer = nil
                 }
                 
-                adding = true
+                editing = .adding
             } label: {
                 Label("Add", systemImage: "plus")
                     .padding(12)
@@ -85,8 +123,6 @@ struct CareerManageView: View {
         }
     }
 }
-
-
 
 #Preview {
     MainActor.assumeIsolated {
