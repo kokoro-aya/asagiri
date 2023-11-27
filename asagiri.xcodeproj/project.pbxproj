@@ -20,6 +20,7 @@
 		F738D1582B1504F6006AC134 /* TagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738D1572B1504F6006AC134 /* TagModel.swift */; };
 		F738D15B2B150640006AC134 /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = F738D15A2B150640006AC134 /* SymbolPicker */; };
 		F738D15D2B150D2D006AC134 /* TagManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738D15C2B150D2D006AC134 /* TagManageView.swift */; };
+		F738D15F2B151907006AC134 /* JDListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738D15E2B151907006AC134 /* JDListView.swift */; };
 		F751E78F2B067FAB007828D6 /* asagiriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E78E2B067FAB007828D6 /* asagiriApp.swift */; };
 		F751E7912B067FAB007828D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E7902B067FAB007828D6 /* ContentView.swift */; };
 		F751E7932B067FAB007828D6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E7922B067FAB007828D6 /* Item.swift */; };
@@ -68,6 +69,7 @@
 		F72BFF1C2B10EB960090EED7 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		F738D1572B1504F6006AC134 /* TagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagModel.swift; sourceTree = "<group>"; };
 		F738D15C2B150D2D006AC134 /* TagManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManageView.swift; sourceTree = "<group>"; };
+		F738D15E2B151907006AC134 /* JDListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JDListView.swift; sourceTree = "<group>"; };
 		F751E78B2B067FAB007828D6 /* asagiri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = asagiri.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F751E78E2B067FAB007828D6 /* asagiriApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = asagiriApp.swift; sourceTree = "<group>"; };
 		F751E7902B067FAB007828D6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				F7B9E4412B111C4500964F46 /* Parts */,
 				F72BFF062B10085A0090EED7 /* CreateNewApplicationView.swift */,
 				F72BFF082B1008720090EED7 /* ApplicationListView.swift */,
+				F738D15E2B151907006AC134 /* JDListView.swift */,
 				F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */,
 				F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */,
 				F7DF04CA2B14E9F700D661E1 /* CareerManageView.swift */,
@@ -378,6 +381,7 @@
 				F7B9E4472B11374100964F46 /* Utils.swift in Sources */,
 				F72BFF0D2B1008B60090EED7 /* CompanyModel.swift in Sources */,
 				F738D1582B1504F6006AC134 /* TagModel.swift in Sources */,
+				F738D15F2B151907006AC134 /* JDListView.swift in Sources */,
 				F751E7932B067FAB007828D6 /* Item.swift in Sources */,
 				F72BFF072B10085A0090EED7 /* CreateNewApplicationView.swift in Sources */,
 				F72BFF1B2B10E64B0090EED7 /* EventModel.swift in Sources */,
