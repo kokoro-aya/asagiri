@@ -33,24 +33,13 @@ struct AppNavigationStack : View {
     var body: some View {
         NavigationStack(path: $pathManager.path) {
             List {
-                NavigationLink("Create New Job Description", destination: CreateNewJDView()
-                    .environmentObject(pathManager)
-                )
+                ApplicationListView()
             }
             .navigationDestination(for: JobDescription.self) { jd in
                 CreateNewApplicationView(jobDescription: jd)
                     .environmentObject(pathManager)
             }
             .environmentObject(pathManager)
-        }
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    
-                } label: {
-                    Text("Test")
-                }
-            }
         }
     }
 }

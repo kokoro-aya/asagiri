@@ -10,6 +10,10 @@ import SwiftData
 
 struct CreateNewCompanyView: View {
     
+    @State private var displayMenuBar: Bool = false
+    
+    @EnvironmentObject var pathManager:PathManager
+    
     @Environment(\.presentationMode) var presentationMode
     
     @State var name: String = ""
@@ -23,41 +27,79 @@ struct CreateNewCompanyView: View {
     }
     
     var body: some View {
-        VStack {
-            HStack {
-                Text("Create a new company")
-                    .font(.caption)
+        NavigationStack {
+            VStack {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Name")
+                            .font(.title3)
+                        Spacer()
+                    }
+                    TextField("Company name", text: $name)
+                        .padding([.leading], 6)
+                    HStack {
+                        Text("Website")
+                            .font(.title3)
+                        Spacer()
+                    }
+                    TextField("Website", text: $website)
+                        .padding([.leading], 6)
+                }
                 Spacer()
-            }
-            Divider()
-            VStack(alignment: .leading) {
-                HStack {
-                    Text("Name")
-                        .font(.title3)
-                    Spacer()
+                Divider()
+                Button {
+                    onCompletion(Company(name: name, website: website))
+                    presentationMode.wrappedValue.dismiss()
+                    
+                } label: {
+                    Label("Save", systemImage: "paperplane.fill")
+                        .padding(12)
                 }
-                TextField("Company name", text: $name)
-                    .padding([.leading], 6)
-                HStack {
-                    Text("Website")
-                        .font(.title3)
-                    Spacer()
-                }
-                TextField("Website", text: $website)
-                    .padding([.leading], 6)
-            }
-            Spacer()
-            Divider()
-            Button {
-                onCompletion(Company(name: name, website: website))
-                presentationMode.wrappedValue.dismiss()
                 
-            } label: {
-                Label("Save", systemImage: "paperplane.fill")
-                    .padding(12)
             }
-            
-        }.padding(16)
+            .padding([.top], 20)
+            .padding(16)
+            .toolbar {
+                if displayMenuBar {
+                    ToolbarItemGroup(placement: .navigationBarLeading) {
+                        Button {
+                            displayMenuBar = false
+                        } label: {
+                            Label("Menu", systemImage: "arrow.left")
+                        }
+                        
+                        //
+                        
+                        Label("Menu", systemImage: "house.fill")
+                            .foregroundColor(.black)
+                        
+                        Button {
+                            
+                        } label: {
+                            Label("Menu", systemImage: "gear")
+                        }
+                    }
+                } else {
+                    ToolbarItemGroup(placement: .navigationBarLeading) {
+                        Button {
+                            displayMenuBar = true
+                        } label: {
+                            Label("Menu", systemImage: "line.3.horizontal")
+                        }
+                        
+                        Text("Create an application")
+                            .font(.title2)
+                    }
+                }
+                ToolbarItem {
+                    Button {
+                        pathManager.path.removeLast()
+                    } label: {
+                        Label("Go back", systemImage: "arrowshape.turn.up.backward")
+                    }
+                }
+            }
+        }
     }
 }
 

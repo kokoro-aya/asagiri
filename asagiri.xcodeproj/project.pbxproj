@@ -21,6 +21,7 @@
 		F738D15B2B150640006AC134 /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = F738D15A2B150640006AC134 /* SymbolPicker */; };
 		F738D15D2B150D2D006AC134 /* TagManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738D15C2B150D2D006AC134 /* TagManageView.swift */; };
 		F738D15F2B151907006AC134 /* JDListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738D15E2B151907006AC134 /* JDListView.swift */; };
+		F738D1612B153F82006AC134 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738D1602B153F82006AC134 /* SettingsView.swift */; };
 		F751E78F2B067FAB007828D6 /* asagiriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E78E2B067FAB007828D6 /* asagiriApp.swift */; };
 		F751E7912B067FAB007828D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E7902B067FAB007828D6 /* ContentView.swift */; };
 		F751E7932B067FAB007828D6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E7922B067FAB007828D6 /* Item.swift */; };
@@ -70,6 +71,7 @@
 		F738D1572B1504F6006AC134 /* TagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagModel.swift; sourceTree = "<group>"; };
 		F738D15C2B150D2D006AC134 /* TagManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManageView.swift; sourceTree = "<group>"; };
 		F738D15E2B151907006AC134 /* JDListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JDListView.swift; sourceTree = "<group>"; };
+		F738D1602B153F82006AC134 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F751E78B2B067FAB007828D6 /* asagiri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = asagiri.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F751E78E2B067FAB007828D6 /* asagiriApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = asagiriApp.swift; sourceTree = "<group>"; };
 		F751E7902B067FAB007828D6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				F7DF04CA2B14E9F700D661E1 /* CareerManageView.swift */,
 				F738D15C2B150D2D006AC134 /* TagManageView.swift */,
 				F7B9E4462B11374100964F46 /* Utils.swift */,
+				F738D1602B153F82006AC134 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F72BFF0B2B1008A60090EED7 /* ApplicationModel.swift in Sources */,
+				F738D1612B153F82006AC134 /* SettingsView.swift in Sources */,
 				F72BFF192B10E38E0090EED7 /* CareerModels.swift in Sources */,
 				F7B9E4492B114BDF00964F46 /* CreateNewCompanyView.swift in Sources */,
 				F7B9E4432B111C4C00964F46 /* ApplicationCard.swift in Sources */,

@@ -51,83 +51,118 @@ struct TagManageView: View {
     }
     
     var body: some View {
-        VStack {
-            List {
-                ForEach(editingList) { item in
-                    if item == Tag.empty {
-                        TextField("New item", text: $text)
-                        .focused($focusedTag, equals: item)
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                self.focusedTag = item
-                            }
-                        }
-                        .onChange(of: focusedTag) { foc in
-                            if (foc != item) {
-                                if (text != "") {
-                                    modelContext.insert(Tag(name: text))
-                                }
-                                text = ""
-                                editing = .none
-                            }
-                        }
-                    } else {
-                        if (editing == .editing && editingTag == item) {
-                            HStack {
-                                
-                                TextField("Edit item", text: $text) {
-                                    
-                                }
-                            }
-                            .focused($focusedTag, equals: item)
-                            .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                    self.focusedTag = item
-                                }
-                            }
-                            .onChange(of: focusedTag) { foc in
-                                if (foc != item) {
-                                    if (text != "") {
-                                        item.name = text
+        NavigationStack {
+            VStack {
+                List {
+                    ForEach(editingList) { item in
+                        if item == Tag.empty {
+                            TextField("New item", text: $text)
+                                .focused($focusedTag, equals: item)
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                        self.focusedTag = item
                                     }
-                                    text = ""
-                                    editing = .none
-                                    editingTag = nil
                                 }
-                            }
+                                .onChange(of: focusedTag) { foc in
+                                    if (foc != item) {
+                                        if (text != "") {
+                                            modelContext.insert(Tag(name: text))
+                                        }
+                                        text = ""
+                                        editing = .none
+                                    }
+                                }
                         } else {
-                            Text(item.name)
-                                .swipeActions(edge: .leading, allowsFullSwipe: false) {
-                                    Button {
-                                        editingTag = item
-                                        editing = .editing
-                                    } label: {
-                                        Label("Edit", systemImage: "pencil")
+                            if (editing == .editing && editingTag == item) {
+                                HStack {
+                                    
+                                    TextField("Edit item", text: $text) {
+                                        
                                     }
-                                    .tint(.blue)
                                 }
+                                .focused($focusedTag, equals: item)
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                        self.focusedTag = item
+                                    }
+                                }
+                                .onChange(of: focusedTag) { foc in
+                                    if (foc != item) {
+                                        if (text != "") {
+                                            item.name = text
+                                        }
+                                        text = ""
+                                        editing = .none
+                                        editingTag = nil
+                                    }
+                                }
+                            } else {
+                                Text(item.name)
+                                    .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                        Button {
+                                            editingTag = item
+                                            editing = .editing
+                                        } label: {
+                                            Label("Edit", systemImage: "pencil")
+                                        }
+                                        .tint(.blue)
+                                    }
+                            }
                         }
                     }
+                    .onDelete(perform: removeRows)
+//                    .listRowBackground(Color.)
                 }
-                .onDelete(perform: removeRows)
+//                .scrollContentBackground(.hidden)
+                Spacer()
+                Button {
+                    
+                    if (editing == .adding && text.count > 0) {
+                        editing = .none
+                        self.focusedTag = nil
+                    }
+                    
+                    editing = .adding
+                } label: {
+                    Label("Add", systemImage: "plus")
+                        .padding(12)
+                }
             }
-            Spacer()
-            Button {
-                
-                if (editing == .adding && text.count > 0) {
-                    editing = .none
-                    self.focusedTag = nil
+            .padding([.top], 20)
+            .padding(16)
+            .toolbar {
+                if displayMenuBar {
+                    ToolbarItemGroup(placement: .navigationBarLeading) {
+                        Button {
+                            displayMenuBar = false
+                        } label: {
+                            Label("Menu", systemImage: "arrow.left")
+                        }
+                        
+                        NavigationLink(destination: ApplicationListView().navigationBarBackButtonHidden(true), label: {
+                            Label("Menu", systemImage: "house.fill")
+                        })
+                        
+                        NavigationLink(destination: SettingsView().navigationBarBackButtonHidden(true), label: {
+                            Label("Settings", systemImage: "gear")
+                        })
+                    }
+                } else {
+                    ToolbarItemGroup(placement: .navigationBarLeading) {
+                        Button {
+                            displayMenuBar = true
+                        } label: {
+                            Label("Menu", systemImage: "line.3.horizontal")
+                        }
+                        
+                        Text("Manage Tags")
+                            .font(.title2)
+                    }
                 }
-                
-                editing = .adding
-            } label: {
-                Label("Add", systemImage: "plus")
-                    .padding(12)
             }
         }
     }
 }
-
 #Preview {
     MainActor.assumeIsolated {
         var previewContainer: ModelContainer = initializePreviewContainer()

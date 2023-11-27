@@ -12,11 +12,58 @@ struct ApplicationListView: View {
     
     @Query private var applications: [Application]
     
+    @State private var displayMenuBar: Bool = false
+    
+    // TODO: Add filter facilities
+    
     var body: some View {
-        ScrollView {
-            ForEach(applications) { app in
-                ApplicationCard(application: app)
-                    .padding([.leading, .trailing], 10)
+        NavigationStack {
+            ScrollView {
+                ForEach(applications) { app in
+                    ApplicationCard(application: app)
+                        .padding([.leading, .trailing], 10)
+                }
+            }
+            .padding([.top], 12)
+            .padding(8)
+            .toolbar {
+                if displayMenuBar {
+                    ToolbarItemGroup(placement: .navigationBarLeading) {
+                        Button {
+                            displayMenuBar = false
+                        } label: {
+                            Label("Menu", systemImage: "arrow.left")
+                        }
+                        
+                        //
+                        
+                        Label("Menu", systemImage: "house.fill")
+                            .foregroundColor(.black)
+                        
+                        NavigationLink(destination: SettingsView(), label: {
+                            Label("Menu", systemImage: "gear")
+                        })
+                    }
+                } else {
+                    ToolbarItemGroup(placement: .navigationBarLeading) {
+                        Button {
+                            displayMenuBar = true
+                        } label: {
+                            Label("Menu", systemImage: "line.3.horizontal")
+                        }
+                        
+                        Text("Applications")
+                            .font(.title2)
+                    }
+                }
+                ToolbarItem {
+//                    EditButton()
+                    NavigationLink(destination: CreateNewJDView()
+                        .navigationBarBackButtonHidden(true),
+                        label: {
+                        Label("Add Item", systemImage: "square.and.pencil")
+                    })
+                }
             }
         }
     }

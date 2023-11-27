@@ -54,32 +54,13 @@ struct CareerManageView: View {
     }
     
     var body: some View {
-        VStack {
-            List {
-                ForEach(editingList) { item in
-                    if item == CareerType.empty {
-                        TextField("New item", text:
-                                    $text)
-                        .focused($focusedCareer, equals: item)
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                self.focusedCareer = item
-                            }
-                        }
-                        .onChange(of: focusedCareer) { foc in
-                            if (foc != item) {
-                                if (text != "") {
-                                    modelContext.insert(CareerType(name: text))
-                                }
-                                text = ""
-                                editing = .none
-                            }
-                        }
-                    } else {
-                        if (editing == .editing && editingCareer == item) {
-                            TextField("Edit item", text: $text) {
-                                
-                            }
+        NavigationStack {
+            VStack {
+                List {
+                    ForEach(editingList) { item in
+                        if item == CareerType.empty {
+                            TextField("New item", text:
+                                        $text)
                             .focused($focusedCareer, equals: item)
                             .onAppear {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -89,63 +70,116 @@ struct CareerManageView: View {
                             .onChange(of: focusedCareer) { foc in
                                 if (foc != item) {
                                     if (text != "") {
-                                        item.name = text
+                                        modelContext.insert(CareerType(name: text))
                                     }
                                     text = ""
                                     editing = .none
-                                    editingCareer = nil
                                 }
                             }
                         } else {
-                            HStack {
-                                if (item.symbol != nil) {
-                                    Image(systemName: item.symbol!)
+                            if (editing == .editing && editingCareer == item) {
+                                TextField("Edit item", text: $text) {
+                                    
                                 }
-                                Text(item.name)
-                                    .swipeActions(edge: .leading, allowsFullSwipe: false) {
-                                        Button {
-                                            editingCareer = item
-                                            editing = .editing
-                                        } label: {
-                                            Label("Edit", systemImage: "pencil")
-                                        }
-                                        .tint(.blue)
-                                        Button {
-                                            editingCareer = item
-                                            iconpicking = true
-                                        } label: {
-                                            Label("Icon", systemImage: "info.circle")
-                                        }
+                                .focused($focusedCareer, equals: item)
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                        self.focusedCareer = item
                                     }
-                                    .sheet(isPresented: $iconpicking, onDismiss: {
-                                        
-                                        // There should be a bug because this function could be called two time for the sheet within an update
-                                        if (editingCareer != nil) {
-                                            editingCareer!.symbol = iconPlace
+                                }
+                                .onChange(of: focusedCareer) { foc in
+                                    if (foc != item) {
+                                        if (text != "") {
+                                            item.name = text
                                         }
+                                        text = ""
+                                        editing = .none
                                         editingCareer = nil
-                                        iconpicking = false
-                                    }) {
-                                        SymbolPicker(symbol: $iconPlace)
                                     }
+                                }
+                            } else {
+                                HStack {
+                                    if (item.symbol != nil) {
+                                        Image(systemName: item.symbol!)
+                                    }
+                                    Text(item.name)
+                                        .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                            Button {
+                                                editingCareer = item
+                                                editing = .editing
+                                            } label: {
+                                                Label("Edit", systemImage: "pencil")
+                                            }
+                                            .tint(.blue)
+                                            Button {
+                                                editingCareer = item
+                                                iconpicking = true
+                                            } label: {
+                                                Label("Icon", systemImage: "info.circle")
+                                            }
+                                        }
+                                        .sheet(isPresented: $iconpicking, onDismiss: {
+                                            
+                                            // There should be a bug because this function could be called two time for the sheet within an update
+                                            if (editingCareer != nil) {
+                                                editingCareer!.symbol = iconPlace
+                                            }
+                                            editingCareer = nil
+                                            iconpicking = false
+                                        }) {
+                                            SymbolPicker(symbol: $iconPlace)
+                                        }
+                                }
                             }
                         }
                     }
+                    .onDelete(perform: removeRows)
                 }
-                .onDelete(perform: removeRows)
+                Spacer()
+                Button {
+                    
+                    if (editing == .adding && text.count > 0) {
+                        editing = .none
+                        self.focusedCareer = nil
+                    }
+                    
+                    editing = .adding
+                } label: {
+                    Label("Add", systemImage: "plus")
+                        .padding(12)
+                }
             }
-            Spacer()
-            Button {
-                
-                if (editing == .adding && text.count > 0) {
-                    editing = .none
-                    self.focusedCareer = nil
+            .padding([.top], 20)
+            .padding(16)
+            .toolbar {
+                if displayMenuBar {
+                    ToolbarItemGroup(placement: .navigationBarLeading) {
+                        Button {
+                            displayMenuBar = false
+                        } label: {
+                            Label("Menu", systemImage: "arrow.left")
+                        }
+                        
+                        NavigationLink(destination: ApplicationListView().navigationBarBackButtonHidden(true), label: {
+                            Label("Menu", systemImage: "house.fill")
+                        })
+                        
+                        NavigationLink(destination: SettingsView().navigationBarBackButtonHidden(true), label: {
+                            Label("Settings", systemImage: "gear")
+                        })
+                    }
+                } else {
+                    ToolbarItemGroup(placement: .navigationBarLeading) {
+                        Button {
+                            displayMenuBar = true
+                        } label: {
+                            Label("Menu", systemImage: "line.3.horizontal")
+                        }
+                        
+                        Text("Manage Careers")
+                            .font(.title2)
+                    }
                 }
-                
-                editing = .adding
-            } label: {
-                Label("Add", systemImage: "plus")
-                    .padding(12)
             }
         }
     }
