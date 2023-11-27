@@ -27,48 +27,62 @@ struct CreateNewApplicationView: View {
                     .font(.caption)
                 Spacer()
             }
-            Divider()
-            VStack(alignment: .leading) {
-                HStack {
-                    Text("Name")
-                        .font(.title3)
-                    Spacer()
-                    Text(jobDescription.title)
-                        .font(.title3)
-                        .foregroundColor(.gray)
-                }
-                HStack {
-                    Text("Resume")
-                        .font(.title3)
-                    Spacer()
-                    CollapseToggle(toggled: $filled.1) {
-                        filled.1 = !(filled.1)
-                    }
-                }
-                if (filled.1) {
-                    CustomTextEditor(text: $resume, height: 60)
-                    CustomTextEditor(text: $resumeComment, height: 20)
-                } else {
-                    Spacer()
-                        .frame(height: 16)
-                }
-                Divider()
-                HStack {
-                    Text("Cover")
-                        .font(.title3)
-                    Spacer()
-                    CollapseToggle(toggled: $filled.1) {
-                        filled.1 = !(filled.1)
-                    }
-                }
-                if (filled.1) {
-                    CustomTextEditor(text: $cover, height: 60)
-                } else {
-                    Spacer()
-                        .frame(height: 16)
-                }
+            HStack {
+                Text(jobDescription.company.name)
+                    .font(.title3)
+                    .foregroundStyle(.gray)
+                Spacer()
+                Text(jobDescription.company.website)
+                    .font(.title3)
+                    .foregroundStyle(.gray)
             }
-            Spacer()
+            .padding([.top, .bottom], 8)
+            Divider()
+            ScrollView {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Position")
+                            .font(.title3)
+                        Spacer()
+                        Text(jobDescription.title)
+                            .font(.title3)
+                            .foregroundColor(.gray)
+                    }
+                    HStack {
+                        Text("Resume")
+                            .font(.title3)
+                        Spacer()
+                        CollapseToggle(toggled: $filled.0) {
+                            filled.0 = !(filled.0)
+                        }
+                    }
+                    if (filled.0) {
+                        CustomTextEditor(text: $resume, height: 60)
+                        Text("Comment")
+                            .font(.title3)
+                        CustomTextEditor(text: $resumeComment, height: 20)
+                    } else {
+                        Spacer()
+                            .frame(height: 16)
+                    }
+                    Divider()
+                    HStack {
+                        Text("Cover")
+                            .font(.title3)
+                        Spacer()
+                        CollapseToggle(toggled: $filled.1) {
+                            filled.1 = !(filled.1)
+                        }
+                    }
+                    if (filled.1) {
+                        CustomTextEditor(text: $cover, height: 60)
+                    } else {
+                        Spacer()
+                            .frame(height: 16)
+                    }
+                }
+                Spacer()
+            }
             Divider()
             Button {
                 //                NavigationLink(destination: <#T##() -> View#>, label: <#T##() -> View#>)
@@ -86,6 +100,10 @@ struct CreateNewApplicationView: View {
         var previewContainer: ModelContainer = initializePreviewContainer()
         
         let jd = JobDescription(title: "junior DevOps", company: Company(name: "newco", website: "https://new.co"), type: CareerType(name: "Hello Inc"))
+        
+        // Make sure to also push the dummy data sample into container otherwise preview will crash
+        // as the `.company` relationship is accessed
+        previewContainer.mainContext.insert(jd)
         
         return CreateNewApplicationView(jobDescription: jd)
             .modelContainer(previewContainer)
