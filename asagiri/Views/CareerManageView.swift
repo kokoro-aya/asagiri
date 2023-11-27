@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import SymbolPicker
 
 enum CareerEdit {
     case none, adding, editing
@@ -27,6 +28,10 @@ struct CareerManageView: View {
     @State private var editingCareer: CareerType?
     
     @State private var editing: CareerEdit = .none
+    
+    @State private var iconPlace: String = ""
+    
+    @State private var iconpicking: Bool = false
     
     var editingList: [CareerType] {
         if (editing == .adding) {
@@ -71,7 +76,7 @@ struct CareerManageView: View {
                             }
                         }
                     } else {
-                        if (editingCareer == item) {
+                        if (editing == .editing && editingCareer == item) {
                             TextField("Edit item", text: $text) {
                                 
                             }
@@ -92,15 +97,37 @@ struct CareerManageView: View {
                                 }
                             }
                         } else {
-                            Text(item.name)
-                                .swipeActions(edge: .leading, allowsFullSwipe: false) {
-                                    Button {
-                                        editingCareer = item
-                                        editing = .editing
-                                    } label: {
-                                        Label("Edit", systemImage: "pencil")
+                            HStack {
+                                if (item.symbol != nil) {
+                                    Image(systemName: item.symbol!)
+                                }
+                                Text(item.name)
+                                    .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                        Button {
+                                            editingCareer = item
+                                            editing = .editing
+                                        } label: {
+                                            Label("Edit", systemImage: "pencil")
+                                        }
+                                        .tint(.blue)
+                                        Button {
+                                            editingCareer = item
+                                            iconpicking = true
+                                        } label: {
+                                            Label("Icon", systemImage: "info.circle")
+                                        }
                                     }
-                                    .tint(.blue)
+                                    .sheet(isPresented: $iconpicking, onDismiss: {
+                                        
+                                        // There should be a bug because this function could be called two time for the sheet within an update
+                                        if (editingCareer != nil) {
+                                            editingCareer!.symbol = iconPlace
+                                        }
+                                        editingCareer = nil
+                                        iconpicking = false
+                                    }) {
+                                        SymbolPicker(symbol: $iconPlace)
+                                    }
                             }
                         }
                     }

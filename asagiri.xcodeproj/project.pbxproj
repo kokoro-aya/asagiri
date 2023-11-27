@@ -17,6 +17,8 @@
 		F72BFF172B100B370090EED7 /* DescriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72BFF162B100B370090EED7 /* DescriptionModel.swift */; };
 		F72BFF192B10E38E0090EED7 /* CareerModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72BFF182B10E38E0090EED7 /* CareerModels.swift */; };
 		F72BFF1B2B10E64B0090EED7 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72BFF1A2B10E64B0090EED7 /* EventModel.swift */; };
+		F738D1582B1504F6006AC134 /* TagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738D1572B1504F6006AC134 /* TagModel.swift */; };
+		F738D15B2B150640006AC134 /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = F738D15A2B150640006AC134 /* SymbolPicker */; };
 		F751E78F2B067FAB007828D6 /* asagiriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E78E2B067FAB007828D6 /* asagiriApp.swift */; };
 		F751E7912B067FAB007828D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E7902B067FAB007828D6 /* ContentView.swift */; };
 		F751E7932B067FAB007828D6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E7922B067FAB007828D6 /* Item.swift */; };
@@ -63,6 +65,7 @@
 		F72BFF182B10E38E0090EED7 /* CareerModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerModels.swift; sourceTree = "<group>"; };
 		F72BFF1A2B10E64B0090EED7 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		F72BFF1C2B10EB960090EED7 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
+		F738D1572B1504F6006AC134 /* TagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagModel.swift; sourceTree = "<group>"; };
 		F751E78B2B067FAB007828D6 /* asagiri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = asagiri.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F751E78E2B067FAB007828D6 /* asagiriApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = asagiriApp.swift; sourceTree = "<group>"; };
 		F751E7902B067FAB007828D6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -90,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F738D15B2B150640006AC134 /* SymbolPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +125,7 @@
 				F72BFF162B100B370090EED7 /* DescriptionModel.swift */,
 				F72BFF182B10E38E0090EED7 /* CareerModels.swift */,
 				F72BFF1A2B10E64B0090EED7 /* EventModel.swift */,
+				F738D1572B1504F6006AC134 /* TagModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -235,6 +240,9 @@
 			dependencies = (
 			);
 			name = asagiri;
+			packageProductDependencies = (
+				F738D15A2B150640006AC134 /* SymbolPicker */,
+			);
 			productName = asagiri;
 			productReference = F751E78B2B067FAB007828D6 /* asagiri.app */;
 			productType = "com.apple.product-type.application";
@@ -307,6 +315,9 @@
 				Base,
 			);
 			mainGroup = F751E7822B067FAA007828D6;
+			packageReferences = (
+				F738D1592B150640006AC134 /* XCRemoteSwiftPackageReference "SymbolPicker" */,
+			);
 			productRefGroup = F751E78C2B067FAB007828D6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -362,6 +373,7 @@
 				F7F698282B13D60C0007622B /* AppNavigationStacks.swift in Sources */,
 				F7B9E4472B11374100964F46 /* Utils.swift in Sources */,
 				F72BFF0D2B1008B60090EED7 /* CompanyModel.swift in Sources */,
+				F738D1582B1504F6006AC134 /* TagModel.swift in Sources */,
 				F751E7932B067FAB007828D6 /* Item.swift in Sources */,
 				F72BFF072B10085A0090EED7 /* CreateNewApplicationView.swift in Sources */,
 				F72BFF1B2B10E64B0090EED7 /* EventModel.swift in Sources */,
@@ -698,6 +710,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F738D1592B150640006AC134 /* XCRemoteSwiftPackageReference "SymbolPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/xnth97/SymbolPicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F738D15A2B150640006AC134 /* SymbolPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F738D1592B150640006AC134 /* XCRemoteSwiftPackageReference "SymbolPicker" */;
+			productName = SymbolPicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F751E7832B067FAA007828D6 /* Project object */;
 }

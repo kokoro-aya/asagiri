@@ -12,6 +12,8 @@ import SwiftData
 final class CareerType {
     var name: String
     
+    var symbol: String?
+    
 //    var comments: String = ""
     
     init(name: String) {
