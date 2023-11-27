@@ -17,4 +17,6 @@ final class CareerType {
     init(name: String) {
         self.name = name
     }
+    
+    static let empty = CareerType(name: "")
 }
