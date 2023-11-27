@@ -12,7 +12,7 @@ struct CreateNewJDView: View {
     
     @EnvironmentObject var pathManager:PathManager
     
-    init(pendingJD: JobDescription, allJobTypes: [CareerType], allCompanies: [Company]) {
+    init(pendingJD: JobDescription) {
         self.title = pendingJD.title
         self.company = pendingJD.company
         self.type = pendingJD.type
@@ -21,18 +21,14 @@ struct CreateNewJDView: View {
         self.responsibilities = pendingJD.responsibilities
         self.complementary = pendingJD.complementary
         
-        self.allJobTypes = allJobTypes
-        self.allCompanies = allCompanies
     }
     
-    init(allJobTypes: [CareerType], allCompanies: [Company]) {
-        self.allJobTypes = allJobTypes
-        self.allCompanies = allCompanies
-    }
+    init() { }
     
-    let allJobTypes: [CareerType]
     
-    let allCompanies: [Company]
+    @Query let allJobTypes: [CareerType]
+    
+    @Query let allCompanies: [Company]
     
     @State var expanded: (Bool, Bool, Bool, Bool) = (true, false, false, false)
     
@@ -182,14 +178,21 @@ struct CreateNewJDView: View {
             Company(name: "Company 5", website: "com.5"),
         ]
         
-        return CreateNewJDView(
-            allJobTypes: [
-                CareerType(name: "Front-end"),
-                CareerType(name: "Back-end"),
-                CareerType(name: "Fullstack"),
-            ],
-            allCompanies: companies
-        )
+        let allJobTypes = [
+            CareerType(name: "Front-end"),
+            CareerType(name: "Back-end"),
+            CareerType(name: "Fullstack"),
+        ]
+        
+        companies.forEach {
+            previewContainer.mainContext.insert($0)
+        }
+        
+        allJobTypes.forEach {
+            previewContainer.mainContext.insert($0)
+        }
+        
+        return CreateNewJDView()
         .modelContainer(previewContainer)
     }
 }
