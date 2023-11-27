@@ -197,6 +197,7 @@ struct CreateNewJDView: View {
                 ToolbarItem {
     //                    EditButton()
                     NavigationLink(destination: ApplicationListView()
+                        .environmentObject(pathManager)
                         .navigationBarBackButtonHidden(true),
                         label: {
                         Label("Go back", systemImage: "delete.backward")

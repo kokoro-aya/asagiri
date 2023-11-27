@@ -10,6 +10,8 @@ import SwiftData
 
 struct ApplicationListView: View {
     
+    @EnvironmentObject var pathManager:PathManager
+    
     @Query private var applications: [Application]
     
     @State private var displayMenuBar: Bool = false
@@ -17,7 +19,6 @@ struct ApplicationListView: View {
     // TODO: Add filter facilities
     
     var body: some View {
-        NavigationStack {
             ScrollView {
                 ForEach(applications) { app in
                     ApplicationCard(application: app)
@@ -40,7 +41,8 @@ struct ApplicationListView: View {
                         Label("Menu", systemImage: "house.fill")
                             .foregroundColor(.black)
                         
-                        NavigationLink(destination: SettingsView(), label: {
+                        NavigationLink(destination: SettingsView()
+                            .environmentObject(pathManager), label: {
                             Label("Menu", systemImage: "gear")
                         })
                     }
@@ -59,6 +61,7 @@ struct ApplicationListView: View {
                 ToolbarItem {
 //                    EditButton()
                     NavigationLink(destination: CreateNewJDView()
+                        .environmentObject(pathManager)
                         .navigationBarBackButtonHidden(true),
                         label: {
                         Label("Add Item", systemImage: "square.and.pencil")
@@ -67,7 +70,6 @@ struct ApplicationListView: View {
             }
         }
     }
-}
 
 func createDateFromString(_ s: String) -> Date {
     let RFC3339DateFormatter = DateFormatter()

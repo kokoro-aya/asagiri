@@ -14,6 +14,8 @@ struct CreateNewCompanyView: View {
     
     @EnvironmentObject var pathManager:PathManager
     
+    @Environment(\.modelContext) private var modelContext
+    
     @Environment(\.presentationMode) var presentationMode
     
     @State var name: String = ""
@@ -27,7 +29,6 @@ struct CreateNewCompanyView: View {
     }
     
     var body: some View {
-        NavigationStack {
             VStack {
                 VStack(alignment: .leading) {
                     HStack {
@@ -48,7 +49,10 @@ struct CreateNewCompanyView: View {
                 Spacer()
                 Divider()
                 Button {
-                    onCompletion(Company(name: name, website: website))
+                    
+                    let company = Company(name: name, website: website)
+                    
+                    onCompletion(company)
                     presentationMode.wrappedValue.dismiss()
                     
                 } label: {
@@ -101,7 +105,6 @@ struct CreateNewCompanyView: View {
             }
         }
     }
-}
 
 #Preview {
     MainActor.assumeIsolated {

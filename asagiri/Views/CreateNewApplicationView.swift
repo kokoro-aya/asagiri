@@ -14,6 +14,8 @@ struct CreateNewApplicationView: View {
     
     @EnvironmentObject var pathManager:PathManager
     
+    @Environment(\.modelContext) private var modelContext
+    
     let jobDescription: JobDescription
     
     @State var filled: (Bool, Bool) = (false, false)
@@ -25,7 +27,6 @@ struct CreateNewApplicationView: View {
     @State var cover: String = ""
     
     var body: some View {
-        NavigationStack {
             VStack {
                 HStack {
                     Text(jobDescription.company.name)
@@ -85,6 +86,20 @@ struct CreateNewApplicationView: View {
                 Divider()
                 Button {
                     //                NavigationLink(destination: <#T##() -> View#>, label: <#T##() -> View#>)
+                    
+                    modelContext.insert(jobDescription)
+                    
+                    let createdApplication = Application()
+                    
+                    modelContext.insert(createdApplication)
+                    
+                    createdApplication.jobDescription = jobDescription
+                    createdApplication.resume = Resume(content: resume)
+                    createdApplication.cover = CoverLetter(content: cover)
+                    createdApplication.events.append(Event(type: .preparation))
+                    
+                    pathManager.path.append("applications")
+                    
                 } label: {
                     Label("Save", systemImage: "paperplane.fill")
                         .padding(12)
@@ -136,7 +151,6 @@ struct CreateNewApplicationView: View {
             }
         }
     }
-}
 
 #Preview {
     MainActor.assumeIsolated {

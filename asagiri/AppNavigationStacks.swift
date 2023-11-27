@@ -16,28 +16,39 @@ struct AppNavigationStack : View {
     
     @StateObject var pathManager = PathManager()
     
-    let companies = [
-        Company(name: "Company 1", website: "com.1"),
-        Company(name: "Company 2", website: "com.2"),
-        Company(name: "Company 3", website: "com.3"),
-        Company(name: "Company 4", website: "com.4"),
-        Company(name: "Company 5", website: "com.5"),
-    ]
-
-    let allJobTypes = [
-        CareerType(name: "Front-end"),
-        CareerType(name: "Back-end"),
-        CareerType(name: "Fullstack"),
-    ]
+//    let companies = [
+//        Company(name: "Company 1", website: "com.1"),
+//        Company(name: "Company 2", website: "com.2"),
+//        Company(name: "Company 3", website: "com.3"),
+//        Company(name: "Company 4", website: "com.4"),
+//        Company(name: "Company 5", website: "com.5"),
+//    ]
+//
+//    let allJobTypes = [
+//        CareerType(name: "Front-end"),
+//        CareerType(name: "Back-end"),
+//        CareerType(name: "Fullstack"),
+//    ]
     
     var body: some View {
         NavigationStack(path: $pathManager.path) {
             List {
                 ApplicationListView()
+                    .environmentObject(pathManager)
             }
             .navigationDestination(for: JobDescription.self) { jd in
                 CreateNewApplicationView(jobDescription: jd)
                     .environmentObject(pathManager)
+            }
+            .navigationDestination(for: String.self) { label in
+                switch label {
+                case "applications": ApplicationListView()
+                        .environmentObject(pathManager)
+                case "settings": SettingsView()
+                        .environmentObject(pathManager)
+                default: ApplicationListView()
+                        .environmentObject(pathManager)
+                }
             }
             .environmentObject(pathManager)
         }

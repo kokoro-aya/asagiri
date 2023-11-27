@@ -17,6 +17,8 @@ struct CareerManageView: View {
     
     @State private var displayMenuBar = false
     
+    @EnvironmentObject var pathManager:PathManager
+    
     @Environment(\.modelContext) private var modelContext
     
     @Query private var careerTypes: [CareerType]
@@ -54,7 +56,6 @@ struct CareerManageView: View {
     }
     
     var body: some View {
-        NavigationStack {
             VStack {
                 List {
                     ForEach(editingList) { item in
@@ -160,11 +161,13 @@ struct CareerManageView: View {
                             Label("Menu", systemImage: "arrow.left")
                         }
                         
-                        NavigationLink(destination: ApplicationListView().navigationBarBackButtonHidden(true), label: {
+                        NavigationLink(destination: ApplicationListView()
+                            .environmentObject(pathManager).navigationBarBackButtonHidden(true), label: {
                             Label("Menu", systemImage: "house.fill")
                         })
                         
-                        NavigationLink(destination: SettingsView().navigationBarBackButtonHidden(true), label: {
+                        NavigationLink(destination: SettingsView()
+                            .environmentObject(pathManager).navigationBarBackButtonHidden(true), label: {
                             Label("Settings", systemImage: "gear")
                         })
                     }
@@ -183,7 +186,6 @@ struct CareerManageView: View {
             }
         }
     }
-}
 
 #Preview {
     MainActor.assumeIsolated {

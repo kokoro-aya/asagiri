@@ -11,7 +11,7 @@ import SwiftData
 @Model
 final class Application {
 
-    var jobDescription: JobDescription
+    var jobDescription: JobDescription? = nil
 
     var resume: Resume? = nil
 
@@ -27,6 +27,11 @@ final class Application {
     
     var lastEvent: Event? {
         events.sorted(by: { $0.updateTime < $1.updateTime }).last
+    }
+    
+    init() {
+        self.dateCreated = .now
+        self.events = []
     }
 
     init(jobDescription: JobDescription, resume: Resume? = nil, cover: CoverLetter? = nil, dateCreated: Date = .now, events: [Event] = []) {

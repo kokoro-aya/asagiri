@@ -11,18 +11,21 @@ struct SettingsView: View {
     
     @State private var displayMenuBar: Bool = false
     
+    @EnvironmentObject var pathManager:PathManager
+    
     var body: some View {
-        NavigationStack {
             HStack {
                 VStack(alignment: .leading) {
-                    NavigationLink(destination: CareerManageView().navigationBarBackButtonHidden(), label: {
+                    NavigationLink(destination: CareerManageView()
+                        .environmentObject(pathManager).navigationBarBackButtonHidden(), label: {
                         Text("Manage careers")
                     })
                     
                     Spacer()
                         .frame(height: 32)
                     
-                    NavigationLink(destination: TagManageView().navigationBarBackButtonHidden(), label: {
+                    NavigationLink(destination: TagManageView()
+                        .environmentObject(pathManager).navigationBarBackButtonHidden(), label: {
                         Text("Manage tags")
                     })
                 }
@@ -62,7 +65,6 @@ struct SettingsView: View {
             }
         }
     }
-}
 
 #Preview {
     SettingsView()
