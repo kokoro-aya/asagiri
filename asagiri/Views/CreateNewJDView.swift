@@ -284,7 +284,7 @@ struct CollapseToggle : View {
     var body: some View {
         Button (action: onPress) {
             if (toggled) {
-                Image(systemName: "minus")
+                Image(systemName: "xmark")
             } else {
                 Image(systemName: "plus")
             }
