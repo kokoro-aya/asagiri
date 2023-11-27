@@ -22,7 +22,8 @@ func initializePreviewContainer() -> ModelContainer {
             CoverLetter.self,
             JobDescription.self,
             CareerType.self,
-            Event.self
+            Event.self,
+            Tag.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         do {

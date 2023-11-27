@@ -20,5 +20,6 @@ final class CareerType {
         self.name = name
     }
     
+    // Dummy static value as a placeholder for management list
     static let empty = CareerType(name: "")
 }
