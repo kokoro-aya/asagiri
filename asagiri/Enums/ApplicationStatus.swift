@@ -8,7 +8,12 @@
 import Foundation
 import SwiftUI
 
-enum ApplicationStatus : Codable {
+enum ApplicationStatus : Codable, Hashable, Identifiable {
+    
+    var id: Self {
+        return self
+    }
+    
     case not_started
     case preparation
     case applied

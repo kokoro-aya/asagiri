@@ -66,14 +66,40 @@ struct ApplicationCard: View {
                 }
                 Spacer()
                 
+                if (detailed) {
+                    let label = switch app.status {
+                        case .not_started: "NSTA"
+                        case .preparation: "PREP"
+                        case .applied: "APPL"
+                        case .phone_screen: "PSCR"
+                        case .interview(let round): "INT\(round)"
+                        case .rejected: "REJ"
+                        case .offer: "OFFR"
+                        case .ghost: "GHO"
+                    }
+                    Text(label)
+                    
+                } else {
+                    let possibleNexts = self.app.status.possibleNexts()
+                    
+                    Menu {
+                        ForEach(possibleNexts) { sts in
+                            Button(sts.description) {
+                                self.app.events.append(Event(type: sts))
+                            }
+                        }
+                    } label: {
+                        Text(app.status.description)
+                            .font(.subheadline)
+                            .foregroundColor(app.status.color())
+                    }
+                }
+                
                 Button {
                     if (app.events.count > 0) {
                         detailed = !detailed
                     }
                 } label: {
-                    Label(app.status.description, systemImage: "")
-                            .font(.subheadline)
-                            .foregroundColor(app.status.color())
                     if (app.events.count > 0) {
                         Image(systemName: detailed ? "xmark" : "plus")
                             .foregroundColor(app.status.color())
