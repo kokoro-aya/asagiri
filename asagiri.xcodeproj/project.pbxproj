@@ -22,6 +22,7 @@
 		F738D15D2B150D2D006AC134 /* TagManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738D15C2B150D2D006AC134 /* TagManageView.swift */; };
 		F738D15F2B151907006AC134 /* JDListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738D15E2B151907006AC134 /* JDListView.swift */; };
 		F738D1612B153F82006AC134 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738D1602B153F82006AC134 /* SettingsView.swift */; };
+		F738D1662B1659C1006AC134 /* SunburstDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738D1652B1659C1006AC134 /* SunburstDiagramView.swift */; };
 		F751E78F2B067FAB007828D6 /* asagiriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E78E2B067FAB007828D6 /* asagiriApp.swift */; };
 		F751E7912B067FAB007828D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E7902B067FAB007828D6 /* ContentView.swift */; };
 		F751E7932B067FAB007828D6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751E7922B067FAB007828D6 /* Item.swift */; };
@@ -72,6 +73,7 @@
 		F738D15C2B150D2D006AC134 /* TagManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManageView.swift; sourceTree = "<group>"; };
 		F738D15E2B151907006AC134 /* JDListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JDListView.swift; sourceTree = "<group>"; };
 		F738D1602B153F82006AC134 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F738D1652B1659C1006AC134 /* SunburstDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunburstDiagramView.swift; sourceTree = "<group>"; };
 		F751E78B2B067FAB007828D6 /* asagiri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = asagiri.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F751E78E2B067FAB007828D6 /* asagiriApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = asagiriApp.swift; sourceTree = "<group>"; };
 		F751E7902B067FAB007828D6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -161,6 +163,30 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
+		F738D1622B162B60006AC134 /* Visualization */ = {
+			isa = PBXGroup;
+			children = (
+				F738D1642B162B6F006AC134 /* Sunburst */,
+				F738D1632B162B6A006AC134 /* Sankey */,
+			);
+			path = Visualization;
+			sourceTree = "<group>";
+		};
+		F738D1632B162B6A006AC134 /* Sankey */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sankey;
+			sourceTree = "<group>";
+		};
+		F738D1642B162B6F006AC134 /* Sunburst */ = {
+			isa = PBXGroup;
+			children = (
+				F738D1652B1659C1006AC134 /* SunburstDiagramView.swift */,
+			);
+			path = Sunburst;
+			sourceTree = "<group>";
+		};
 		F751E7822B067FAA007828D6 = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +214,7 @@
 		F751E78D2B067FAB007828D6 /* asagiri */ = {
 			isa = PBXGroup;
 			children = (
+				F738D1622B162B60006AC134 /* Visualization */,
 				F72BFF0F2B100AEF0090EED7 /* Enums */,
 				F72BFF042B1006100090EED7 /* Views */,
 				F72BFF032B10060B0090EED7 /* Models */,
@@ -380,6 +407,7 @@
 				F738D15D2B150D2D006AC134 /* TagManageView.swift in Sources */,
 				F72BFF112B100AFC0090EED7 /* ApplicationStatus.swift in Sources */,
 				F751E7912B067FAB007828D6 /* ContentView.swift in Sources */,
+				F738D1662B1659C1006AC134 /* SunburstDiagramView.swift in Sources */,
 				F7DF04CB2B14E9F700D661E1 /* CareerManageView.swift in Sources */,
 				F7F698282B13D60C0007622B /* AppNavigationStacks.swift in Sources */,
 				F7B9E4472B11374100964F46 /* Utils.swift in Sources */,
