@@ -166,11 +166,48 @@ struct SunburstDiagramView: View {
         return source.children.map { .init(label: $0.label, value: $0.count()) }
     }
     
-    var body: some View {
-        Chart(generateLabelValuePairs(), id: \.self) { child in
-            SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(100), outerRadius: .fixed(150), angularInset: 4)
-                .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
+    func generateLabelValuePairsLevel2() -> [LabelValuePair] {
+        let values: [[(String, Int)]] = source.children.map {
+            switch $0 {
+            case let edge as SunburstPaintEdge:
+                [("NA", edge.value)]
+            case let node as SunburstPaintNode:
+                node.children.map { ($0.label, $0.count()) }
+            default:
+                []
+            }
         }
+        
+        return values
+            .flatMap { $0 }
+            .map { (l, v) in
+                    .init(label: l, value: v)
+            }
+    }
+    
+    func generate1(values: [[(String, Int)]]) -> [LabelValuePair] {
+        return values.flatMap { $0 }.map { (l, v) in .init(label: l, value: v) }
+    }
+    
+    var body: some View {
+        ZStack {
+            Chart(generateLabelValuePairs(), id: \.self) { child in
+                SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(96), outerRadius: .fixed(128), angularInset: 4)
+                    .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
+            }
+            .padding([.top], 17.5)
+            Chart(generateLabelValuePairsLevel2(), id: \.self) { child in
+                if (child.label != "NA") {
+                    SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(136), outerRadius: .fixed(160), angularInset: 4)
+                        .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
+                } else {
+                    SectorMark(angle: .value(Text(verbatim: ""), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 4)
+                        .foregroundStyle(Color.white)
+                }
+            }
+            .chartLegend(.hidden)
+        }
+      
     }
 }
 
