@@ -41,7 +41,8 @@ struct SettingsView: View {
                             Label("Menu", systemImage: "arrow.left")
                         }
                         
-                        NavigationLink(destination: ApplicationListView(pathManager: $pathManager), label: {
+                        NavigationLink(destination: ApplicationListView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true), label: {
                             Label("Home", systemImage: "house.fill")
                         })
                         

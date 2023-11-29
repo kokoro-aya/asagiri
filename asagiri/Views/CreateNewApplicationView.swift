@@ -16,6 +16,8 @@ struct CreateNewApplicationView: View {
     
     @Environment(\.modelContext) private var modelContext
     
+    @Environment(\.presentationMode) var presentationMode
+    
     let jobDescription: JobDescription
     
     @State var filled: (Bool, Bool) = (false, false)
@@ -84,25 +86,41 @@ struct CreateNewApplicationView: View {
                 Spacer()
             }
             Divider()
-            Button {
-                //                NavigationLink(destination: <#T##() -> View#>, label: <#T##() -> View#>)
-                
-                modelContext.insert(jobDescription)
-                
-                let createdApplication = Application()
-                
-                modelContext.insert(createdApplication)
-                
-                createdApplication.jobDescription = jobDescription
-                createdApplication.resume = Resume(content: resume)
-                createdApplication.cover = CoverLetter(content: cover)
-                createdApplication.events.append(Event(type: .preparation))
-                
-                pathManager.path.removeLast()
-                
-            } label: {
-                Label("Save", systemImage: "paperplane.fill")
-                    .padding(12)
+            HStack {
+                Button {
+                    modelContext.insert(jobDescription)
+                    
+                    let createdApplication = Application()
+                    
+                    modelContext.insert(createdApplication)
+                    
+                    createdApplication.jobDescription = jobDescription
+                    createdApplication.resume = Resume(content: resume)
+                    createdApplication.cover = CoverLetter(content: cover)
+                    createdApplication.events.append(Event(type: .preparation))
+                    
+                    pathManager.path.removeLast()
+                    
+                } label: {
+                    Label("Save", systemImage: "paperplane.fill")
+                        .padding(12)
+                }
+                Button {
+                    
+                    // Dummy CRUD for triggering page transition otherwise `removeLast` will remove nothing.
+                    
+                    // See: https://www.v2ex.com/t/996395
+                    
+                    let item = Item(timestamp: .now)
+                    modelContext.insert(item)
+                    modelContext.delete(item)
+                    
+                    pathManager.path.removeLast()
+                    
+                } label: {
+                    Label("Discard", systemImage: "minus")
+                        .padding(12)
+                }
             }
             .padding([.top], 20)
             .padding(16)
@@ -117,14 +135,16 @@ struct CreateNewApplicationView: View {
                         
                         //
                         
-                        Label("Menu", systemImage: "house.fill")
-                            .foregroundColor(.black)
+                        NavigationLink(destination: ApplicationListView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true), label: {
+                            Label("Home", systemImage: "house.fill")
+                        })
                         
-                        Button {
-                            
-                        } label: {
+                        NavigationLink(destination: SettingsView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true),
+                           label: {
                             Label("Menu", systemImage: "gear")
-                        }
+                        })
                     }
                 } else {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
@@ -136,14 +156,6 @@ struct CreateNewApplicationView: View {
                         
                         Text("Create an application")
                             .font(.title2)
-                    }
-                }
-                ToolbarItem {
-                    //                    EditButton()
-                    Button {
-                        pathManager.path.removeLast()
-                    } label: {
-                        Label("Go back", systemImage: "arrowshape.turn.up.backward")
                     }
                 }
             }

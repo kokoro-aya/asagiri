@@ -166,6 +166,7 @@ struct CreateNewJDView: View {
                 }
                 .navigationDestination(for: JobDescription.self) { jd in
                     CreateNewApplicationView(pathManager: $pathManager, jobDescription: jd)
+                        .navigationBarBackButtonHidden(true)
                 }
                 .disabled(!incomplete)
             }
@@ -185,11 +186,11 @@ struct CreateNewJDView: View {
                         Label("Menu", systemImage: "house.fill")
                             .foregroundColor(.black)
                         
-                        Button {
-                            
-                        } label: {
+                        NavigationLink(destination: SettingsView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true),
+                           label: {
                             Label("Menu", systemImage: "gear")
-                        }
+                        })
                     }
                 } else {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
@@ -268,7 +269,7 @@ struct JobTypeDropdownSelector : View {
             Button(role: .destructive) {
                 self.jobType = nil
             } label: {
-                Label("Delete", systemImage: "trash")
+                Label("Remove", systemImage: "trash")
             }
         } label: {
             Label(jobType?.name ?? "Job Type", systemImage: "bag.fill")
@@ -294,13 +295,17 @@ struct CompanyDropdownSelector : View {
                 }
             }
             Divider()
-            NavigationLink(destination: CreateNewCompanyView(pathManager: $pathManager, onCompletion: { newCo in self.company = newCo })) {
-                Label("Create new one", systemImage: "plus")
+            NavigationLink(
+                destination: CreateNewCompanyView(pathManager: $pathManager,
+                                                  onCompletion: { newCo in self.company = newCo })
+                .navigationBarBackButtonHidden(true)
+            ) {
+                Label("Add new one", systemImage: "plus")
             }
             Button(role: .destructive) {
                 self.company = nil
             } label: {
-                Label("Delete", systemImage: "trash")
+                Label("Remove", systemImage: "trash")
             }
         } label: {
             Label(company?.name ?? "Select one", systemImage: "building.2.fill")

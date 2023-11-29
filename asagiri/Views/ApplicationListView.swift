@@ -41,7 +41,9 @@ struct ApplicationListView: View {
                         Label("Menu", systemImage: "house.fill")
                             .foregroundColor(.black)
                         
-                        NavigationLink(destination: SettingsView(pathManager: $pathManager), label: {
+                        NavigationLink(destination: SettingsView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true),
+                           label: {
                             Label("Menu", systemImage: "gear")
                         })
                     }
@@ -64,6 +66,7 @@ struct ApplicationListView: View {
                         label: {
                         Label("Add Item", systemImage: "square.and.pencil")
                     })
+                    
                 }
             }
         }

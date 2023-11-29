@@ -36,7 +36,6 @@ struct AppNavigationStack : View {
     var body: some View {
         NavigationStack(path: $pathManager.path) {
             ApplicationListView(pathManager: $pathManager)
-            
         }
     }
 }
