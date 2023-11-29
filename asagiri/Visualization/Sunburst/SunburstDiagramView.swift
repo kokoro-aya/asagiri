@@ -369,20 +369,18 @@ struct SunburstDiagramView: View {
     let domains = ["Phone Screen", "OA", "1st Interview", "2nd Interview", "3rd Interview", "4th Interview", "Technical Test", "Accepted", "Rejected", "Ghosted"]
     
     let chartColors: [Color] = [
-        Color(red: 0.55, green: 0.83 , blue: 0.78),
-        Color(red: 1.00, green: 1.00 , blue: 0.70),
-        Color(red: 0.75, green: 0.73 , blue: 0.85),
-        Color(red: 0.98, green: 0.50 , blue: 0.45),
-        Color(red: 0.50, green: 0.69 , blue: 0.83),
-        Color(red: 0.99, green: 0.71 , blue: 0.38),
-        Color(red: 0.70, green: 0.87 , blue: 0.41),
-        Color(red: 0.99, green: 0.80 , blue: 0.90),
-        Color(red: 0.85, green: 0.85 , blue: 0.85),
-        Color(red: 0.74, green: 0.50 , blue: 0.74),
-        Color(red: 0.80, green: 0.92 , blue: 0.77),
-        Color(red: 1.00, green: 0.93 , blue: 0.44)
+        Color(hex: 0x00aa90),
+        Color(hex: 0xe98b2a),
+        Color(hex: 0xd0104c),
+        Color(hex: 0x91ad70),
+        Color(hex: 0xb28fce),
+        Color(hex: 0xe16b8c),
+        Color(hex: 0xfc9f4d),
+        Color(hex: 0x5b622e),
+        Color(hex: 0x33a6b8),
+        Color(hex: 0x0c4842),
     ]
-    
+
     var body: some View {
         ZStack {
             Chart([] as [LabelValuePair], id: \.self) { child in
@@ -391,6 +389,7 @@ struct SunburstDiagramView: View {
             }
             .chartForegroundStyleScale(domain: domains, range: chartColors)
             .chartLegend(position: .leading, alignment: .top)
+//            .chartLegend(.hidden)
             .padding(16)
             ZStack {
                 Chart(generateLabelValuePairs(), id: \.self) { child in
@@ -492,6 +491,18 @@ struct SunburstDiagramView: View {
             .scaleEffect(CGSize(width: 1.35, height: 1.35))
         }
       
+    }
+}
+
+extension Color {
+    init(hex: UInt, alpha: Double = 1) {
+        self.init(
+            .sRGB,
+            red: Double((hex >> 16) & 0xff) / 255,
+            green: Double((hex >> 08) & 0xff) / 255,
+            blue: Double((hex >> 00) & 0xff) / 255,
+            opacity: alpha
+        )
     }
 }
 
