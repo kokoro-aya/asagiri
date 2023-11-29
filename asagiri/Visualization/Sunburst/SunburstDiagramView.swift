@@ -32,7 +32,8 @@ func generateLabelValuePairsFromPossiblyEmptyEdges(data: [CouldBeEmptyEdge]) -> 
 }
 
 func generateLabelValuePairs() -> [LabelValuePair] {
-    return dataSource.children.map { .init(label: $0.label, value: $0.count()) }
+    return asagiri.generateLabelValuePairs(data: dataSource.simpleTraverse())
+//    return dataSource.children.map { .init(label: $0.label, value: $0.count()) }
 }
 
 func generateLabelValuePairsLevel2() -> [LabelValuePair] {
