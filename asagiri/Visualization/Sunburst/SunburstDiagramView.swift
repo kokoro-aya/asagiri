@@ -343,6 +343,22 @@ struct SunburstDiagramView: View {
     func generateLabelValuePairsLevel6() -> [LabelValuePair] {
 
         return asagiri.generateLabelValuePairsFromPossiblyEmptyEdges(data: dataSource.partlyMaskedTraverse(maskLevel: 5, falldown: false))
+        
+    }
+    
+    func generateLabelValuePairsLevel7() -> [LabelValuePair] {
+
+        return asagiri.generateLabelValuePairsFromPossiblyEmptyEdges(data: dataSource.partlyMaskedTraverse(maskLevel: 6, falldown: false))
+    }
+    
+    func generateLabelValuePairsLevel8() -> [LabelValuePair] {
+
+        return asagiri.generateLabelValuePairsFromPossiblyEmptyEdges(data: dataSource.partlyMaskedTraverse(maskLevel: 7, falldown: false))
+    }
+    
+    func generateLabelValuePairsLevel9() -> [LabelValuePair] {
+
+        return asagiri.generateLabelValuePairsFromPossiblyEmptyEdges(data: dataSource.partlyMaskedTraverse(maskLevel: 8, falldown: false))
     }
     
     func generate1(values: [[(String, Int)]]) -> [LabelValuePair] {
@@ -350,55 +366,131 @@ struct SunburstDiagramView: View {
         return asagiri.generateLabelValuePairs(data: dataSource.simpleTraverse())
     }
     
+    let domains = ["Phone Screen", "OA", "1st Interview", "2nd Interview", "3rd Interview", "4th Interview", "Technical Test", "Accepted", "Rejected", "Ghosted"]
+    
+    let chartColors: [Color] = [
+        Color(red: 0.55, green: 0.83 , blue: 0.78),
+        Color(red: 1.00, green: 1.00 , blue: 0.70),
+        Color(red: 0.75, green: 0.73 , blue: 0.85),
+        Color(red: 0.98, green: 0.50 , blue: 0.45),
+        Color(red: 0.50, green: 0.69 , blue: 0.83),
+        Color(red: 0.99, green: 0.71 , blue: 0.38),
+        Color(red: 0.70, green: 0.87 , blue: 0.41),
+        Color(red: 0.99, green: 0.80 , blue: 0.90),
+        Color(red: 0.85, green: 0.85 , blue: 0.85),
+        Color(red: 0.74, green: 0.50 , blue: 0.74),
+        Color(red: 0.80, green: 0.92 , blue: 0.77),
+        Color(red: 1.00, green: 0.93 , blue: 0.44)
+    ]
+    
     var body: some View {
         ZStack {
-            Chart(generateLabelValuePairs(), id: \.self) { child in
-                SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(48), outerRadius: .fixed(76), angularInset: 2)
+            Chart([] as [LabelValuePair], id: \.self) { child in
+                SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 2)
                     .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
             }
-            .chartLegend(.hidden)
-            Chart(generateLabelValuePairsLevel2(), id: \.self) { child in
-                if (child.label != "NA") {
-                    SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(80), outerRadius: .fixed(108), angularInset: 2)
+            .chartForegroundStyleScale(domain: domains, range: chartColors)
+            .chartLegend(position: .leading, alignment: .top)
+            .padding(16)
+            ZStack {
+                Chart(generateLabelValuePairs(), id: \.self) { child in
+                    SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(62), outerRadius: .fixed(76), angularInset: 2)
                         .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
-                } else {
-                    SectorMark(angle: .value(Text(verbatim: ""), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 4)
-                        .foregroundStyle(Color.white)
                 }
-            }
-            .chartLegend(.hidden)
-            Chart(generateLabelValuePairsLevel3(), id: \.self) { child in
-                if (child.label != "NA") {
-                    SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(112), outerRadius: .fixed(140), angularInset: 2)
-                        .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
-                } else {
-                    SectorMark(angle: .value(Text(verbatim: ""), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 4)
-                        .foregroundStyle(Color.white)
+                .chartForegroundStyleScale(domain: domains, range: chartColors)
+                .chartLegend(.hidden)
+                Chart(generateLabelValuePairsLevel2(), id: \.self) { child in
+                    if (child.label != "NA") {
+                        SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(78), outerRadius: .fixed(92), angularInset: 1)
+                            .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
+                    } else {
+                        SectorMark(angle: .value(Text(verbatim: ""), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 4)
+                            .foregroundStyle(Color.white)
+                    }
                 }
-            }
-            .chartLegend(.hidden)
-            Chart(generateLabelValuePairsLevel4(), id: \.self) { child in
-                if (child.label != "NA") {
-                    SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(144), outerRadius: .fixed(168), angularInset: 2)
-                        .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
-                } else {
-                    SectorMark(angle: .value(Text(verbatim: ""), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 4)
-                        .foregroundStyle(Color.white)
+                .chartForegroundStyleScale(domain: domains, range: chartColors)
+                .chartLegend(.hidden)
+                Chart(generateLabelValuePairsLevel3(), id: \.self) { child in
+                    if (child.label != "NA") {
+                        SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(94), outerRadius: .fixed(106), angularInset: 1)
+                            .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
+                    } else {
+                        SectorMark(angle: .value(Text(verbatim: ""), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 4)
+                            .foregroundStyle(Color.white)
+                    }
                 }
-            }
-            .chartLegend(.hidden)
-            Chart(generateLabelValuePairsLevel5(), id: \.self) { child in
-                if (child.label != "NA") {
-                    SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(172), outerRadius: .fixed(196), angularInset: 2)
-                        .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
-                } else {
-                    SectorMark(angle: .value(Text(verbatim: ""), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 2)
-                        .foregroundStyle(Color.white)
+                .chartForegroundStyleScale(domain: domains, range: chartColors)
+                .chartLegend(.hidden)
+                Chart(generateLabelValuePairsLevel4(), id: \.self) { child in
+                    if (child.label != "NA") {
+                        SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(108), outerRadius: .fixed(122), angularInset: 1)
+                            .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
+                    } else {
+                        SectorMark(angle: .value(Text(verbatim: ""), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 4)
+                            .foregroundStyle(Color.white)
+                    }
                 }
+                .chartForegroundStyleScale(domain: domains, range: chartColors)
+                .chartLegend(.hidden)
+                Chart(generateLabelValuePairsLevel5(), id: \.self) { child in
+                    if (child.label != "NA") {
+                        SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(124), outerRadius: .fixed(138), angularInset: 1)
+                            .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
+                    } else {
+                        SectorMark(angle: .value(Text(verbatim: ""), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 2)
+                            .foregroundStyle(Color.white)
+                    }
+                }
+                .chartForegroundStyleScale(domain: domains, range: chartColors)
+                .chartLegend(.hidden)
+                Chart(generateLabelValuePairsLevel6(), id: \.self) { child in
+                    if (child.label != "NA") {
+                        SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(140), outerRadius: .fixed(154), angularInset: 1)
+                            .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
+                    } else {
+                        SectorMark(angle: .value(Text(verbatim: ""), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 2)
+                            .foregroundStyle(Color.white)
+                    }
+                }
+                .chartForegroundStyleScale(domain: domains, range: chartColors)
+                .chartLegend(.hidden)
+                Chart(generateLabelValuePairsLevel7(), id: \.self) { child in
+                    if (child.label != "NA") {
+                        SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(154), outerRadius: .fixed(168), angularInset: 1)
+                            .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
+                    } else {
+                        SectorMark(angle: .value(Text(verbatim: ""), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 2)
+                            .foregroundStyle(Color.white)
+                    }
+                }
+                .chartForegroundStyleScale(domain: domains, range: chartColors)
+                .chartLegend(.hidden)
+                Chart(generateLabelValuePairsLevel8(), id: \.self) { child in
+                    if (child.label != "NA") {
+                        SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(170), outerRadius: .fixed(184), angularInset: 1)
+                            .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
+                    } else {
+                        SectorMark(angle: .value(Text(verbatim: ""), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 2)
+                            .foregroundStyle(Color.white)
+                    }
+                }
+                .chartForegroundStyleScale(domain: domains, range: chartColors)
+                .chartLegend(.hidden)
+                Chart(generateLabelValuePairsLevel9(), id: \.self) { child in
+                    if (child.label != "NA") {
+                        SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(186), outerRadius: .fixed(250), angularInset: 1)
+                            .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
+                    } else {
+                        SectorMark(angle: .value(Text(verbatim: ""), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 2)
+                            .foregroundStyle(Color.white)
+                    }
+                }
+                .chartForegroundStyleScale(domain: domains, range: chartColors)
+                .chartLegend(.hidden)
             }
-            .chartLegend(.hidden)
+            .rotationEffect(.degrees(20))
+            .scaleEffect(CGSize(width: 1.35, height: 1.35))
         }
-        .rotationEffect(.degrees(20))
       
     }
 }
