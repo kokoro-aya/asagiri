@@ -39,6 +39,7 @@
 		F75561A72B179E4D004FC072 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75561A62B179E4D004FC072 /* Extensions.swift */; };
 		F75561AA2B179EB6004FC072 /* FullSunburstDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75561A92B179EB6004FC072 /* FullSunburstDiagramView.swift */; };
 		F75561AC2B179EC5004FC072 /* DynamicSunburstDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75561AB2B179EC5004FC072 /* DynamicSunburstDiagramView.swift */; };
+		F75561AE2B17AD55004FC072 /* StaticDetailAbstractDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75561AD2B17AD55004FC072 /* StaticDetailAbstractDiagramView.swift */; };
 		F7B9E4432B111C4C00964F46 /* ApplicationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4422B111C4C00964F46 /* ApplicationCard.swift */; };
 		F7B9E4452B1121C600964F46 /* CreateNewJDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */; };
 		F7B9E4472B11374100964F46 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4462B11374100964F46 /* Utils.swift */; };
@@ -101,6 +102,7 @@
 		F75561A62B179E4D004FC072 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F75561A92B179EB6004FC072 /* FullSunburstDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSunburstDiagramView.swift; sourceTree = "<group>"; };
 		F75561AB2B179EC5004FC072 /* DynamicSunburstDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicSunburstDiagramView.swift; sourceTree = "<group>"; };
+		F75561AD2B17AD55004FC072 /* StaticDetailAbstractDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticDetailAbstractDiagramView.swift; sourceTree = "<group>"; };
 		F7B9E4422B111C4C00964F46 /* ApplicationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCard.swift; sourceTree = "<group>"; };
 		F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewJDView.swift; sourceTree = "<group>"; };
 		F7B9E4462B11374100964F46 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 			children = (
 				F75561A92B179EB6004FC072 /* FullSunburstDiagramView.swift */,
 				F75561AB2B179EC5004FC072 /* DynamicSunburstDiagramView.swift */,
+				F75561AD2B17AD55004FC072 /* StaticDetailAbstractDiagramView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				F7B9E4452B1121C600964F46 /* CreateNewJDView.swift in Sources */,
 				F755619F2B179D64004FC072 /* PaintEdge.swift in Sources */,
 				F738D15D2B150D2D006AC134 /* TagManageView.swift in Sources */,
+				F75561AE2B17AD55004FC072 /* StaticDetailAbstractDiagramView.swift in Sources */,
 				F72BFF112B100AFC0090EED7 /* ApplicationStatus.swift in Sources */,
 				F75561AA2B179EB6004FC072 /* FullSunburstDiagramView.swift in Sources */,
 				F751E7912B067FAB007828D6 /* ContentView.swift in Sources */,

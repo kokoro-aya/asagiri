@@ -1,5 +1,5 @@
 //
-//  FullSunburstDiagramView.swift
+//  StaticDetailAbstractDiagramView.swift
 //  asagiri
 //
 //  Created by irony on 29/11/2023.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct FullSunburstDiagramView: View {
+struct StaticDetailAbstractDiagramView: View {
     
     @State var dataSource: PaintNode
     
@@ -16,11 +16,15 @@ struct FullSunburstDiagramView: View {
     
     @State var chartColors: [Color]
     
+    let detailDepth: Int // 3
+    
     let disappearDepth: Int // 7
     
     let startingPixel: Int
     
     let width: Int
+    
+    let narrowWidth: Int
     
     let padding: Int
     
@@ -42,6 +46,19 @@ struct FullSunburstDiagramView: View {
         return computeInnerDetailBound(i) + width
     }
     
+    func computeDetailOutbound() -> Int {
+        return startingPixel + detailDepth * (padding * 2 + width)
+    }
+    
+    func computeInnerNarrowBound(_ i: Int) -> Int {
+        return computeDetailOutbound() + (i - detailDepth) * (padding * 2 + narrowWidth)
+    }
+    
+    func computeOuterNarrowBound(_ i: Int) -> Int {
+        return computeDetailOutbound() + (i - detailDepth) * (padding * 2 + narrowWidth) + narrowWidth
+    }
+    
+    
     var body: some View {
         ZStack {
             Chart([] as [LabelValuePair], id: \.self) { child in
@@ -53,7 +70,7 @@ struct FullSunburstDiagramView: View {
             .chartLegend(hideLegend ? .hidden : .visible)
             .padding(16)
             
-            ForEach(0 ..< disappearDepth) { i in
+            ForEach(0 ..< detailDepth) { i in
                 Chart(generateLabelValuePairs(level: i), id: \.self) { child in
                     if (child.label != "NA") {
                         SectorMark(
@@ -74,15 +91,37 @@ struct FullSunburstDiagramView: View {
                 .chartForegroundStyleScale(domain: domains, range: chartColors)
                 .chartLegend(.hidden)
             }
+            ForEach(detailDepth ..< disappearDepth) { i in
+                Chart(generateLabelValuePairs(level: i), id: \.self) { child in
+                    if (child.label != "NA") {
+                        SectorMark(
+                            angle: .value(Text(verbatim: child.label), child.value),
+                            innerRadius: .fixed(CGFloat(computeInnerNarrowBound(i))),
+                            outerRadius: .fixed(CGFloat(computeOuterNarrowBound(i))),
+                            angularInset: CGFloat(padding))
+                        .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
+                    } else {
+                        SectorMark(
+                            angle: .value(Text(verbatim: ""), child.value),
+                            innerRadius: .fixed(0),
+                            outerRadius: .fixed(0),
+                            angularInset: 0)
+                        .foregroundStyle(Color.white)
+                    }
+                }
+                .chartForegroundStyleScale(domain: domains, range: chartColors)
+                .chartLegend(.hidden)
+            }
         }
     }
+    
 }
 
 #Preview {
-    FullSunburstDiagramView(
+    StaticDetailAbstractDiagramView(
         dataSource: dataSource,
         domains: domains, chartColors: chartColors,
-        disappearDepth: 7,
-        startingPixel: 62, width: 24, padding: 2,
+         detailDepth: 3, disappearDepth: 7,
+        startingPixel: 62, width: 24, narrowWidth: 4, padding: 2,
         hideLegend: true)
 }
