@@ -80,6 +80,8 @@ struct ApplicationCard: View {
                         case .not_started: "NSTA"
                         case .preparation: "PREP"
                         case .applied: "APPL"
+                        case .oa: "OA"
+                        case .technical_test: "TEST"
                         case .phone_screen: "PSCR"
                         case .interview(let round): "INT\(round)"
                         case .rejected: "REJ"
