@@ -1,4 +1,9 @@
-////  Licensed under GPL v3 License.
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FILEHEADER</key>
+	<string>//  Licensed under GPL v3 License.
 //
 //  kokoro-aya/asagiri
 //  Copyright (c) 2023 . All rights reserved.
@@ -9,25 +14,12 @@
 //  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 //
-//  You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
+//  You should have received a copy of the GNU General Public License along with Foobar. If not, see &lt;https://www.gnu.org/licenses/&gt;.
 //
-//  LabelValuePair.swift
-//  asagiri
+//  ___FILENAME___
+//  ___PACKAGENAME___
 //
-//  Created by irony on 29/11/2023.
-//
-
-import Foundation
-
-struct LabelValuePair : Hashable {
-    let label: String
-    let value: Int
-    
-    let id: String
-    
-    init(label: String, value: Int) {
-        self.label = label
-        self.value = value
-        self.id = UUID().uuidString
-    }
-}
+//  Created by irony on ___DATE___.
+//</string>
+</dict>
+</plist>

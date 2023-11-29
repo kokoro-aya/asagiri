@@ -44,6 +44,7 @@
 		F7B9E4452B1121C600964F46 /* CreateNewJDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */; };
 		F7B9E4472B11374100964F46 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4462B11374100964F46 /* Utils.swift */; };
 		F7B9E4492B114BDF00964F46 /* CreateNewCompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */; };
+		F7D66B152B17E60200E84FEA /* IDETemplateMacros.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7D66B142B17E60200E84FEA /* IDETemplateMacros.plist */; };
 		F7DC61739942F5938B707020 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F7DC677E5D07E71E9B72A920 /* .gitignore */; };
 		F7DF04CB2B14E9F700D661E1 /* CareerManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DF04CA2B14E9F700D661E1 /* CareerManageView.swift */; };
 		F7F698282B13D60C0007622B /* AppNavigationStacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F698272B13D60C0007622B /* AppNavigationStacks.swift */; };
@@ -109,6 +110,7 @@
 		F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCompanyView.swift; sourceTree = "<group>"; };
 		F7CA2FE72B08E8270068EDC2 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		F7CA2FE82B08E8270068EDC2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F7D66B142B17E60200E84FEA /* IDETemplateMacros.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = IDETemplateMacros.plist; sourceTree = "<group>"; };
 		F7DC677E5D07E71E9B72A920 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		F7DF04CA2B14E9F700D661E1 /* CareerManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerManageView.swift; sourceTree = "<group>"; };
 		F7F698272B13D60C0007622B /* AppNavigationStacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationStacks.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		F751E7822B067FAA007828D6 = {
 			isa = PBXGroup;
 			children = (
+				F7D66B142B17E60200E84FEA /* IDETemplateMacros.plist */,
 				F72BFF1C2B10EB960090EED7 /* TODO.md */,
 				F7CA2FE72B08E8270068EDC2 /* LICENSE.md */,
 				F7CA2FE82B08E8270068EDC2 /* README.md */,
@@ -413,6 +416,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7D66B152B17E60200E84FEA /* IDETemplateMacros.plist in Resources */,
 				F751E7982B067FAC007828D6 /* Preview Assets.xcassets in Resources */,
 				F751E7952B067FAC007828D6 /* Assets.xcassets in Resources */,
 				F7DC61739942F5938B707020 /* .gitignore in Resources */,
