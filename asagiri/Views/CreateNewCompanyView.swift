@@ -12,7 +12,7 @@ struct CreateNewCompanyView: View {
     
     @State private var displayMenuBar: Bool = false
     
-    @EnvironmentObject var pathManager:PathManager
+    @Binding var pathManager:PathManager
     
     @Environment(\.modelContext) private var modelContext
     
@@ -23,10 +23,6 @@ struct CreateNewCompanyView: View {
     @State var website: String = ""
     
     var onCompletion: (_ company: Company) -> ()
-    
-    init (onCompletion: @escaping (_ company: Company) -> ()) {
-        self.onCompletion = onCompletion
-    }
     
     var body: some View {
             VStack {
@@ -111,7 +107,7 @@ struct CreateNewCompanyView: View {
         var previewContainer: ModelContainer = initializePreviewContainer()
         
         
-        return CreateNewCompanyView(onCompletion: { _ in })
+        return CreateNewCompanyView(pathManager: .constant(PathManager()), onCompletion: { _ in })
             .modelContainer(previewContainer)
     }
 }

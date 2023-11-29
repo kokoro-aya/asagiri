@@ -12,9 +12,10 @@ struct CreateNewJDView: View {
     
     @State private var displayMenuBar: Bool = false
     
-    @EnvironmentObject var pathManager:PathManager
+    @Binding var pathManager:PathManager
     
-    init(pendingJD: JobDescription) {
+    init(pathManager: Binding<PathManager>, pendingJD: JobDescription) {
+        self._pathManager = pathManager
         self.title = pendingJD.title
         self.company = pendingJD.company
         self.type = pendingJD.type
@@ -25,7 +26,9 @@ struct CreateNewJDView: View {
         
     }
     
-    init() { }
+    init(pathManager: Binding<PathManager>) {
+        self._pathManager = pathManager
+    }
     
     
     @Query let allJobTypes: [CareerType]
@@ -77,7 +80,7 @@ struct CreateNewJDView: View {
                             }
                             Spacer()
                             
-                            CompanyDropdownSelector(allCompanies: allCompanies, company: $company)
+                            CompanyDropdownSelector(allCompanies: allCompanies, pathManager: $pathManager, company: $company)
                         }
                         Divider()
                         HStack {
@@ -146,17 +149,23 @@ struct CreateNewJDView: View {
                 Button {
                     let generatedJD = JobDescription(
                         title: title,
-                        company: self.company!,
-                        type: self.type!,
+                        company: nil,
+                        type: nil,
                         intro: self.intro,
                         companyIntro: self.companyIntro,
                         responsibilities: self.responsibilities,
                         complementary: self.complementary)
                     
+                    generatedJD.company = self.company
+                    generatedJD.type = self.type
+                    
                     pathManager.path.append(generatedJD)
                 } label: {
                     Label("Save", systemImage: "paperplane.fill")
                         .padding(12)
+                }
+                .navigationDestination(for: JobDescription.self) { jd in
+                    CreateNewApplicationView(pathManager: $pathManager, jobDescription: jd)
                 }
                 .disabled(!incomplete)
             }
@@ -196,8 +205,7 @@ struct CreateNewJDView: View {
                 }
                 ToolbarItem {
     //                    EditButton()
-                    NavigationLink(destination: ApplicationListView()
-                        .environmentObject(pathManager)
+                    NavigationLink(destination: ApplicationListView(pathManager: $pathManager)
                         .navigationBarBackButtonHidden(true),
                         label: {
                         Label("Go back", systemImage: "delete.backward")
@@ -236,7 +244,7 @@ struct CreateNewJDView: View {
         
         
         
-        return CreateNewJDView()
+        return CreateNewJDView(pathManager: .constant(PathManager()))
         .modelContainer(previewContainer)
     }
 }
@@ -273,6 +281,8 @@ struct CompanyDropdownSelector : View {
     
     let allCompanies: [Company]
     
+    @Binding var pathManager: PathManager
+    
     @Binding var company: Company?
     
     
@@ -284,7 +294,7 @@ struct CompanyDropdownSelector : View {
                 }
             }
             Divider()
-            NavigationLink(destination: CreateNewCompanyView(onCompletion: { newCo in self.company = newCo })) {
+            NavigationLink(destination: CreateNewCompanyView(pathManager: $pathManager, onCompletion: { newCo in self.company = newCo })) {
                 Label("Create new one", systemImage: "plus")
             }
             Button(role: .destructive) {

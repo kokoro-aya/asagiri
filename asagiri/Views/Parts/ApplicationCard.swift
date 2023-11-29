@@ -24,7 +24,7 @@ struct ApplicationCard: View {
                 VStack(alignment: .leading) {
                     Text(app.jobDescription?.title ?? "")
                         .font(.headline)
-                    Text(app.jobDescription?.company.name ?? "")
+                    Text(app.jobDescription?.company?.name ?? "")
                         .font(.subheadline)
                 }
                 Spacer()

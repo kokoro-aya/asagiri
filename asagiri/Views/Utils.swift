@@ -36,6 +36,13 @@ func initializePreviewContainer() -> ModelContainer {
     // Remove existing applications just for preview
     do {
         try previewContainer.mainContext.delete(model: Application.self)
+        try previewContainer.mainContext.delete(model: Company.self)
+        try previewContainer.mainContext.delete(model: Resume.self)
+        try previewContainer.mainContext.delete(model: CoverLetter.self)
+        try previewContainer.mainContext.delete(model: JobDescription.self)
+        try previewContainer.mainContext.delete(model: CareerType.self)
+        try previewContainer.mainContext.delete(model: Event.self)
+        try previewContainer.mainContext.delete(model: Tag.self)
     } catch {
         fatalError(error.localizedDescription)
     }

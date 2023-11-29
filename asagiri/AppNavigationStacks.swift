@@ -9,12 +9,15 @@ import SwiftUI
 import SwiftData
 
 class PathManager: ObservableObject {
-    @Published var path = NavigationPath()
+    var path = NavigationPath()
 }
 
 struct AppNavigationStack : View {
     
-    @StateObject var pathManager = PathManager()
+    
+    // https://stackoverflow.com/questions/75251507/swiftui-error-update-navigationauthority-bound-path-tried-to-update-multiple-ti
+    // As the path variable is passed via binding, the warning "Update NavigationAuthority bound path tried to update multiple times per frame." will occur
+    @State var pathManager = PathManager()
     
 //    let companies = [
 //        Company(name: "Company 1", website: "com.1"),
@@ -32,25 +35,8 @@ struct AppNavigationStack : View {
     
     var body: some View {
         NavigationStack(path: $pathManager.path) {
-            List {
-                ApplicationListView()
-                    .environmentObject(pathManager)
-            }
-            .navigationDestination(for: JobDescription.self) { jd in
-                CreateNewApplicationView(jobDescription: jd)
-                    .environmentObject(pathManager)
-            }
-            .navigationDestination(for: String.self) { label in
-                switch label {
-                case "applications": ApplicationListView()
-                        .environmentObject(pathManager)
-                case "settings": SettingsView()
-                        .environmentObject(pathManager)
-                default: ApplicationListView()
-                        .environmentObject(pathManager)
-                }
-            }
-            .environmentObject(pathManager)
+            ApplicationListView(pathManager: $pathManager)
+            
         }
     }
 }
@@ -60,6 +46,25 @@ struct AppNavigationStack : View {
     MainActor.assumeIsolated {
         var previewContainer: ModelContainer = initializePreviewContainer()
         
+        let careers = [
+            CareerType(name: "Front-end"),
+            CareerType(name: "Back-end")
+        ]
+        
+        
+        careers.forEach {
+            previewContainer.mainContext.insert($0)
+        }
+        
+        let companies = [
+            Company(name: "New Co", website: ""),
+            Company(name: "Cat Inc", website: "")
+        ]
+        
+        
+        companies.forEach {
+            previewContainer.mainContext.insert($0)
+        }
         
         return AppNavigationStack()
             .modelContainer(previewContainer)
