@@ -37,6 +37,8 @@
 		F75561A32B179DA9004FC072 /* DemoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75561A22B179DA9004FC072 /* DemoSource.swift */; };
 		F75561A52B179DBF004FC072 /* LabelValuePair.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75561A42B179DBF004FC072 /* LabelValuePair.swift */; };
 		F75561A72B179E4D004FC072 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75561A62B179E4D004FC072 /* Extensions.swift */; };
+		F75561AA2B179EB6004FC072 /* FullSunburstDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75561A92B179EB6004FC072 /* FullSunburstDiagramView.swift */; };
+		F75561AC2B179EC5004FC072 /* DynamicSunburstDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75561AB2B179EC5004FC072 /* DynamicSunburstDiagramView.swift */; };
 		F7B9E4432B111C4C00964F46 /* ApplicationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4422B111C4C00964F46 /* ApplicationCard.swift */; };
 		F7B9E4452B1121C600964F46 /* CreateNewJDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */; };
 		F7B9E4472B11374100964F46 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4462B11374100964F46 /* Utils.swift */; };
@@ -97,6 +99,8 @@
 		F75561A22B179DA9004FC072 /* DemoSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSource.swift; sourceTree = "<group>"; };
 		F75561A42B179DBF004FC072 /* LabelValuePair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelValuePair.swift; sourceTree = "<group>"; };
 		F75561A62B179E4D004FC072 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F75561A92B179EB6004FC072 /* FullSunburstDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSunburstDiagramView.swift; sourceTree = "<group>"; };
+		F75561AB2B179EC5004FC072 /* DynamicSunburstDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicSunburstDiagramView.swift; sourceTree = "<group>"; };
 		F7B9E4422B111C4C00964F46 /* ApplicationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCard.swift; sourceTree = "<group>"; };
 		F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewJDView.swift; sourceTree = "<group>"; };
 		F7B9E4462B11374100964F46 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 		F738D1642B162B6F006AC134 /* Sunburst */ = {
 			isa = PBXGroup;
 			children = (
+				F75561A82B179EA2004FC072 /* SubViews */,
 				F738D1652B1659C1006AC134 /* SunburstDiagramView.swift */,
 				F75561A22B179DA9004FC072 /* DemoSource.swift */,
 			);
@@ -276,6 +281,15 @@
 				F75561A42B179DBF004FC072 /* LabelValuePair.swift */,
 			);
 			path = DataTypes;
+			sourceTree = "<group>";
+		};
+		F75561A82B179EA2004FC072 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				F75561A92B179EB6004FC072 /* FullSunburstDiagramView.swift */,
+				F75561AB2B179EC5004FC072 /* DynamicSunburstDiagramView.swift */,
+			);
+			path = SubViews;
 			sourceTree = "<group>";
 		};
 		F7B9E4412B111C4500964F46 /* Parts */ = {
@@ -433,7 +447,9 @@
 				F755619F2B179D64004FC072 /* PaintEdge.swift in Sources */,
 				F738D15D2B150D2D006AC134 /* TagManageView.swift in Sources */,
 				F72BFF112B100AFC0090EED7 /* ApplicationStatus.swift in Sources */,
+				F75561AA2B179EB6004FC072 /* FullSunburstDiagramView.swift in Sources */,
 				F751E7912B067FAB007828D6 /* ContentView.swift in Sources */,
+				F75561AC2B179EC5004FC072 /* DynamicSunburstDiagramView.swift in Sources */,
 				F738D1662B1659C1006AC134 /* SunburstDiagramView.swift in Sources */,
 				F7DF04CB2B14E9F700D661E1 /* CareerManageView.swift in Sources */,
 				F7F698282B13D60C0007622B /* AppNavigationStacks.swift in Sources */,
