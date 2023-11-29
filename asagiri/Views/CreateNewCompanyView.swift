@@ -87,7 +87,7 @@ struct CreateNewCompanyView: View {
                             Label("Menu", systemImage: "line.3.horizontal")
                         }
                         
-                        Text("Create an application")
+                        Text("Add a new company")
                             .font(.title2)
                     }
                 }
