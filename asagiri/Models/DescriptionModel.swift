@@ -12,7 +12,7 @@ import SwiftData
 final class JobDescription {
     var title: String
     
-    var company: Company
+    var company: Company?
     
     var type: CareerType?
     
@@ -32,7 +32,7 @@ final class JobDescription {
         self.type = type
     }
     
-    init(title: String, company: Company, type: CareerType, intro: String, companyIntro: String, responsibilities: String, complementary: String) {
+    init(title: String, company: Company?, type: CareerType?, intro: String, companyIntro: String, responsibilities: String, complementary: String) {
         self.title = title
         self.company = company
         self.type = type

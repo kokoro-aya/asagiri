@@ -18,7 +18,7 @@ struct TagManageView: View {
     
     @State private var displayMenuBar = false
     
-    @EnvironmentObject var pathManager:PathManager
+    @Binding var pathManager:PathManager
     
     @Environment(\.modelContext) private var modelContext
     
@@ -140,13 +140,11 @@ struct TagManageView: View {
                             Label("Menu", systemImage: "arrow.left")
                         }
                         
-                        NavigationLink(destination: ApplicationListView()
-                            .environmentObject(pathManager).navigationBarBackButtonHidden(true), label: {
+                        NavigationLink(destination: ApplicationListView(pathManager: $pathManager).navigationBarBackButtonHidden(true), label: {
                             Label("Menu", systemImage: "house.fill")
                         })
                         
-                        NavigationLink(destination: SettingsView()
-                            .environmentObject(pathManager).navigationBarBackButtonHidden(true), label: {
+                        NavigationLink(destination: SettingsView(pathManager: $pathManager).navigationBarBackButtonHidden(true), label: {
                             Label("Settings", systemImage: "gear")
                         })
                     }
@@ -181,7 +179,7 @@ struct TagManageView: View {
             previewContainer.mainContext.insert($0)
         }
         
-        return TagManageView()
+        return TagManageView(pathManager: .constant(PathManager()))
             .modelContainer(previewContainer)
     }
 }

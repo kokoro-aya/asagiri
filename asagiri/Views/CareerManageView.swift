@@ -17,7 +17,7 @@ struct CareerManageView: View {
     
     @State private var displayMenuBar = false
     
-    @EnvironmentObject var pathManager:PathManager
+    @Binding var pathManager:PathManager
     
     @Environment(\.modelContext) private var modelContext
     
@@ -161,13 +161,11 @@ struct CareerManageView: View {
                             Label("Menu", systemImage: "arrow.left")
                         }
                         
-                        NavigationLink(destination: ApplicationListView()
-                            .environmentObject(pathManager).navigationBarBackButtonHidden(true), label: {
+                        NavigationLink(destination: ApplicationListView(pathManager: $pathManager).navigationBarBackButtonHidden(true), label: {
                             Label("Menu", systemImage: "house.fill")
                         })
                         
-                        NavigationLink(destination: SettingsView()
-                            .environmentObject(pathManager).navigationBarBackButtonHidden(true), label: {
+                        NavigationLink(destination: SettingsView(pathManager: $pathManager).navigationBarBackButtonHidden(true), label: {
                             Label("Settings", systemImage: "gear")
                         })
                     }
@@ -204,7 +202,7 @@ struct CareerManageView: View {
             previewContainer.mainContext.insert($0)
         }
         
-        return CareerManageView()
+        return CareerManageView(pathManager: .constant(PathManager()))
             .modelContainer(previewContainer)
     }
 }

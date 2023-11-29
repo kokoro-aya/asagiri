@@ -10,6 +10,8 @@ import SwiftData
 
 struct JDListView: View {
     
+    @Binding var pathManager:PathManager
+    
     @Query private var jobDescriptions: [JobDescription]
     
     var body: some View {
@@ -46,7 +48,7 @@ struct JDListView: View {
         }
         
         
-        return JDListView()
+        return JDListView(pathManager: .constant(PathManager()))
             .modelContainer(previewContainer)
     }
 }
@@ -68,7 +70,7 @@ struct JobDescriptionCard: View {
                 VStack(alignment: .leading) {
                     Text(jd.title)
                         .font(.headline)
-                    Text(jd.company.name)
+                    Text(jd.company?.name ?? "")
                         .font(.subheadline)
                 }
                 Spacer()

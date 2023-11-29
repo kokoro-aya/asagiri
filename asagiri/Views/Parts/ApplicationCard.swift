@@ -24,11 +24,16 @@ struct ApplicationCard: View {
                 VStack(alignment: .leading) {
                     Text(app.jobDescription?.title ?? "")
                         .font(.headline)
-                    Text(app.jobDescription?.company.name ?? "")
+                    Text(app.jobDescription?.company?.name ?? "")
                         .font(.subheadline)
                 }
                 Spacer()
                 
+                VStack(alignment: .trailing) {
+                    Text(app.jobDescription?.type?.name ?? "")
+                        .font(.caption)
+                        .padding([.trailing], 4)
+                    
                     let lastEvent = app.lastEvent
                     
                     if (lastEvent != nil) {
@@ -37,13 +42,17 @@ struct ApplicationCard: View {
                         
                         Text("\(start) - \(curr)")
                             .font(.caption)
-                            .padding(4)
+                            .padding([.trailing], 4)
+                            .padding([.bottom], 2)
                     } else {
                         Text(app.dateCreated.formatted(.dateTime.day().month().year()))
                             .font(.caption)
-                            .padding(4)
+                            .padding([.trailing], 4)
+                            .padding([.bottom], 2)
                     }
-            
+                    
+                    
+                }
             }
             HStack {
                 if (app.resume != nil || app.cover != nil) {
@@ -71,6 +80,8 @@ struct ApplicationCard: View {
                         case .not_started: "NSTA"
                         case .preparation: "PREP"
                         case .applied: "APPL"
+                        case .oa: "OA"
+                        case .technical_test: "TEST"
                         case .phone_screen: "PSCR"
                         case .interview(let round): "INT\(round)"
                         case .rejected: "REJ"
@@ -103,9 +114,13 @@ struct ApplicationCard: View {
                     if (app.events.count > 0) {
                         Image(systemName: detailed ? "xmark" : "plus")
                             .foregroundColor(app.status.color())
+                    } else {
+                        Spacer()
+                            .frame(width: 25)
                     }
                 }
             }
+            .padding([.bottom], 2)
             .font(.callout)
             if (detailed) {
                 ForEach(app.events.sorted(by: { $0.updateTime > $1.updateTime })) { event in
@@ -120,6 +135,8 @@ struct ApplicationCard: View {
                 .padding([.top, .bottom], 4)
             }
             Divider()
+                .padding([.top], 2)
+                .padding([.bottom], 4)
         }
     }
 }

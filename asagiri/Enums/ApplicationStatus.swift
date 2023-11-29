@@ -17,7 +17,9 @@ enum ApplicationStatus : Codable, Hashable, Identifiable {
     case not_started
     case preparation
     case applied
+    case oa
     case phone_screen
+    case technical_test
     case interview(round: Int)
     case rejected
     case offer
@@ -28,6 +30,8 @@ enum ApplicationStatus : Codable, Hashable, Identifiable {
             case .not_started: .black
             case .preparation: .black
             case .applied: .yellow
+            case .oa: .purple
+            case .technical_test: .indigo
             case .phone_screen: .orange
             case .interview(_): .orange
             case .rejected: .gray
@@ -40,8 +44,10 @@ enum ApplicationStatus : Codable, Hashable, Identifiable {
         return switch self {
         case .not_started: [.preparation, .applied]
         case .preparation: [.applied]
-        case .applied: [.phone_screen, .interview(round: 1), .rejected, .offer]
-        case .phone_screen: [.interview(round: 1), .rejected, .offer]
+        case .applied: [.oa, .phone_screen, .interview(round: 1), .rejected, .offer]
+        case .oa: [.phone_screen, .technical_test, .interview(round: 1), .rejected]
+        case .phone_screen: [.technical_test, .interview(round: 1), .rejected]
+        case .technical_test: [.interview(round: 1), .rejected]
         case .interview(let round): [.interview(round: round + 1), .rejected, .offer]
         case .rejected: []
         case .offer: [.rejected, .ghost]
@@ -59,6 +65,8 @@ extension ApplicationStatus : CustomStringConvertible {
             case .not_started: "Not Started"
             case .preparation: "Preparation"
             case .applied: "Applied"
+            case .oa: "OA"
+            case .technical_test: "Technical Test"
             case .phone_screen: "Phone Screen"
             case .interview(let round): "Int. round \(round)"
             case .rejected: "Rejected"

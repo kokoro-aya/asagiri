@@ -8,24 +8,24 @@
 import SwiftUI
 
 struct SettingsView: View {
-    
-    @State private var displayMenuBar: Bool = false
-    
-    @EnvironmentObject var pathManager:PathManager
+
+    @Binding var pathManager:PathManager
+
+    @State private var displayMenuBar: Bool = false    
     
     var body: some View {
             HStack {
                 VStack(alignment: .leading) {
-                    NavigationLink(destination: CareerManageView()
-                        .environmentObject(pathManager).navigationBarBackButtonHidden(), label: {
+                    NavigationLink(destination: CareerManageView(pathManager: $pathManager)
+                        .navigationBarBackButtonHidden(), label: {
                         Text("Manage careers")
                     })
                     
                     Spacer()
                         .frame(height: 32)
                     
-                    NavigationLink(destination: TagManageView()
-                        .environmentObject(pathManager).navigationBarBackButtonHidden(), label: {
+                    NavigationLink(destination: TagManageView(pathManager: $pathManager)
+                        .navigationBarBackButtonHidden(), label: {
                         Text("Manage tags")
                     })
                 }
@@ -41,11 +41,10 @@ struct SettingsView: View {
                             Label("Menu", systemImage: "arrow.left")
                         }
                         
-                        Button {
-                            
-                        } label: {
-                            Label("Menu", systemImage: "house.fill")
-                        }
+                        NavigationLink(destination: ApplicationListView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true), label: {
+                            Label("Home", systemImage: "house.fill")
+                        })
                         
                         Label("Menu", systemImage: "gear")
                             .foregroundColor(.black)
@@ -67,5 +66,5 @@ struct SettingsView: View {
     }
 
 #Preview {
-    SettingsView()
+    SettingsView(pathManager: .constant(PathManager()))
 }

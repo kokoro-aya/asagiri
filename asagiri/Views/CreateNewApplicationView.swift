@@ -12,9 +12,11 @@ struct CreateNewApplicationView: View {
     
     @State private var displayMenuBar: Bool = false
     
-    @EnvironmentObject var pathManager:PathManager
+    @Binding var pathManager:PathManager
     
     @Environment(\.modelContext) private var modelContext
+    
+    @Environment(\.presentationMode) var presentationMode
     
     let jobDescription: JobDescription
     
@@ -23,70 +25,69 @@ struct CreateNewApplicationView: View {
     @State var resume: String = ""
     
     @State var resumeComment: String = ""
-
+    
     @State var cover: String = ""
     
     var body: some View {
-            VStack {
-                HStack {
-                    Text(jobDescription.company.name)
-                        .font(.title3)
-                        .foregroundStyle(.gray)
-                    Spacer()
-                    Text(jobDescription.company.website)
-                        .font(.title3)
-                        .foregroundStyle(.gray)
-                }
-                .padding([.top, .bottom], 8)
-                ScrollView {
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text("Position")
-                                .font(.title3)
-                            Spacer()
-                            Text(jobDescription.title)
-                                .font(.title3)
-                                .foregroundColor(.gray)
-                        }
-                        HStack {
-                            Text("Resume")
-                                .font(.title3)
-                            Spacer()
-                            CollapseToggle(toggled: $filled.0) {
-                                filled.0 = !(filled.0)
-                            }
-                        }
-                        if (filled.0) {
-                            CustomTextEditor(text: $resume, height: 60)
-                            Text("Comment")
-                                .font(.title3)
-                            CustomTextEditor(text: $resumeComment, height: 20)
-                        } else {
-                            Spacer()
-                                .frame(height: 16)
-                        }
-                        Divider()
-                        HStack {
-                            Text("Cover")
-                                .font(.title3)
-                            Spacer()
-                            CollapseToggle(toggled: $filled.1) {
-                                filled.1 = !(filled.1)
-                            }
-                        }
-                        if (filled.1) {
-                            CustomTextEditor(text: $cover, height: 60)
-                        } else {
-                            Spacer()
-                                .frame(height: 16)
+        VStack {
+            HStack {
+                Text(jobDescription.company?.name ?? "")
+                    .font(.title3)
+                    .foregroundStyle(.gray)
+                Spacer()
+                Text(jobDescription.company?.website ?? "")
+                    .font(.title3)
+                    .foregroundStyle(.gray)
+            }
+            .padding([.top, .bottom], 8)
+            ScrollView {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Position")
+                            .font(.title3)
+                        Spacer()
+                        Text(jobDescription.title)
+                            .font(.title3)
+                            .foregroundColor(.gray)
+                    }
+                    HStack {
+                        Text("Resume")
+                            .font(.title3)
+                        Spacer()
+                        CollapseToggle(toggled: $filled.0) {
+                            filled.0 = !(filled.0)
                         }
                     }
-                    Spacer()
+                    if (filled.0) {
+                        CustomTextEditor(text: $resume, height: 60)
+                        Text("Comment")
+                            .font(.title3)
+                        CustomTextEditor(text: $resumeComment, height: 20)
+                    } else {
+                        Spacer()
+                            .frame(height: 16)
+                    }
+                    Divider()
+                    HStack {
+                        Text("Cover")
+                            .font(.title3)
+                        Spacer()
+                        CollapseToggle(toggled: $filled.1) {
+                            filled.1 = !(filled.1)
+                        }
+                    }
+                    if (filled.1) {
+                        CustomTextEditor(text: $cover, height: 60)
+                    } else {
+                        Spacer()
+                            .frame(height: 16)
+                    }
                 }
-                Divider()
+                Spacer()
+            }
+            Divider()
+            HStack {
                 Button {
-                    //                NavigationLink(destination: <#T##() -> View#>, label: <#T##() -> View#>)
-                    
                     modelContext.insert(jobDescription)
                     
                     let createdApplication = Application()
@@ -98,13 +99,28 @@ struct CreateNewApplicationView: View {
                     createdApplication.cover = CoverLetter(content: cover)
                     createdApplication.events.append(Event(type: .preparation))
                     
-                    pathManager.path.append("applications")
+                    pathManager.path.removeLast()
                     
                 } label: {
                     Label("Save", systemImage: "paperplane.fill")
                         .padding(12)
                 }
-                
+                Button {
+                    
+                    // Dummy CRUD for triggering page transition otherwise `removeLast` will remove nothing.
+                    
+                    // See: https://www.v2ex.com/t/996395
+                    
+                    let item = Item(timestamp: .now)
+                    modelContext.insert(item)
+                    modelContext.delete(item)
+                    
+                    pathManager.path.removeLast()
+                    
+                } label: {
+                    Label("Discard", systemImage: "minus")
+                        .padding(12)
+                }
             }
             .padding([.top], 20)
             .padding(16)
@@ -119,14 +135,16 @@ struct CreateNewApplicationView: View {
                         
                         //
                         
-                        Label("Menu", systemImage: "house.fill")
-                            .foregroundColor(.black)
+                        NavigationLink(destination: ApplicationListView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true), label: {
+                            Label("Home", systemImage: "house.fill")
+                        })
                         
-                        Button {
-                            
-                        } label: {
+                        NavigationLink(destination: SettingsView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true),
+                           label: {
                             Label("Menu", systemImage: "gear")
-                        }
+                        })
                     }
                 } else {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
@@ -140,17 +158,10 @@ struct CreateNewApplicationView: View {
                             .font(.title2)
                     }
                 }
-                ToolbarItem {
-    //                    EditButton()
-                    Button {
-                        pathManager.path.removeLast()
-                    } label: {
-                        Label("Go back", systemImage: "arrowshape.turn.up.backward")
-                    }
-                }
             }
-        }
+        }.padding(12)
     }
+}
 
 #Preview {
     MainActor.assumeIsolated {
@@ -162,7 +173,7 @@ struct CreateNewApplicationView: View {
         // as the `.company` relationship is accessed
         previewContainer.mainContext.insert(jd)
         
-        return CreateNewApplicationView(jobDescription: jd)
+        return CreateNewApplicationView(pathManager: .constant(PathManager()), jobDescription: jd)
             .modelContainer(previewContainer)
     }
 }

@@ -10,7 +10,7 @@ import SwiftData
 
 struct ApplicationListView: View {
     
-    @EnvironmentObject var pathManager:PathManager
+    @Binding var pathManager:PathManager
     
     @Query private var applications: [Application]
     
@@ -41,8 +41,9 @@ struct ApplicationListView: View {
                         Label("Menu", systemImage: "house.fill")
                             .foregroundColor(.black)
                         
-                        NavigationLink(destination: SettingsView()
-                            .environmentObject(pathManager), label: {
+                        NavigationLink(destination: SettingsView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true),
+                           label: {
                             Label("Menu", systemImage: "gear")
                         })
                     }
@@ -60,12 +61,12 @@ struct ApplicationListView: View {
                 }
                 ToolbarItem {
 //                    EditButton()
-                    NavigationLink(destination: CreateNewJDView()
-                        .environmentObject(pathManager)
+                    NavigationLink(destination: CreateNewJDView(pathManager: $pathManager)
                         .navigationBarBackButtonHidden(true),
                         label: {
                         Label("Add Item", systemImage: "square.and.pencil")
                     })
+                    
                 }
             }
         }
@@ -136,7 +137,7 @@ func createDateFromString(_ s: String) -> Date {
         }
         
         
-        return ApplicationListView()
+        return ApplicationListView(pathManager: .constant(PathManager()))
             .modelContainer(previewContainer)
     }
 }
