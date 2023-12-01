@@ -53,11 +53,10 @@ struct ApplicationListView: View {
                         Label("Menu", systemImage: "house.fill")
                             .foregroundColor(.black)
                         
-                        NavigationLink(destination: SettingsView(pathManager: $pathManager)
-                            .navigationBarBackButtonHidden(true),
-                           label: {
-                            Label("Menu", systemImage: "gear")
+                        NavigationLink(value: PageType.settings, label: {
+                            Label("Settings", systemImage: "gear")
                         })
+                        
                     }
                 } else {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
@@ -73,9 +72,7 @@ struct ApplicationListView: View {
                 }
                 ToolbarItem {
 //                    EditButton()
-                    NavigationLink(destination: CreateNewJDView(pathManager: $pathManager)
-                        .navigationBarBackButtonHidden(true),
-                        label: {
+                    NavigationLink(value: PageType.create_new_jd, label: {
                         Label("Add Item", systemImage: "square.and.pencil")
                     })
                     

@@ -28,18 +28,26 @@ struct SettingsView: View {
     var body: some View {
             HStack {
                 VStack(alignment: .leading) {
-                    NavigationLink(destination: CareerManageView(pathManager: $pathManager)
-                        .navigationBarBackButtonHidden(), label: {
+                    NavigationLink(value: PageType.career_manage, label: {
                         Text("Manage careers")
                     })
+                    
+//                    NavigationLink(destination: CareerManageView(pathManager: $pathManager)
+//                        .navigationBarBackButtonHidden(), label: {
+//                        Text("Manage careers")
+//                    })
                     
                     Spacer()
                         .frame(height: 32)
                     
-                    NavigationLink(destination: TagManageView(pathManager: $pathManager)
-                        .navigationBarBackButtonHidden(), label: {
+                    NavigationLink(value: PageType.tag_manage, label: {
                         Text("Manage tags")
                     })
+                    
+//                    NavigationLink(destination: TagManageView(pathManager: $pathManager)
+//                        .navigationBarBackButtonHidden(), label: {
+//                        Text("Manage tags")
+//                    })
                 }
             }
             .padding([.top], 20)
@@ -53,12 +61,16 @@ struct SettingsView: View {
                             Label("Menu", systemImage: "arrow.left")
                         }
                         
-                        NavigationLink(destination: ApplicationListView(pathManager: $pathManager)
-                            .navigationBarBackButtonHidden(true), label: {
+                        NavigationLink(value: PageType.home, label: {
                             Label("Home", systemImage: "house.fill")
                         })
                         
-                        Label("Menu", systemImage: "gear")
+//                        NavigationLink(destination: ApplicationListView(pathManager: $pathManager)
+//                            .navigationBarBackButtonHidden(true), label: {
+//                            Label("Home", systemImage: "house.fill")
+//                        })
+                        
+                        Label("Settings", systemImage: "gear")
                             .foregroundColor(.black)
                     }
                 } else {

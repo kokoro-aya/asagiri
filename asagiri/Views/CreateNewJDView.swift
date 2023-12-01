@@ -70,160 +70,152 @@ struct CreateNewJDView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                ScrollView {
-                    VStack(alignment: .leading) {
-                        HStack(alignment: .top) {
-                            VStack(alignment: .leading) {
-                                Text("Job title")
-                                    .font(.title3)
-                                TextField("Title", text: $title)
-                                    .padding([.leading], 6)
-                            }
-                            Spacer()
-                            
-                            JobTypeDropdownSelector(allJobTypes: allJobTypes, jobType: $type)
-                        }
-                        HStack(alignment: .top) {
-                            VStack(alignment: .leading) {
-                                Text("Company")
-                                    .font(.title3)
-                            }
-                            Spacer()
-                            
-                            CompanyDropdownSelector(allCompanies: allCompanies, pathManager: $pathManager, company: $company)
-                        }
-                        Divider()
-                        HStack {
-                            Text("Introduction")
+        VStack {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    HStack(alignment: .top) {
+                        VStack(alignment: .leading) {
+                            Text("Job title")
                                 .font(.title3)
-                            Spacer()
-                            CollapseToggle(toggled: $expanded.0) {
-                                expanded.0 = !(expanded.0)
-                            }
+                            TextField("Title", text: $title)
+                                .padding([.leading], 6)
                         }
-                        if (expanded.0) {
-                            CustomTextEditor(text: $intro, height: 60)
-                        } else {
-                            Spacer()
-                                .frame(height: 16)
-                        }
-                        Divider()
-                        HStack {
-                            Text("Company Intro")
+                        Spacer()
+                        
+                        JobTypeDropdownSelector(allJobTypes: allJobTypes, jobType: $type)
+                    }
+                    HStack(alignment: .top) {
+                        VStack(alignment: .leading) {
+                            Text("Company")
                                 .font(.title3)
-                            Spacer()
-                            CollapseToggle(toggled: $expanded.1) {
-                                expanded.1 = !(expanded.1)
-                            }
                         }
-                        if (expanded.1) {
-                            CustomTextEditor(text: $companyIntro, height: 60)
-                        } else {
-                            Spacer()
-                                .frame(height: 16)
-                        }
-                        Divider()
-                        HStack {
-                            Text("Responsibilities")
-                                .font(.title3)
-                            Spacer()
-                            CollapseToggle(toggled: $expanded.2) {
-                                expanded.2 = !(expanded.2)
-                            }
-                        }
-                        if (expanded.2) {
-                            CustomTextEditor(text: $responsibilities, height: 60)
-                        } else {
-                            Spacer()
-                                .frame(height: 16)
-                        }
-                        Divider()
-                        HStack {
-                            Text("Complementary")
-                                .font(.title3)
-                            Spacer()
-                            CollapseToggle(toggled: $expanded.3) {
-                                expanded.3 = !(expanded.3)
-                            }
-                        }
-                        if (expanded.3) {
-                            CustomTextEditor(text: $complementary, height: 60)
-                        } else {
-                            Spacer()
-                                .frame(height: 16)
+                        Spacer()
+                        
+                        CompanyDropdownSelector(allCompanies: allCompanies, pathManager: $pathManager, company: $company)
+                    }
+                    Divider()
+                    HStack {
+                        Text("Introduction")
+                            .font(.title3)
+                        Spacer()
+                        CollapseToggle(toggled: $expanded.0) {
+                            expanded.0 = !(expanded.0)
                         }
                     }
+                    if (expanded.0) {
+                        CustomTextEditor(text: $intro, height: 60)
+                    } else {
+                        Spacer()
+                            .frame(height: 16)
+                    }
+                    Divider()
+                    HStack {
+                        Text("Company Intro")
+                            .font(.title3)
+                        Spacer()
+                        CollapseToggle(toggled: $expanded.1) {
+                            expanded.1 = !(expanded.1)
+                        }
+                    }
+                    if (expanded.1) {
+                        CustomTextEditor(text: $companyIntro, height: 60)
+                    } else {
+                        Spacer()
+                            .frame(height: 16)
+                    }
+                    Divider()
+                    HStack {
+                        Text("Responsibilities")
+                            .font(.title3)
+                        Spacer()
+                        CollapseToggle(toggled: $expanded.2) {
+                            expanded.2 = !(expanded.2)
+                        }
+                    }
+                    if (expanded.2) {
+                        CustomTextEditor(text: $responsibilities, height: 60)
+                    } else {
+                        Spacer()
+                            .frame(height: 16)
+                    }
+                    Divider()
+                    HStack {
+                        Text("Complementary")
+                            .font(.title3)
+                        Spacer()
+                        CollapseToggle(toggled: $expanded.3) {
+                            expanded.3 = !(expanded.3)
+                        }
+                    }
+                    if (expanded.3) {
+                        CustomTextEditor(text: $complementary, height: 60)
+                    } else {
+                        Spacer()
+                            .frame(height: 16)
+                    }
                 }
-                Divider()
-                
-                Button {
-                    let generatedJD = JobDescription(
-                        title: title,
-                        company: nil,
-                        type: nil,
-                        intro: self.intro,
-                        companyIntro: self.companyIntro,
-                        responsibilities: self.responsibilities,
-                        complementary: self.complementary)
-                    
-                    generatedJD.company = self.company
-                    generatedJD.type = self.type
-                    
-                    pathManager.path.append(generatedJD)
-                } label: {
-                    Label("Save", systemImage: "paperplane.fill")
-                        .padding(12)
-                }
-                .navigationDestination(for: JobDescription.self) { jd in
-                    CreateNewApplicationView(pathManager: $pathManager, jobDescription: jd)
-                        .navigationBarBackButtonHidden(true)
-                }
-                .disabled(!incomplete)
             }
-            .padding([.top], 20)
-            .padding(16)
-            .toolbar {
-                if displayMenuBar {
-                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                        Button {
-                            displayMenuBar = false
-                        } label: {
-                            Label("Menu", systemImage: "arrow.left")
-                        }
-                        
-                        //
-                        
-                        Label("Menu", systemImage: "house.fill")
-                            .foregroundColor(.black)
-                        
-                        NavigationLink(destination: SettingsView(pathManager: $pathManager)
-                            .navigationBarBackButtonHidden(true),
-                           label: {
-                            Label("Menu", systemImage: "gear")
-                        })
+            Divider()
+            
+            Button {
+                let generatedJD = JobDescription(
+                    title: title,
+                    company: nil,
+                    type: nil,
+                    intro: self.intro,
+                    companyIntro: self.companyIntro,
+                    responsibilities: self.responsibilities,
+                    complementary: self.complementary)
+                
+                generatedJD.company = self.company
+                generatedJD.type = self.type
+                
+                pathManager.path.append(generatedJD)
+            } label: {
+                Label("Save", systemImage: "paperplane.fill")
+                    .padding(12)
+            }
+            .disabled(!incomplete)
+        }
+        .padding([.top], 20)
+        .padding(16)
+        .toolbar {
+            if displayMenuBar {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button {
+                        displayMenuBar = false
+                    } label: {
+                        Label("Menu", systemImage: "arrow.left")
                     }
-                } else {
-                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                        Button {
-                            displayMenuBar = true
-                        } label: {
-                            Label("Menu", systemImage: "line.3.horizontal")
-                        }
-                        
-                        Text("Create a job description")
-                            .font(.title2)
-                    }
-                }
-                ToolbarItem {
-    //                    EditButton()
-                    NavigationLink(destination: ApplicationListView(pathManager: $pathManager)
-                        .navigationBarBackButtonHidden(true),
-                        label: {
-                        Label("Go back", systemImage: "delete.backward")
+                    
+                    //
+                    
+                    Label("Menu", systemImage: "house.fill")
+                        .foregroundColor(.black)
+                    
+                    NavigationLink(value: PageType.settings, label: {
+                        Label("Settings", systemImage: "gear")
                     })
+                    
                 }
+            } else {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button {
+                        displayMenuBar = true
+                    } label: {
+                        Label("Menu", systemImage: "line.3.horizontal")
+                    }
+                    
+                    Text("Create a job description")
+                        .font(.title2)
+                }
+            }
+            ToolbarItem {
+//                    EditButton()
+                
+                NavigationLink(value: PageType.home, label: {
+                    Label("Go back", systemImage: "delete.backward")
+                })
             }
         }
     }
@@ -290,6 +282,25 @@ struct JobTypeDropdownSelector : View {
     }
 }
 
+struct NavigateToCompanyCreateArguments : Identifiable, Hashable {
+
+    
+    let onCompletion: (Company) -> ()
+    
+    // Since it's impossible to hash a closure, we attribute a UUID for each value of this type and refers it for our hash
+    var id: String {
+        return UUID().uuidString
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(id)
+    }
+    
+    static func == (lhs: NavigateToCompanyCreateArguments, rhs: NavigateToCompanyCreateArguments) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
 struct CompanyDropdownSelector : View {
     
     let allCompanies: [Company]
@@ -307,13 +318,11 @@ struct CompanyDropdownSelector : View {
                 }
             }
             Divider()
-            NavigationLink(
-                destination: CreateNewCompanyView(pathManager: $pathManager,
-                                                  onCompletion: { newCo in self.company = newCo })
-                .navigationBarBackButtonHidden(true)
-            ) {
+            
+            NavigationLink(value: NavigateToCompanyCreateArguments(onCompletion: { newCo in self.company = newCo }), label: {
                 Label("Add new one", systemImage: "plus")
-            }
+            })
+            
             Button(role: .destructive) {
                 self.company = nil
             } label: {

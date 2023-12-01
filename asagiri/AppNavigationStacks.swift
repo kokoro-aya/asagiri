@@ -48,8 +48,42 @@ struct AppNavigationStack : View {
     var body: some View {
         NavigationStack(path: $pathManager.path) {
             ApplicationListView(pathManager: $pathManager)
+                .navigationDestination(for: PageType.self) { dest in
+                    switch dest {
+                    case .home:
+                        ApplicationListView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true)
+                    case .settings:
+                        SettingsView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true)
+                    case .create_new_jd:
+                        CreateNewJDView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true)
+                    case .career_manage:
+                        CareerManageView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true)
+                    case .tag_manage:
+                        TagManageView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true)
+                    }
+                }
+                .navigationDestination(for: JobDescription.self) { jd in
+                    CreateNewApplicationView(pathManager: $pathManager, jobDescription: jd)
+                        .navigationBarBackButtonHidden(true)
+                }
+                .navigationDestination(for: NavigateToCompanyCreateArguments.self) { args in
+                    CreateNewCompanyView(
+                        pathManager: $pathManager,
+                        onCompletion: args.onCompletion)
+                    .navigationBarBackButtonHidden(true)
+                }
         }
+        
     }
+}
+
+enum PageType {
+    case home, settings, create_new_jd, career_manage, tag_manage
 }
 
 

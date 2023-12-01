@@ -82,14 +82,13 @@ struct CreateNewCompanyView: View {
                         
                         //
                         
-                        Label("Menu", systemImage: "house.fill")
-                            .foregroundColor(.black)
                         
-                        Button {
-                            
-                        } label: {
-                            Label("Menu", systemImage: "gear")
-                        }
+                        NavigationLink(value: PageType.home, label: {
+                            Label("Home", systemImage: "house.fill")
+                        })
+                        NavigationLink(value: PageType.settings, label: {
+                            Label("Settings", systemImage: "gear")
+                        })
                     }
                 } else {
                     ToolbarItemGroup(placement: .navigationBarLeading) {

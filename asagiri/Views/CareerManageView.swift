@@ -173,13 +173,20 @@ struct CareerManageView: View {
                             Label("Menu", systemImage: "arrow.left")
                         }
                         
-                        NavigationLink(destination: ApplicationListView(pathManager: $pathManager).navigationBarBackButtonHidden(true), label: {
-                            Label("Menu", systemImage: "house.fill")
+                        NavigationLink(value: PageType.home, label: {
+                            Label("Home", systemImage: "house.fill")
                         })
-                        
-                        NavigationLink(destination: SettingsView(pathManager: $pathManager).navigationBarBackButtonHidden(true), label: {
+                        NavigationLink(value: PageType.settings, label: {
                             Label("Settings", systemImage: "gear")
                         })
+                        
+//                        NavigationLink(destination: ApplicationListView(pathManager: $pathManager).navigationBarBackButtonHidden(true), label: {
+//                            Label("Menu", systemImage: "house.fill")
+//                        })
+//                        
+//                        NavigationLink(destination: SettingsView(pathManager: $pathManager).navigationBarBackButtonHidden(true), label: {
+//                            Label("Settings", systemImage: "gear")
+//                        })
                     }
                 } else {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
