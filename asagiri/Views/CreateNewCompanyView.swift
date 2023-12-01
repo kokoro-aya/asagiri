@@ -37,82 +37,78 @@ struct CreateNewCompanyView: View {
     var onCompletion: (_ company: Company) -> ()
     
     var body: some View {
-            VStack {
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text("Name")
-                            .font(.title3)
-                        Spacer()
-                    }
-                    TextField("Company name", text: $name)
-                        .padding([.leading], 6)
-                    HStack {
-                        Text("Website")
-                            .font(.title3)
-                        Spacer()
-                    }
-                    TextField("Website", text: $website)
-                        .padding([.leading], 6)
+        VStack {
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("Name")
+                        .font(.title3)
+                    Spacer()
                 }
-                Spacer()
-                Divider()
-                Button {
-                    
-                    let company = Company(name: name, website: website)
-                    
-                    onCompletion(company)
-                    presentationMode.wrappedValue.dismiss()
-                    
-                } label: {
-                    Label("Save", systemImage: "paperplane.fill")
-                        .padding(12)
+                TextField("Company name", text: $name)
+                    .padding([.leading], 6)
+                HStack {
+                    Text("Website")
+                        .font(.title3)
+                    Spacer()
                 }
-                
+                TextField("Website", text: $website)
+                    .padding([.leading], 6)
             }
-            .padding([.top], 20)
-            .padding(16)
-            .toolbar {
-                if displayMenuBar {
-                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                        Button {
-                            displayMenuBar = false
-                        } label: {
-                            Label("Menu", systemImage: "arrow.left")
-                        }
-                        
-                        //
-                        
-                        Label("Menu", systemImage: "house.fill")
-                            .foregroundColor(.black)
-                        
-                        Button {
-                            
-                        } label: {
-                            Label("Menu", systemImage: "gear")
-                        }
-                    }
-                } else {
-                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                        Button {
-                            displayMenuBar = true
-                        } label: {
-                            Label("Menu", systemImage: "line.3.horizontal")
-                        }
-                        
-                        Text("Add a new company")
-                            .font(.title2)
-                    }
-                }
-                ToolbarItem {
+            Spacer()
+            Divider()
+            Button {
+                let company = Company(name: name, website: website)
+                onCompletion(company)
+                presentationMode.wrappedValue.dismiss()
+                
+            } label: {
+                Label("Save", systemImage: "paperplane.fill")
+                    .padding(12)
+            }
+            
+        }
+        .padding(16)
+        .toolbar {
+            if displayMenuBar {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
                     Button {
-                        pathManager.path.removeLast()
+                        displayMenuBar = false
                     } label: {
-                        Label("Go back", systemImage: "arrowshape.turn.up.backward")
+                        Label("Menu", systemImage: "arrow.left")
                     }
+                    
+                    //
+                    
+                    
+                    NavigationLink(value: PageType.home, label: {
+                        Label("Home", systemImage: "house.fill")
+                    })
+                    NavigationLink(value: PageType.settings, label: {
+                        Label("Settings", systemImage: "gear")
+                    })
+                }
+            } else {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button {
+                        displayMenuBar = true
+                    } label: {
+                        Label("Menu", systemImage: "line.3.horizontal")
+                    }
+                    
+                    Text("Add a new company")
+                        .font(.title2)
+                }
+            }
+            ToolbarItem {
+                Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Label("Go back", systemImage: "arrowshape.turn.up.backward")
                 }
             }
         }
     }
+}
 
 #Preview {
     MainActor.assumeIsolated {
