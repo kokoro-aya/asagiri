@@ -65,10 +65,6 @@ struct SettingsView: View {
                             Label("Home", systemImage: "house.fill")
                         })
                         
-//                        NavigationLink(destination: ApplicationListView(pathManager: $pathManager)
-//                            .navigationBarBackButtonHidden(true), label: {
-//                            Label("Home", systemImage: "house.fill")
-//                        })
                         
                         Label("Settings", systemImage: "gear")
                             .foregroundColor(.black)

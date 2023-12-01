@@ -111,28 +111,24 @@ struct CreateNewApplicationView: View {
                     createdApplication.cover = CoverLetter(content: cover)
                     createdApplication.events.append(Event(type: .preparation))
                     
-                    pathManager.path.removeLast()
+                    pathManager.path.removeLast(2)
                     
                 } label: {
                     Label("Save", systemImage: "paperplane.fill")
                         .padding(12)
                 }
-                Button {
-                    
-                    // Dummy CRUD for triggering page transition otherwise `removeLast` will remove nothing.
-                    
-                    // See: https://www.v2ex.com/t/996395
-                    
-                    let item = Item(timestamp: .now)
-                    modelContext.insert(item)
-                    modelContext.delete(item)
-                    
-                    pathManager.path.removeLast()
-                    
-                } label: {
+                NavigationLink(value: PageType.home, label: {
                     Label("Discard", systemImage: "minus")
                         .padding(12)
-                }
+                })
+                
+//                Button {
+//                    pathManager.path.removeLast(2)
+//                } label: {
+//                    Label("Discard", systemImage: "minus")
+//                        .padding(12)
+//                }
+                
             }
             .padding([.top], 20)
             .padding(16)
@@ -152,16 +148,6 @@ struct CreateNewApplicationView: View {
                             Label("Settings", systemImage: "gear")
                         })
                         
-//                        NavigationLink(destination: ApplicationListView(pathManager: $pathManager)
-//                            .navigationBarBackButtonHidden(true), label: {
-//                            Label("Home", systemImage: "house.fill")
-//                        })
-//                        
-//                        NavigationLink(destination: SettingsView(pathManager: $pathManager)
-//                            .navigationBarBackButtonHidden(true),
-//                           label: {
-//                            Label("Menu", systemImage: "gear")
-//                        })
                     }
                 } else {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
@@ -173,6 +159,13 @@ struct CreateNewApplicationView: View {
                         
                         Text("Create an application")
                             .font(.title2)
+                    }
+                    ToolbarItem {
+                        Button {
+                            presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            Label("Go back", systemImage: "arrowshape.turn.up.backward")
+                        }
                     }
                 }
             }

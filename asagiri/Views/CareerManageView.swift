@@ -180,13 +180,6 @@ struct CareerManageView: View {
                             Label("Settings", systemImage: "gear")
                         })
                         
-//                        NavigationLink(destination: ApplicationListView(pathManager: $pathManager).navigationBarBackButtonHidden(true), label: {
-//                            Label("Menu", systemImage: "house.fill")
-//                        })
-//                        
-//                        NavigationLink(destination: SettingsView(pathManager: $pathManager).navigationBarBackButtonHidden(true), label: {
-//                            Label("Settings", systemImage: "gear")
-//                        })
                     }
                 } else {
                     ToolbarItemGroup(placement: .navigationBarLeading) {

@@ -177,7 +177,6 @@ struct CreateNewJDView: View {
             }
             .disabled(!incomplete)
         }
-        .padding([.top], 20)
         .padding(16)
         .toolbar {
             if displayMenuBar {

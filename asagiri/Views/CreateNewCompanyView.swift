@@ -104,7 +104,7 @@ struct CreateNewCompanyView: View {
                 }
                 ToolbarItem {
                     Button {
-                        pathManager.path.removeLast()
+                        presentationMode.wrappedValue.dismiss()
                     } label: {
                         Label("Go back", systemImage: "arrowshape.turn.up.backward")
                     }
