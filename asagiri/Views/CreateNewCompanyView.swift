@@ -114,7 +114,6 @@ struct CreateNewCompanyView: View {
     MainActor.assumeIsolated {
         var previewContainer: ModelContainer = initializePreviewContainer()
         
-        
         return CreateNewCompanyView(pathManager: .constant(PathManager()), onCompletion: { _ in })
             .modelContainer(previewContainer)
     }

@@ -20,7 +20,7 @@
 import SwiftUI
 import Charts
 
-struct StaticDetailAbstractDiagramView: View {
+struct StaticDetailAbstractDiagramView: View, DynamicSankeySubView {
     
     @State var dataSource: PaintNode
     
@@ -50,26 +50,7 @@ struct StaticDetailAbstractDiagramView: View {
         }
     }
     
-    func computeInnerDetailBound(_ i: Int) -> Int {
-        return startingPixel + i * (padding * 2 + width)
-    }
-    
-    func computeOuterDetailBound(_ i: Int) -> Int {
-        return computeInnerDetailBound(i) + width
-    }
-    
-    func computeDetailOutbound() -> Int {
-        return startingPixel + detailDepth * (padding * 2 + width)
-    }
-    
-    func computeInnerNarrowBound(_ i: Int) -> Int {
-        return computeDetailOutbound() + (i - detailDepth) * (padding * 2 + narrowWidth)
-    }
-    
-    func computeOuterNarrowBound(_ i: Int) -> Int {
-        return computeDetailOutbound() + (i - detailDepth) * (padding * 2 + narrowWidth) + narrowWidth
-    }
-    
+
     
     var body: some View {
         ZStack {

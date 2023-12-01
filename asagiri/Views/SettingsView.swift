@@ -32,22 +32,12 @@ struct SettingsView: View {
                         Text("Manage careers")
                     })
                     
-//                    NavigationLink(destination: CareerManageView(pathManager: $pathManager)
-//                        .navigationBarBackButtonHidden(), label: {
-//                        Text("Manage careers")
-//                    })
-                    
                     Spacer()
                         .frame(height: 32)
                     
                     NavigationLink(value: PageType.tag_manage, label: {
                         Text("Manage tags")
                     })
-                    
-//                    NavigationLink(destination: TagManageView(pathManager: $pathManager)
-//                        .navigationBarBackButtonHidden(), label: {
-//                        Text("Manage tags")
-//                    })
                 }
             }
             .padding([.top], 20)

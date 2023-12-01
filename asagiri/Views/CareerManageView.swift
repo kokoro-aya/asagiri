@@ -146,7 +146,8 @@ struct CareerManageView: View {
                             }
                         }
                     }
-                    .onDelete(perform: removeRows)
+                    // Disable for current since related logic not implemented yet
+//                    .onDelete(perform: removeRows)
                 }
                 Spacer()
                 Button {

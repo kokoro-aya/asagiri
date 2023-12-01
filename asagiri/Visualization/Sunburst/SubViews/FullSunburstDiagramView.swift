@@ -20,7 +20,7 @@
 import SwiftUI
 import Charts
 
-struct FullSunburstDiagramView: View {
+struct FullSunburstDiagramView: View, SankeySubView {
     
     @State var dataSource: PaintNode
     
@@ -46,13 +46,6 @@ struct FullSunburstDiagramView: View {
         }
     }
     
-    func computeInnerDetailBound(_ i: Int) -> Int {
-        return startingPixel + i * (padding * 2 + width)
-    }
-    
-    func computeOuterDetailBound(_ i: Int) -> Int {
-        return computeInnerDetailBound(i) + width
-    }
     
     var body: some View {
         ZStack {

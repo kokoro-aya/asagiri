@@ -20,7 +20,7 @@
 import SwiftUI
 import Charts
 
-struct DynamicSunburstDiagramView: View {
+struct DynamicSunburstDiagramView: View, DynamicSankeySubView {
     
     @State var dataSource: PaintNode
     
@@ -54,25 +54,7 @@ struct DynamicSunburstDiagramView: View {
         }
     }
     
-    func computeInnerDetailBound(_ i: Int) -> Int {
-        return startingPixel + i * (padding * 2 + width)
-    }
-    
-    func computeOuterDetailBound(_ i: Int) -> Int {
-        return computeInnerDetailBound(i) + width
-    }
-    
-    func computeDetailOutbound() -> Int {
-        return startingPixel + detailDepth * (padding * 2 + width)
-    }
-    
-    func computeInnerNarrowBound(_ i: Int) -> Int {
-        return computeDetailOutbound() + (i - detailDepth) * (padding * 2 + narrowWidth)
-    }
-    
-    func computeOuterNarrowBound(_ i: Int) -> Int {
-        return computeDetailOutbound() + (i - detailDepth) * (padding * 2 + narrowWidth) + narrowWidth
-    }
+
     
     
     var body: some View {
