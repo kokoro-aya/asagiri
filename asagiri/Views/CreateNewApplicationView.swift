@@ -95,7 +95,6 @@ struct CreateNewApplicationView: View {
                             .frame(height: 16)
                     }
                 }
-                Spacer()
             }
             Divider()
             HStack {
@@ -121,55 +120,46 @@ struct CreateNewApplicationView: View {
                     Label("Discard", systemImage: "minus")
                         .padding(12)
                 })
-                
-//                Button {
-//                    pathManager.path.removeLast(2)
-//                } label: {
-//                    Label("Discard", systemImage: "minus")
-//                        .padding(12)
-//                }
-                
             }
-            .padding([.top], 20)
-            .padding(16)
-            .toolbar {
-                if displayMenuBar {
-                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                        Button {
-                            displayMenuBar = false
-                        } label: {
-                            Label("Menu", systemImage: "arrow.left")
-                        }
-                        
-                        NavigationLink(value: PageType.home, label: {
-                            Label("Home", systemImage: "house.fill")
-                        })
-                        NavigationLink(value: PageType.settings, label: {
-                            Label("Settings", systemImage: "gear")
-                        })
-                        
+        }
+        .padding(16)
+        .toolbar {
+            if displayMenuBar {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button {
+                        displayMenuBar = false
+                    } label: {
+                        Label("Menu", systemImage: "arrow.left")
                     }
-                } else {
-                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                        Button {
-                            displayMenuBar = true
-                        } label: {
-                            Label("Menu", systemImage: "line.3.horizontal")
-                        }
-                        
-                        Text("Create an application")
-                            .font(.title2)
+                    
+                    NavigationLink(value: PageType.home, label: {
+                        Label("Home", systemImage: "house.fill")
+                    })
+                    NavigationLink(value: PageType.settings, label: {
+                        Label("Settings", systemImage: "gear")
+                    })
+                }
+            } else {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button {
+                        displayMenuBar = true
+                    } label: {
+                        Label("Menu", systemImage: "line.3.horizontal")
                     }
-                    ToolbarItem {
-                        Button {
-                            presentationMode.wrappedValue.dismiss()
-                        } label: {
-                            Label("Go back", systemImage: "arrowshape.turn.up.backward")
-                        }
+                    Text("Create an application")
+                        .font(.title2)
+                }
+                ToolbarItem {
+                    Button {
+                        presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        Label("Go back", systemImage: "arrowshape.turn.up.backward")
                     }
                 }
             }
-        }.padding(12)
+        }
+        // Prevent the view from being pushed down, see: https://stackoverflow.com/questions/58945958/swiftui-navigationview-within-modal-pushing-view-down
+        .navigationBarTitle(Text(""), displayMode: .inline)
     }
 }
 
