@@ -51,6 +51,7 @@
 		F7B9E4452B1121C600964F46 /* CreateNewJDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */; };
 		F7B9E4472B11374100964F46 /* Views+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4462B11374100964F46 /* Views+Utils.swift */; };
 		F7B9E4492B114BDF00964F46 /* CreateNewCompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */; };
+		F7D34A6B2B1B93C400A7B005 /* ApplicationPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D34A6A2B1B93C400A7B005 /* ApplicationPreviewView.swift */; };
 		F7D66B152B17E60200E84FEA /* IDETemplateMacros.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7D66B142B17E60200E84FEA /* IDETemplateMacros.plist */; };
 		F7DC61739942F5938B707020 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F7DC677E5D07E71E9B72A920 /* .gitignore */; };
 		F7DF04CB2B14E9F700D661E1 /* CareerManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DF04CA2B14E9F700D661E1 /* CareerManageView.swift */; };
@@ -124,6 +125,7 @@
 		F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCompanyView.swift; sourceTree = "<group>"; };
 		F7CA2FE72B08E8270068EDC2 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		F7CA2FE82B08E8270068EDC2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F7D34A6A2B1B93C400A7B005 /* ApplicationPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationPreviewView.swift; sourceTree = "<group>"; };
 		F7D66B142B17E60200E84FEA /* IDETemplateMacros.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = IDETemplateMacros.plist; sourceTree = "<group>"; };
 		F7DC677E5D07E71E9B72A920 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		F7DF04CA2B14E9F700D661E1 /* CareerManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerManageView.swift; sourceTree = "<group>"; };
@@ -177,14 +179,15 @@
 			children = (
 				F7B9E4412B111C4500964F46 /* Parts */,
 				F72BFF062B10085A0090EED7 /* CreateNewApplicationView.swift */,
-				F72BFF082B1008720090EED7 /* ApplicationListView.swift */,
-				F738D15E2B151907006AC134 /* JDListView.swift */,
 				F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */,
 				F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */,
+				F72BFF082B1008720090EED7 /* ApplicationListView.swift */,
+				F738D15E2B151907006AC134 /* JDListView.swift */,
+				F7D34A6A2B1B93C400A7B005 /* ApplicationPreviewView.swift */,
 				F7DF04CA2B14E9F700D661E1 /* CareerManageView.swift */,
 				F738D15C2B150D2D006AC134 /* TagManageView.swift */,
-				F7B9E4462B11374100964F46 /* Views+Utils.swift */,
 				F738D1602B153F82006AC134 /* SettingsView.swift */,
+				F7B9E4462B11374100964F46 /* Views+Utils.swift */,
 				F71827252B1A77F400A6BEE3 /* NavigateToCompanyCreateArguments.swift */,
 			);
 			path = Views;
@@ -488,6 +491,7 @@
 				F755619D2B179D4A004FC072 /* PaintSources.swift in Sources */,
 				F718272A2B1A78A400A6BEE3 /* JobDescriptionCard.swift in Sources */,
 				F75561A52B179DBF004FC072 /* LabelValuePair.swift in Sources */,
+				F7D34A6B2B1B93C400A7B005 /* ApplicationPreviewView.swift in Sources */,
 				F7B9E4472B11374100964F46 /* Views+Utils.swift in Sources */,
 				F72BFF0D2B1008B60090EED7 /* CompanyModel.swift in Sources */,
 				F738D1582B1504F6006AC134 /* TagModel.swift in Sources */,
