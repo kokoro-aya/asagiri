@@ -52,10 +52,16 @@ struct JDListView: View {
                     
                     Label("JD List", systemImage: "bag.fill")
                         .foregroundColor(.black)
+                        .padding([.leading, .trailing], 10)
                     
                     NavigationLink(value: PageType.settings, label: {
                         Label("Settings", systemImage: "gear")
                     })
+                    
+                    NavigationLink(value: PageType.analytics, label: {
+                        Label("Analytics", systemImage: "chart.pie")
+                    })
+
                     
                 }
             } else {

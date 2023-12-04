@@ -154,8 +154,17 @@ struct TagManageView: View {
                         NavigationLink(value: PageType.home, label: {
                             Label("Home", systemImage: "house.fill")
                         })
+                        
+                        NavigationLink(value: PageType.jd_list, label: {
+                            Label("JD List", systemImage: "bag.fill")
+                        })
+                        
                         NavigationLink(value: PageType.settings, label: {
                             Label("Settings", systemImage: "gear")
+                        })
+                        
+                        NavigationLink(value: PageType.analytics, label: {
+                            Label("Analytics", systemImage: "chart.pie")
                         })
                         
                     }

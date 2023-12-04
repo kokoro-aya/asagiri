@@ -52,6 +52,7 @@ struct ApplicationListView: View {
                         
                         Label("Menu", systemImage: "house.fill")
                             .foregroundColor(.black)
+                            .padding([.trailing], 10)
                         
                         NavigationLink(value: PageType.jd_list, label: {
                             Label("JD List", systemImage: "bag.fill")
@@ -59,6 +60,10 @@ struct ApplicationListView: View {
                         
                         NavigationLink(value: PageType.settings, label: {
                             Label("Settings", systemImage: "gear")
+                        })
+                        
+                        NavigationLink(value: PageType.analytics, label: {
+                            Label("Analytics", systemImage: "chart.pie")
                         })
                         
                     }

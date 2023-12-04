@@ -18,13 +18,101 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AnalyticsView: View {
+
+    @Binding var pathManager:PathManager
+    
+    @Query var applications: [Application]
+
+    @State private var displayMenuBar: Bool = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            if applications.count < 5 {
+                Text("Add more applications to preview you stats")
+            } else {
+                ChartWindowView(applications: applications)
+            }
+        }
+        .padding([.top], 20)
+        .padding(16)
+        .toolbar {
+            if displayMenuBar {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button {
+                        displayMenuBar = false
+                    } label: {
+                        Label("Menu", systemImage: "arrow.left")
+                    }
+                    
+                    NavigationLink(value: PageType.home, label: {
+                        Label("Home", systemImage: "house.fill")
+                    })
+                    
+                    NavigationLink(value: PageType.jd_list, label: {
+                        Label("JD List", systemImage: "bag.fill")
+                    })
+                    
+                    NavigationLink(value: PageType.settings, label: {
+                        Label("Settings", systemImage: "gear")
+                    })
+                    
+                    Label("Analytics", systemImage: "chart.pie")
+                        .foregroundColor(.black)
+                        .padding([.leading], 10)
+                }
+            } else {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button {
+                        displayMenuBar = true
+                    } label: {
+                        Label("Menu", systemImage: "line.3.horizontal")
+                    }
+                    
+                    Text("Settings")
+                        .font(.title2)
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    AnalyticsView()
+    MainActor.assumeIsolated {
+        var previewContainer: ModelContainer = initializePreviewContainer()
+        
+        let applications = [
+            Application(jobDescription: JobDescription(title: "A", company: Company(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+                Event(type: .applied, updateTime: createDateFromString("2023-10-12T12:00:00-08:00")),
+                Event(type: .rejected, updateTime: createDateFromString("2023-10-13T14:50:00-08:00"))
+            ]),
+            Application(jobDescription: JobDescription(title: "A", company: Company(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+                Event(type: .applied, updateTime: createDateFromString("2023-10-11T12:00:00-08:00")),
+                Event(type: .interview(round: 1), updateTime: createDateFromString("2023-10-12T21:00:00-08:00")),
+                Event(type: .interview(round: 2), updateTime: createDateFromString("2023-10-16T15:20:00-08:00")),
+                Event(type: .interview(round: 3), updateTime: createDateFromString("2023-10-19T14:00:00-08:00"))
+            ]),
+            Application(jobDescription: JobDescription(title: "A", company: Company(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+                Event(type: .applied, updateTime: createDateFromString("2023-10-17T12:00:00-08:00")),
+                Event(type: .interview(round: 1), updateTime: createDateFromString("2023-10-18T14:30:00-08:00")),
+                Event(type: .ghost, updateTime: createDateFromString("2023-10-22T14:20:00-08:00"))
+            ]),
+            Application(jobDescription: JobDescription(title: "A", company: Company(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+                Event(type: .applied, updateTime: createDateFromString("2023-10-22T13:50:00-08:00"))
+            ]),
+            Application(jobDescription: JobDescription(title: "A", company: Company(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+                Event(type: .applied, updateTime: createDateFromString("2023-10-22T13:50:00-08:00")),
+                Event(type: .oa, updateTime: createDateFromString("2023-11-15T13:00:00-08:00"))
+            ])
+        ]
+        
+        applications.forEach {
+            previewContainer.mainContext.insert($0)
+        }
+        
+        return AnalyticsView(pathManager: .constant(PathManager()))
+            .modelContainer(previewContainer)
+    }
 }

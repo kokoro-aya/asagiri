@@ -55,9 +55,18 @@ struct SettingsView: View {
                             Label("Home", systemImage: "house.fill")
                         })
                         
+                        NavigationLink(value: PageType.jd_list, label: {
+                            Label("JD List", systemImage: "bag.fill")
+                        })
                         
                         Label("Settings", systemImage: "gear")
                             .foregroundColor(.black)
+                            .padding([.leading, .trailing], 10)
+                        
+                        NavigationLink(value: PageType.analytics, label: {
+                            Label("Analytics", systemImage: "chart.pie")
+                        })
+
                     }
                 } else {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
