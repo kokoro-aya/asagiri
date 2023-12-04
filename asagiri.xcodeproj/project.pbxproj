@@ -51,7 +51,9 @@
 		F7B9E4452B1121C600964F46 /* CreateNewJDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */; };
 		F7B9E4472B11374100964F46 /* Views+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4462B11374100964F46 /* Views+Utils.swift */; };
 		F7B9E4492B114BDF00964F46 /* CreateNewCompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */; };
+		F7C708342B1E65CF00B87680 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C708332B1E65CF00B87680 /* AnalyticsView.swift */; };
 		F7D34A6B2B1B93C400A7B005 /* ApplicationPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D34A6A2B1B93C400A7B005 /* ApplicationPreviewView.swift */; };
+		F7D34A6D2B1B93E800A7B005 /* ChartWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D34A6C2B1B93E800A7B005 /* ChartWindowView.swift */; };
 		F7D34A6F2B1B940C00A7B005 /* CompanyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D34A6E2B1B940C00A7B005 /* CompanyListView.swift */; };
 		F7D66B152B17E60200E84FEA /* IDETemplateMacros.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7D66B142B17E60200E84FEA /* IDETemplateMacros.plist */; };
 		F7DC61739942F5938B707020 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F7DC677E5D07E71E9B72A920 /* .gitignore */; };
@@ -124,9 +126,11 @@
 		F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewJDView.swift; sourceTree = "<group>"; };
 		F7B9E4462B11374100964F46 /* Views+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views+Utils.swift"; sourceTree = "<group>"; };
 		F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCompanyView.swift; sourceTree = "<group>"; };
+		F7C708332B1E65CF00B87680 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		F7CA2FE72B08E8270068EDC2 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		F7CA2FE82B08E8270068EDC2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F7D34A6A2B1B93C400A7B005 /* ApplicationPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationPreviewView.swift; sourceTree = "<group>"; };
+		F7D34A6C2B1B93E800A7B005 /* ChartWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartWindowView.swift; sourceTree = "<group>"; };
 		F7D34A6E2B1B940C00A7B005 /* CompanyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyListView.swift; sourceTree = "<group>"; };
 		F7D66B142B17E60200E84FEA /* IDETemplateMacros.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = IDETemplateMacros.plist; sourceTree = "<group>"; };
 		F7DC677E5D07E71E9B72A920 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
@@ -190,6 +194,8 @@
 				F7DF04CA2B14E9F700D661E1 /* CareerManageView.swift */,
 				F738D15C2B150D2D006AC134 /* TagManageView.swift */,
 				F738D1602B153F82006AC134 /* SettingsView.swift */,
+				F7D34A6C2B1B93E800A7B005 /* ChartWindowView.swift */,
+				F7C708332B1E65CF00B87680 /* AnalyticsView.swift */,
 				F7B9E4462B11374100964F46 /* Views+Utils.swift */,
 				F71827252B1A77F400A6BEE3 /* NavigateToCompanyCreateArguments.swift */,
 			);
@@ -488,6 +494,7 @@
 				F75561AA2B179EB6004FC072 /* FullSunburstDiagramView.swift in Sources */,
 				F751E7912B067FAB007828D6 /* ContentView.swift in Sources */,
 				F75561AC2B179EC5004FC072 /* DynamicSunburstDiagramView.swift in Sources */,
+				F7C708342B1E65CF00B87680 /* AnalyticsView.swift in Sources */,
 				F738D1662B1659C1006AC134 /* SunburstDiagramView.swift in Sources */,
 				F7DF04CB2B14E9F700D661E1 /* CareerManageView.swift in Sources */,
 				F7F698282B13D60C0007622B /* AppNavigationStacks.swift in Sources */,
@@ -511,6 +518,7 @@
 				F75561A72B179E4D004FC072 /* Visualization+Extensions.swift in Sources */,
 				F72BFF132B100B140090EED7 /* ResumeModel.swift in Sources */,
 				F72BFF172B100B370090EED7 /* DescriptionModel.swift in Sources */,
+				F7D34A6D2B1B93E800A7B005 /* ChartWindowView.swift in Sources */,
 				F751E78F2B067FAB007828D6 /* asagiriApp.swift in Sources */,
 				F72BFF152B100B200090EED7 /* CoverLetterModel.swift in Sources */,
 			);

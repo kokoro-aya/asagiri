@@ -20,8 +20,6 @@
 import Foundation
 
 final class PaintNode : PaintSource {
-
-    
     
     init(label: String, children: [ PaintSource]) {
         self.label = label
