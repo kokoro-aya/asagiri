@@ -33,10 +33,17 @@ struct SettingsView: View {
                     })
                     
                     Spacer()
-                        .frame(height: 32)
+                        .frame(height: 16)
                     
                     NavigationLink(value: PageType.tag_manage, label: {
                         Text("Manage tags")
+                    })
+                    
+                    Spacer()
+                        .frame(height: 16)
+                    
+                    NavigationLink(value: PageType.export_import, label: {
+                        Text("Export/Import")
                     })
                 }
             }

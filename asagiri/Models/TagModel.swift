@@ -21,7 +21,7 @@ import Foundation
 import SwiftData
 
 @Model
-class Tag {
+class Tag : Codable {
     
     var name: String
     
@@ -34,4 +34,21 @@ class Tag {
     // Dummy static value as a placeholder for management list
     static let empty: Tag = Tag(name: "")
     
+    
+    // Boilerplates for codable conformance
+    enum CodingKeys: CodingKey {
+        case name, color
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.color = try container.decode(String?.self, forKey: .color)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(color, forKey: .color)
+    }
 }

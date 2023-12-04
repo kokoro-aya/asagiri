@@ -21,7 +21,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Resume {
+final class Resume : Codable {
     var content: String
     
     var comments: String = ""
@@ -31,5 +31,24 @@ final class Resume {
     init(content: String) {
         self.content = content
         self.createTime = Date.now
+    }
+    
+    // Boilerplates for codable conformance
+    enum CodingKeys: CodingKey {
+        case content, comments, createTime
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.content = try container.decode(String.self, forKey: .content)
+        self.comments = try container.decode(String.self, forKey: .comments)
+        self.createTime = try container.decode(Date.self, forKey: .createTime)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(content, forKey: .content)
+        try container.encode(comments, forKey: .comments)
+        try container.encode(createTime, forKey: .createTime)
     }
 }

@@ -71,6 +71,8 @@ struct AppNavigationStack : View {
                     case .analytics:
                         AnalyticsView(pathManager: $pathManager)
                             .navigationBarBackButtonHidden(true)
+                    case .export_import:
+                        Export_ImportView(pathManager: $pathManager)
                     }
                 }
                 .navigationDestination(for: JobDescription.self) { jd in
@@ -93,7 +95,7 @@ struct AppNavigationStack : View {
 }
 
 enum PageType {
-    case home, jd_list, settings, create_new_jd, career_manage, tag_manage, analytics
+    case home, jd_list, settings, create_new_jd, career_manage, tag_manage, analytics, export_import
 }
 
 
