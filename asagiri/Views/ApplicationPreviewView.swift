@@ -52,8 +52,9 @@ struct ApplicationPreviewView: View {
                     Divider()
                     
                     HStack {
+                        let possibleNexts = self.app.status.possibleNexts()
+                        
                         Menu {
-                            let possibleNexts = self.app.status.possibleNexts()
                             
                             ForEach(possibleNexts) { sts in
                                 Button(sts.description) {
@@ -63,6 +64,7 @@ struct ApplicationPreviewView: View {
                         } label: {
                             Text(app.status.description)
                                 .font(.title3)
+                                .foregroundStyle(possibleNexts.isEmpty ? Color.gray : Color.blue)
                         }
                         Spacer()
                         CollapseToggle(toggled: $expanded.6) {
@@ -180,6 +182,14 @@ struct ApplicationPreviewView: View {
                     }
                 }
             }
+            Spacer()
+            Divider()
+            Button(role: .destructive) {
+                app.setArchived()
+            } label: {
+                Label("Archive", systemImage: "archivebox.fill")
+            }
+            .padding([.top], 16)
         }
         .padding(16)
         .toolbar {

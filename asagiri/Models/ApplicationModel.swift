@@ -37,6 +37,10 @@ final class Application {
         events.sorted(by: { $0.updateTime < $1.updateTime }).last?.type ?? .not_started
     }
     
+    func setArchived() {
+        events.append(Event(type: .archived))
+    }
+    
     var lastEvent: Event? {
         events.sorted(by: { $0.updateTime < $1.updateTime }).last
     }

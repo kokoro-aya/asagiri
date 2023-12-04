@@ -84,6 +84,9 @@ struct ApplicationCard: View {
                             Text("Cover")
                         }
                     }
+                    NavigationLink(value: app, label: {
+                        Text("Detail")
+                    })
                 }
                 Spacer()
                 
@@ -99,6 +102,7 @@ struct ApplicationCard: View {
                         case .rejected: "REJ"
                         case .offer: "OFFR"
                         case .ghost: "GHO"
+                        case .archived: "ARC"
                     }
                     Text(label)
                     

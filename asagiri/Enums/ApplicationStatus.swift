@@ -37,6 +37,8 @@ enum ApplicationStatus : Codable, Hashable, Identifiable {
     case offer
     case ghost
     
+    case archived
+    
     func color() -> Color {
         return switch self {
             case .not_started: .black
@@ -49,6 +51,8 @@ enum ApplicationStatus : Codable, Hashable, Identifiable {
             case .rejected: .gray
             case .offer: .green
             case .ghost: .red
+            
+            case .archived: .gray
         }
     }
     
@@ -64,6 +68,7 @@ enum ApplicationStatus : Codable, Hashable, Identifiable {
         case .rejected: []
         case .offer: [.rejected, .ghost]
         case .ghost: []
+        case .archived: []
         }
     }
 }
@@ -84,6 +89,7 @@ extension ApplicationStatus : CustomStringConvertible {
             case .rejected: "Rejected"
             case .offer: "Offer"
             case .ghost: "Ghosted"
+            case .archived: "Archived"
         }
     }
 }

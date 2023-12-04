@@ -77,6 +77,10 @@ struct AppNavigationStack : View {
                     CreateNewApplicationView(pathManager: $pathManager, jobDescription: jd)
                         .navigationBarBackButtonHidden(true)
                 }
+                .navigationDestination(for: Application.self) { app in
+                    ApplicationPreviewView(pathManager: $pathManager, app: app)
+                        .navigationBarBackButtonHidden(true)
+                }
                 .navigationDestination(for: NavigateToCompanyCreateArguments.self) { args in
                     CreateNewCompanyView(
                         pathManager: $pathManager,

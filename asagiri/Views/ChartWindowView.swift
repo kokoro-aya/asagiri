@@ -141,6 +141,8 @@ func insertEventInto(paintNode node: PaintNode, events: [Event]) {
             insertOrCreatePaintEdge(node: node, label: "Offer")
         case .ghost:
             insertOrCreatePaintEdge(node: node, label: "Ghosted")
+        case .archived:
+            insertOrCreatePaintEdge(node: node, label: "Archived")
         }
     }
 }
