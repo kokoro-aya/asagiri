@@ -53,6 +53,10 @@ struct ApplicationListView: View {
                         Label("Menu", systemImage: "house.fill")
                             .foregroundColor(.black)
                         
+                        NavigationLink(value: PageType.jd_list, label: {
+                            Label("JD List", systemImage: "bag.fill")
+                        })
+                        
                         NavigationLink(value: PageType.settings, label: {
                             Label("Settings", systemImage: "gear")
                         })
@@ -78,6 +82,8 @@ struct ApplicationListView: View {
                     
                 }
             }
+            // Prevent the view from being pushed down
+            .navigationBarTitle(Text(""), displayMode: .inline)
         }
     }
 

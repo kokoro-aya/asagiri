@@ -26,6 +26,8 @@ struct CreateNewJDView: View {
     
     @Binding var pathManager:PathManager
     
+    @Environment(\.modelContext) private var modelContext
+    
     init(pathManager: Binding<PathManager>, pendingJD: JobDescription) {
         self._pathManager = pathManager
         self.title = pendingJD.title
@@ -157,25 +159,53 @@ struct CreateNewJDView: View {
             }
             Divider()
             
-            Button {
-                let generatedJD = JobDescription(
-                    title: title,
-                    company: nil,
-                    type: nil,
-                    intro: self.intro,
-                    companyIntro: self.companyIntro,
-                    responsibilities: self.responsibilities,
-                    complementary: self.complementary)
+            VStack {
                 
-                generatedJD.company = self.company
-                generatedJD.type = self.type
+                Button {
+                    let generatedJD = JobDescription(
+                        title: title,
+                        company: nil,
+                        type: nil,
+                        intro: self.intro,
+                        companyIntro: self.companyIntro,
+                        responsibilities: self.responsibilities,
+                        complementary: self.complementary)
+                    
+                    generatedJD.company = self.company
+                    generatedJD.type = self.type
+                    
+                    // Do not save JD but proceed it as an argument to the next page
+                    pathManager.path.append(generatedJD)
+                } label: {
+                    Label("Continue to application", systemImage: "paperplane.fill")
+                        .padding(12)
+                }
+                .disabled(!incomplete)
                 
-                pathManager.path.append(generatedJD)
-            } label: {
-                Label("Save", systemImage: "paperplane.fill")
-                    .padding(12)
+                Button {
+                    
+                    let jobDescription = JobDescription(
+                        title: title,
+                        company: nil,
+                        type: nil,
+                        intro: self.intro,
+                        companyIntro: self.companyIntro,
+                        responsibilities: self.responsibilities,
+                        complementary: self.complementary)
+                    
+                    jobDescription.company = self.company
+                    jobDescription.type = self.type
+                    
+                    // Save job description to the database
+                    modelContext.insert(jobDescription)
+                    
+                    // Go back to main page
+                    pathManager.path.append(PageType.home)
+                } label: {
+                    Label("Save and exit", systemImage: "paperplane.fill")
+                        .padding(12)
+                }
             }
-            .disabled(!incomplete)
         }
         .padding(16)
         .toolbar {
