@@ -65,11 +65,11 @@ final class Application : Codable {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.jobDescription = try container.decode(JobDescription?.self, forKey: .jobDescription)
-        self.resume = try container.decode(Resume?.self, forKey: .resume)
-        self.cover = try container.decode(CoverLetter?.self, forKey: .cover)
+        self.jobDescription = try? container.decode(JobDescription?.self, forKey: .jobDescription)
+        self.resume = try? container.decode(Resume?.self, forKey: .resume)
+        self.cover = try? container.decode(CoverLetter?.self, forKey: .cover)
         self.dateCreated = try container.decode(Date.self, forKey: .dateCreated)
-        self.events = try container.decode([Event].self, forKey: .dateCreated)
+        self.events = try container.decode([Event].self, forKey: .events)
     }
     
     func encode(to encoder: Encoder) throws {

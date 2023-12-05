@@ -21,6 +21,14 @@ import SwiftUI
 import SwiftData
 import UniformTypeIdentifiers
 
+
+/*
+  The implementation of export/import features have been inspired by following posts:
+ - https://stackoverflow.com/questions/67336152/swiftui-fileexporter-exporting-only-1-document
+ - https://stackoverflow.com/questions/73013526/how-to-save-a-json-file-in-documents-directory
+ - https://swiftwithmajid.com/2023/05/10/file-importing-and-exporting-in-swiftui/
+ */
+
 struct ProfileDocument : FileDocument {
     static var readableContentTypes: [UTType] { [.json] }
     
@@ -61,9 +69,16 @@ struct Export_ImportView: View {
     
     @Binding var pathManager:PathManager
     
+    @Environment(\.modelContext) private var modelContext
+    
     @State private var displayMenuBar: Bool = false
     
     @State private var importing = false
+    
+    @State private var importAlert = false
+    
+    @State private var importLoading = false
+    
     @State private var exporting = false
     
     @Query var applications: [Application]
@@ -81,15 +96,92 @@ struct Export_ImportView: View {
         exporting = true
     }
     
-    func importFromFile() {
-        
+    func importFromFile(url: URL) {
+        Task {
+            if url.startAccessingSecurityScopedResource() {
+                do {
+                    let (data, _) = try await URLSession.shared.data(from: url)
+                    print(data)
+                    do {
+                        
+                        let decoded = try JSONDecoder().decode([Application].self, from: data)
+                        let results = decoded
+                        
+                        try modelContext.delete(model: Application.self)
+                        
+                        results.forEach {
+                            modelContext.insert($0)
+                        }
+                    } catch {
+                        print(error)
+                    }
+                    importLoading = false
+                    url.stopAccessingSecurityScopedResource()
+                } catch {
+                    print("Invalid data")
+                    importLoading = false
+                    url.stopAccessingSecurityScopedResource()
+                }
+            } else {
+                print("Access deined")
+                importLoading = false
+            }
+        }
     }
     
     var body: some View {
         VStack {
             Spacer()
             Button("Import") {
-                importFromFile()
+                importAlert = true
+            }
+            .alert("This operation will erase your data", isPresented: $importAlert) {
+                Button("OK", role: .destructive) {
+                    importing = true
+                }
+                Button("Cancel", role: .cancel) {}
+            }
+            .fileImporter(
+                isPresented: $importing,
+                allowedContentTypes: [.json]
+            ) { result in
+                switch result {
+                case .success(let url):
+                    do {
+                        importLoading = true
+                        
+                        importFromFile(url: url)
+                        
+                        // The following snippet may solve an issue of not able to load file from picker
+                        // https://www.hackingwithswift.com/forums/swiftui/error-using-fileimporter-and-fileexporter/17548
+                        // This issue seems to be solved
+                        
+//                        guard url.startAccessingSecurityScopedResource() else {
+//                            print("Failed to start access")
+//                            importLoading = false
+//                            return
+//                        }
+//                        
+//                        let cacheDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+//                        let tmpDestUrl = cacheDir.appendingPathComponent(url.lastPathComponent)
+//                        
+//                        if let dataFromUrl = NSData(contentsOf: url) {
+//                            if dataFromUrl.write(to: tmpDestUrl, atomically: true) {
+//                                print("File copied to temp directory [\(tmpDestUrl.path)]")
+//                                importFromFile(url: tmpDestUrl)
+//                            } else {
+//                                print("Error copying file")
+//                                let error = NSError(domain:"Error saving file", code:1001, userInfo:nil)
+//                            }
+//                        }
+//                        url.stopAccessingSecurityScopedResource()
+                        
+                    } catch {
+                        print(error)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
             }
             .padding(8)
             Button("Export") {
