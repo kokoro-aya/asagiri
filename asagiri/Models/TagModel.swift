@@ -43,7 +43,7 @@ class Tag : Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
-        self.color = try container.decode(String?.self, forKey: .color)
+        self.color = try? container.decode(String?.self, forKey: .color)
     }
     
     func encode(to encoder: Encoder) throws {

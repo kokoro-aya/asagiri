@@ -62,8 +62,8 @@ final class JobDescription : Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.title = try container.decode(String.self, forKey: .title)
-        self.company = try container.decode(Company?.self, forKey: .company)
-        self.type = try container.decode(CareerType?.self, forKey: .type)
+        self.company = try? container.decode(Company?.self, forKey: .company)
+        self.type = try? container.decode(CareerType?.self, forKey: .type)
         self.intro = try container.decode(String.self, forKey: .intro)
         self.companyIntro = try container.decode(String.self, forKey: .companyIntro)
         self.responsibilities = try container.decode(String.self, forKey: .responsibilities)

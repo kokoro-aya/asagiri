@@ -43,7 +43,7 @@ final class CareerType : Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
-        self.symbol = try container.decode(String?.self, forKey: .symbol)
+        self.symbol = try? container.decode(String?.self, forKey: .symbol)
     }
     
     func encode(to encoder: Encoder) throws {
