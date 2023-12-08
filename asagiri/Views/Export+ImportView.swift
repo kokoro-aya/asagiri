@@ -29,6 +29,12 @@ import UniformTypeIdentifiers
  - https://swiftwithmajid.com/2023/05/10/file-importing-and-exporting-in-swiftui/
  */
 
+enum AfterDialog {
+    case import_success, import_failure
+    case export_success, export_failure
+    case none
+}
+
 struct ProfileDocument : FileDocument {
     static var readableContentTypes: [UTType] { [.json] }
     
@@ -81,6 +87,10 @@ struct Export_ImportView: View {
     
     @State private var exporting = false
     
+    @State private var afterDialog = false
+    
+    @State private var afterDialogReason: AfterDialog = .none
+    
     @Query var applications: [Application]
     
     @State var _exportText: ProfileDocument? = nil
@@ -102,29 +112,47 @@ struct Export_ImportView: View {
                 do {
                     let (data, _) = try await URLSession.shared.data(from: url)
                     print(data)
-                    do {
-                        
-                        let decoded = try JSONDecoder().decode([Application].self, from: data)
-                        let results = decoded
-                        
-                        try modelContext.delete(model: Application.self)
-                        
-                        results.forEach {
-                            modelContext.insert($0)
-                        }
-                    } catch {
-                        print(error)
+                    
+                    let modelContextKey = CodingUserInfoKey(rawValue: "modelcontext")!
+                    
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    decoder.userInfo[modelContextKey] = modelContext
+                    
+                    let decoded = try decoder.decode([Application].self, from: data)
+                    
+                    let results = decoded
+                    
+                    try modelContext.delete(model: Application.self)
+                    try modelContext.delete(model: JobDescription.self)
+                    try modelContext.delete(model: Company.self)
+                    try modelContext.delete(model: Resume.self)
+                    try modelContext.delete(model: CoverLetter.self)
+                    
+                    results.forEach {
+                        modelContext.insert($0)
                     }
+                 
                     importLoading = false
                     url.stopAccessingSecurityScopedResource()
+                    
+                    afterDialog = true
+                    afterDialogReason = .import_success
                 } catch {
                     print("Invalid data")
+                    print(error)
                     importLoading = false
                     url.stopAccessingSecurityScopedResource()
+                    
+                    afterDialog = true
+                    afterDialogReason = .import_failure
                 }
             } else {
-                print("Access deined")
+                print("Access denied")
                 importLoading = false
+                
+                afterDialog = true
+                afterDialogReason = .import_failure
             }
         }
     }
@@ -178,9 +206,13 @@ struct Export_ImportView: View {
                         
                     } catch {
                         print(error)
+                        afterDialog = true
+                        afterDialogReason = .import_failure
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
+                    afterDialog = true
+                    afterDialogReason = .import_failure
                 }
             }
             .padding(8)
@@ -193,8 +225,39 @@ struct Export_ImportView: View {
                           onCompletion: { _ in
                 _exportText = nil
                 exporting = false
+                afterDialog = true
+                afterDialogReason = .export_success
             })
             Spacer()
+        }
+        .alert(isPresented: $afterDialog) {
+            switch afterDialogReason {
+            case .import_success:
+                return Alert(title: Text("Success"), message: Text("Successfully imported your data"), dismissButton: .default(Text("OK")) {
+                    afterDialog = false
+                    afterDialogReason = .none
+                })
+            case .import_failure:
+                return Alert(title: Text("Failed"), message: Text("Failed to import your data"), dismissButton: .default(Text("OK")) {
+                    afterDialog = false
+                    afterDialogReason = .none
+                })
+            case .export_success:
+                return Alert(title: Text("Success"), message: Text("Successfully exported your data"), dismissButton: .default(Text("OK")) {
+                    afterDialog = false
+                    afterDialogReason = .none
+                })
+            case .export_failure:
+                return Alert(title: Text("Failed"), message: Text("Failed to export your data"), dismissButton: .default(Text("OK")) {
+                    afterDialog = false
+                    afterDialogReason = .none
+                })
+            case .none:
+                return Alert(title: Text("Nothing"), message: Text("This alert should not display"), dismissButton: .default(Text("OK")) {
+                    afterDialog = false
+                    afterDialogReason = .none
+                })
+            }
         }
         .padding([.top], 20)
         .padding(16)
