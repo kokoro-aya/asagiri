@@ -21,7 +21,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Company {
+final class Company : Codable {
     var name: String
     var website: String
     
@@ -32,5 +32,22 @@ final class Company {
     init(name: String, website: String) {
         self.name = name
         self.website = website
+    }
+    
+    // Boilerplates for codable conformance
+    enum CodingKeys: CodingKey {
+        case name, website
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.website = try container.decode(String.self, forKey: .website)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(website, forKey: .website)
     }
 }

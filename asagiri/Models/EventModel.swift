@@ -21,7 +21,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Event {
+final class Event : Codable {
     var type: ApplicationStatus
 
     var updateTime: Date
@@ -29,5 +29,22 @@ final class Event {
     init(type: ApplicationStatus, updateTime: Date = .now) {
         self.type = type
         self.updateTime = updateTime
+    }
+    
+    // Boilerplates for codable conformance
+    enum CodingKeys: CodingKey {
+        case type, updateTime
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.type = try container.decode(ApplicationStatus.self, forKey: .type)
+        self.updateTime = try container.decode(Date.self, forKey: .updateTime)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(type, forKey: .type)
+        try container.encode(updateTime, forKey: .updateTime)
     }
 }

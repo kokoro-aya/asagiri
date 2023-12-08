@@ -21,7 +21,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class JobDescription {
+final class JobDescription : Codable {
     var title: String
     
     var company: Company?
@@ -52,5 +52,32 @@ final class JobDescription {
         self.companyIntro = companyIntro
         self.responsibilities = responsibilities
         self.complementary = complementary
+    }
+    
+    // Boilerplates for codable conformance
+    enum CodingKeys: CodingKey {
+        case title, company, type, intro, companyIntro, responsibilities, complementary
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.title = try container.decode(String.self, forKey: .title)
+        self.company = try? container.decode(Company?.self, forKey: .company)
+        self.type = try? container.decode(CareerType?.self, forKey: .type)
+        self.intro = try container.decode(String.self, forKey: .intro)
+        self.companyIntro = try container.decode(String.self, forKey: .companyIntro)
+        self.responsibilities = try container.decode(String.self, forKey: .responsibilities)
+        self.complementary = try container.decode(String.self, forKey: .complementary)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(title, forKey: .title)
+        try container.encode(company, forKey: .company)
+        try container.encode(type, forKey: .type)
+        try container.encode(intro, forKey: .intro)
+        try container.encode(companyIntro, forKey: .companyIntro)
+        try container.encode(responsibilities, forKey: .responsibilities)
+        try container.encode(complementary, forKey: .complementary)
     }
 }

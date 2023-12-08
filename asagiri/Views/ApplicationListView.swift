@@ -28,58 +28,96 @@ struct ApplicationListView: View {
     
     @State private var displayMenuBar: Bool = false
     
+    @State private var showArchived: Bool = false
+    
+    private var ongoingApps: [Application] {
+        return applications.filter { $0.status != .archived }
+    }
+    
+    private var archivedApps: [Application] {
+        return applications.filter { $0.status == .archived }
+    }
+    
     // TODO: Add filter facilities
     
     var body: some View {
+        VStack {
+            HStack {
+                if showArchived {
+                    Button("Active apps") {
+                        showArchived = false
+                    }
+                } else {
+                    if !archivedApps.isEmpty {
+                        Button("Archived apps") {
+                            showArchived = true
+                        }
+                    }
+                }
+                Spacer()
+            }
+            .padding([.leading, .trailing, .bottom], 10)
             ScrollView {
-                ForEach(applications) { app in
+                ForEach(showArchived ? archivedApps : ongoingApps) { app in
                     ApplicationCard(application: app)
                         .padding([.leading, .trailing], 10)
                 }
             }
-            .padding([.top], 12)
-            .padding(8)
-            .toolbar {
-                if displayMenuBar {
-                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                        Button {
-                            displayMenuBar = false
-                        } label: {
-                            Label("Menu", systemImage: "arrow.left")
-                        }
-                        
-                        //
-                        
-                        Label("Menu", systemImage: "house.fill")
-                            .foregroundColor(.black)
-                        
-                        NavigationLink(value: PageType.settings, label: {
-                            Label("Settings", systemImage: "gear")
-                        })
-                        
+        }
+        .padding([.top], 12)
+        .padding(8)
+        .toolbar {
+            if displayMenuBar {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button {
+                        displayMenuBar = false
+                    } label: {
+                        Label("Menu", systemImage: "arrow.left")
                     }
-                } else {
-                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                        Button {
-                            displayMenuBar = true
-                        } label: {
-                            Label("Menu", systemImage: "line.3.horizontal")
-                        }
-                        
-                        Text("Applications")
-                            .font(.title2)
-                    }
-                }
-                ToolbarItem {
-//                    EditButton()
-                    NavigationLink(value: PageType.create_new_jd, label: {
-                        Label("Add Item", systemImage: "square.and.pencil")
+                    
+                    //
+                    
+                    Label("Menu", systemImage: "house.fill")
+                        .foregroundColor(.black)
+                        .padding([.trailing], 10)
+                    
+                    NavigationLink(value: PageType.jd_list, label: {
+                        Label("JD List", systemImage: "bag.fill")
+                    })
+                    
+                    NavigationLink(value: PageType.settings, label: {
+                        Label("Settings", systemImage: "gear")
+                    })
+                    
+                    NavigationLink(value: PageType.analytics, label: {
+                        Label("Analytics", systemImage: "chart.pie")
                     })
                     
                 }
+            } else {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button {
+                        displayMenuBar = true
+                    } label: {
+                        Label("Menu", systemImage: "line.3.horizontal")
+                    }
+                    
+                    Text("Applications")
+                        .font(.title2)
+                }
+            }
+            ToolbarItem {
+//                    EditButton()
+                NavigationLink(value: PageType.create_new_jd, label: {
+                    Label("Add Item", systemImage: "square.and.pencil")
+                })
+                
             }
         }
+        // Prevent the view from being pushed down
+        .navigationBarTitle(Text(""), displayMode: .inline)
     }
+}
 
 #Preview {
     MainActor.assumeIsolated {
@@ -130,7 +168,16 @@ struct ApplicationListView: View {
                 Event(type: .interview(round: 1), updateTime:  createDateFromString("2023-10-15T10:52:10-08:00"))
                ])
         
-        let apps = [app0, app1, app2, app3, app4, app5]
+        let app6 = Application(jobDescription: JobDescription(title: "Front-end developer", company: Company(name: "Company 3", website: "company.com"), type: CareerType(name: "Front-end")),
+               resume: Resume(content: "An MBA with 5 years of experience developing and managing marketing campaigns and specialized working knowledge of Google Analytics and AdWords, seeks the role of Social Media Marketing Manager with XYZ Inc. to implement successful digital marketing campaigns and provide exceptional thought leadership."),
+               dateCreated: createDateFromString("2023-10-05T17:59:23-08:00"),
+               events: [
+                Event(type: .applied, updateTime:  createDateFromString("2023-10-05T17:59:23-08:00")),
+                Event(type: .rejected, updateTime:  createDateFromString("2023-10-10T12:13:14-08:00")),
+                Event(type: .archived, updateTime:  createDateFromString("2023-10-20T12:13:14-08:00"))
+               ])
+        
+        let apps = [app0, app1, app2, app3, app4, app5, app6]
         
         apps.forEach {
             previewContainer.mainContext.insert($0)

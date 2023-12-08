@@ -26,13 +26,66 @@ struct JDListView: View {
     
     @Query private var jobDescriptions: [JobDescription]
     
+    @State private var displayMenuBar: Bool = false
+    
     var body: some View {
         ScrollView {
             ForEach(jobDescriptions) { jd in
-                JobDescriptionCard(jd: jd)
+                JobDescriptionCard(jd: jd, pathManager: $pathManager)
                     .padding([.leading, .trailing], 10)
             }
         }
+        .padding([.top], 12)
+        .padding(8)
+        .toolbar {
+            if displayMenuBar {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button {
+                        displayMenuBar = false
+                    } label: {
+                        Label("Menu", systemImage: "arrow.left")
+                    }
+                    
+                    NavigationLink(value: PageType.home, label: {
+                        Label("Home", systemImage: "house.fill")
+                    })
+                    
+                    Label("JD List", systemImage: "bag.fill")
+                        .foregroundColor(.black)
+                        .padding([.leading, .trailing], 10)
+                    
+                    NavigationLink(value: PageType.settings, label: {
+                        Label("Settings", systemImage: "gear")
+                    })
+                    
+                    NavigationLink(value: PageType.analytics, label: {
+                        Label("Analytics", systemImage: "chart.pie")
+                    })
+
+                    
+                }
+            } else {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button {
+                        displayMenuBar = true
+                    } label: {
+                        Label("Menu", systemImage: "line.3.horizontal")
+                    }
+                    
+                    Text("Job Descriptions")
+                        .font(.title2)
+                }
+            }
+            ToolbarItem {
+//                    EditButton()
+                NavigationLink(value: PageType.create_new_jd, label: {
+                    Label("Add Item", systemImage: "square.and.pencil")
+                })
+                
+            }
+        }
+        // Prevent the view from being pushed down
+        .navigationBarTitle(Text(""), displayMode: .inline)
     }
 }
 

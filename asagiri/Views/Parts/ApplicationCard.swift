@@ -26,6 +26,8 @@ struct ApplicationCard: View {
     
     @State var detailed: Bool = false
     
+    @State var date: Date = .now
+    
     init(application: Application) {
         self.app = application
     }
@@ -50,9 +52,10 @@ struct ApplicationCard: View {
                     
                     if (lastEvent != nil) {
                         let start = app.dateCreated.formatted(.dateTime.day().month().year())
-                        let curr = lastEvent!.updateTime.formatted(.dateTime.day().month().year())
+//                        let curr = lastEvent!.updateTime.formatted(.dateTime.day().month().year())
                         
-                        Text("\(start) - \(curr)")
+//                        Text("\(start) - \(curr)")
+                        Text(" \(start)")
                             .font(.caption)
                             .padding([.trailing], 4)
                             .padding([.bottom], 2)
@@ -84,6 +87,9 @@ struct ApplicationCard: View {
                             Text("Cover")
                         }
                     }
+                    NavigationLink(value: app, label: {
+                        Text("Detail")
+                    })
                 }
                 Spacer()
                 
@@ -99,6 +105,7 @@ struct ApplicationCard: View {
                         case .rejected: "REJ"
                         case .offer: "OFFR"
                         case .ghost: "GHO"
+                        case .archived: "ARC"
                     }
                     Text(label)
                     
@@ -135,13 +142,15 @@ struct ApplicationCard: View {
             .padding([.bottom], 2)
             .font(.callout)
             if (detailed) {
-                ForEach(app.events.sorted(by: { $0.updateTime > $1.updateTime })) { event in
-                    HStack {
-                        Text(event.type.description)
-                        Spacer()
-                        Text(event.updateTime.formatted(.dateTime.day().month().year()))
+                VStack {
+                    ForEach(app.events.sorted(by: { $0.updateTime > $1.updateTime })) { event in
+                        HStack {
+                            Text(event.type.description)
+                            Spacer()
+                            Text(event.updateTime.formatted(.dateTime.day().month().year()))
+                        }
+                        .font(.footnote)
                     }
-                    .font(.footnote)
                 }
                 .padding([.leading, .trailing], 8)
                 .padding([.top, .bottom], 4)

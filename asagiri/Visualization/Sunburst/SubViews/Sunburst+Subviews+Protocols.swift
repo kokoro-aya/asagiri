@@ -19,7 +19,7 @@
 
 import Foundation
 
-protocol SankeySubView {
+protocol SunburstSubView {
     var startingPixel: Int { get }
     
     var padding: Int { get }
@@ -28,14 +28,14 @@ protocol SankeySubView {
     
 }
 
-protocol DynamicSankeySubView : SankeySubView {
+protocol DynamicSunburstSubView : SunburstSubView {
     
     var narrowWidth: Int { get }
     
     var detailDepth: Int { get }
 }
 
-extension SankeySubView {
+extension SunburstSubView {
     func computeInnerDetailBound(_ i: Int) -> Int {
         return startingPixel + i * (padding * 2 + width)
     }
@@ -45,7 +45,7 @@ extension SankeySubView {
     }
 }
 
-extension DynamicSankeySubView {
+extension DynamicSunburstSubView {
     
     func computeDetailOutbound() -> Int {
         return startingPixel + detailDepth * (padding * 2 + width)

@@ -22,12 +22,17 @@ import SwiftUI
 
 struct JobDescriptionCard: View {
     
+    @Binding var pathManager:PathManager
+    
+    @Environment(\.modelContext) private var modelContext
+    
     let jd: JobDescription
     
     @State var detailed: Bool = false
     
-    init(jd: JobDescription) {
+    init(jd: JobDescription, pathManager: Binding<PathManager>) {
         self.jd = jd
+        self._pathManager = pathManager
     }
     
     var body: some View {
@@ -47,11 +52,11 @@ struct JobDescriptionCard: View {
                     Text("\(jd.intro.prefix(136).description) ...")
                 }
                 Spacer()
-                Button {
-                    
-                } label: {
+                
+                NavigationLink(value: jd, label: {
                     Text("Finish")
-                }
+                })
+                
             }
         }
         Divider()

@@ -20,7 +20,7 @@
 import SwiftUI
 import Charts
 
-struct DynamicSunburstDiagramView: View, DynamicSankeySubView {
+struct DynamicSunburstDiagramView: View, DynamicSunburstSubView {
     
     @State var dataSource: PaintNode
     

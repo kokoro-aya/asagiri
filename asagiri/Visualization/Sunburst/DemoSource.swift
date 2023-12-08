@@ -68,6 +68,12 @@ let dataSource: PaintNode = PaintNode(label: "Submitted",
         PaintEdge(label: "Ghosted", value: 19)
     ])
 
+let sampleDataSource = PaintNode(label: "Submitted", children: [
+    PaintNode(label: "Applied", children: [
+        PaintEdge(label: "Pending", value: 4)
+    ])
+])
+
 let domains = ["Phone Screen", "OA", "1st Interview", "2nd Interview", "3rd Interview", "4th Interview", "Technical Test", "Accepted", "Rejected", "Ghosted"]
 
 let chartColors: [Color] = [

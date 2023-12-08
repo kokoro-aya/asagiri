@@ -21,7 +21,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Application {
+final class Application : Codable {
 
     var jobDescription: JobDescription? = nil
 
@@ -33,8 +33,14 @@ final class Application {
 
     var events: [Event] = []
 
-    var status: ApplicationStatus {
-        events.sorted(by: { $0.updateTime < $1.updateTime }).last?.type ?? .not_started
+    var status: ApplicationStatus  {
+        get {
+            events.sorted(by: { $0.updateTime < $1.updateTime }).last?.type ?? .not_started
+        }
+    }
+    
+    func setArchived() {
+        events.append(Event(type: .archived))
     }
     
     var lastEvent: Event? {
@@ -48,10 +54,36 @@ final class Application {
 
     init(jobDescription: JobDescription, resume: Resume? = nil, cover: CoverLetter? = nil, dateCreated: Date = .now, events: [Event] = []) {
         self.jobDescription = jobDescription
-        self.dateCreated = Date.now
         self.resume = resume
         self.cover = cover
         self.dateCreated = dateCreated
         self.events = events
+    }
+    
+    // Boilerplates for codable conformance
+    enum CodingKeys: CodingKey {
+        case jobDescription, dateCreated, resume, cover, events
+    }
+    
+    required init(from decoder: Decoder) throws {
+        guard let context = decoder.userInfo[CodingUserInfoKey(rawValue: "modelcontext")!] as? ModelContext else {
+            fatalError()
+        }
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.jobDescription = try? container.decode(JobDescription?.self, forKey: .jobDescription)
+        self.resume = try? container.decode(Resume?.self, forKey: .resume)
+        self.cover = try? container.decode(CoverLetter?.self, forKey: .cover)
+        self.dateCreated = try container.decode(Date.self, forKey: .dateCreated)
+        self.events = try container.decode([Event].self, forKey: .events)
+        context.insert(self)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(jobDescription, forKey: .jobDescription)
+        try container.encode(resume, forKey: .dateCreated)
+        try container.encode(cover, forKey: .cover)
+        try container.encode(dateCreated, forKey: .dateCreated)
+        try container.encode(events, forKey: .events)
     }
 }

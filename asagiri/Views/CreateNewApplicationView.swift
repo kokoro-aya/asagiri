@@ -40,6 +40,8 @@ struct CreateNewApplicationView: View {
     
     @State var cover: String = ""
     
+    @State var creationDate: Date = .now
+    
     var body: some View {
         VStack {
             HStack {
@@ -61,6 +63,12 @@ struct CreateNewApplicationView: View {
                         Text(jobDescription.title)
                             .font(.title3)
                             .foregroundColor(.gray)
+                    }
+                    HStack {
+                        DatePicker(selection: $creationDate, in: ...Date.now, displayedComponents: .date) {
+                            Text("Date")
+                                .font(.title3)
+                        }
                     }
                     HStack {
                         Text("Resume")
@@ -108,7 +116,13 @@ struct CreateNewApplicationView: View {
                     createdApplication.jobDescription = jobDescription
                     createdApplication.resume = Resume(content: resume)
                     createdApplication.cover = CoverLetter(content: cover)
-                    createdApplication.events.append(Event(type: .preparation))
+                    createdApplication.dateCreated = creationDate
+                    
+                    let newEvent = Event(type: .preparation)
+                    modelContext.insert(newEvent)
+                    newEvent.type = .preparation
+                
+                    createdApplication.events.append(newEvent)
                     
                     pathManager.path.removeLast(2)
                     
