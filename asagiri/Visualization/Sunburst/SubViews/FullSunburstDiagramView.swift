@@ -54,7 +54,7 @@ struct FullSunburstDiagramView: View, SunburstSubView {
                     .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
             }
             .chartForegroundStyleScale(domain: domains, range: chartColors)
-            .chartLegend(position: .leading, alignment: .top)
+            .chartLegend(position: .topLeading, alignment: .top)
             .chartLegend(hideLegend ? .hidden : .visible)
             .padding(16)
             
@@ -89,5 +89,5 @@ struct FullSunburstDiagramView: View, SunburstSubView {
         domains: domains, chartColors: chartColors,
         disappearDepth: 7,
         startingPixel: 62, width: 24, padding: 2,
-        hideLegend: true)
+        hideLegend: false)
 }

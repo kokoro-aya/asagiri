@@ -177,7 +177,7 @@ struct CreateNewJDView: View {
                     // Do not save JD but proceed it as an argument to the next page
                     pathManager.path.append(generatedJD)
                 } label: {
-                    Label("Continue to application", systemImage: "paperplane.fill")
+                    Label("Continue to application", systemImage: "arrow.forward")
                         .padding(12)
                 }
                 .disabled(!incomplete)
@@ -202,9 +202,10 @@ struct CreateNewJDView: View {
                     // Go back to main page
                     pathManager.path.append(PageType.home)
                 } label: {
-                    Label("Save and exit", systemImage: "paperplane.fill")
+                    Label("Save and exit", systemImage: "arrow.down.doc")
                         .padding(12)
                 }
+                .disabled(!incomplete)
             }
         }
         .padding(16)

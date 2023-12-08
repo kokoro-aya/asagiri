@@ -29,16 +29,24 @@ struct JobTypeDropdownSelector : View {
     
     var body: some View {
         Menu {
-            ForEach(allJobTypes) { ty in
-                Button(ty.name) {
-                    self.jobType = ty
+            if allJobTypes.isEmpty {
+                Text("No job added")
+            } else {
+                ForEach(allJobTypes) { ty in
+                    Button(ty.name) {
+                        self.jobType = ty
+                    }
                 }
             }
+            
             Divider()
-            Button(role: .destructive) {
-                self.jobType = nil
-            } label: {
-                Label("Remove", systemImage: "trash")
+            
+            if self.jobType != nil {
+                Button(role: .destructive) {
+                    self.jobType = nil
+                } label: {
+                    Label("Remove", systemImage: "trash")
+                }
             }
         } label: {
             Label(jobType?.name ?? "Job Type", systemImage: "bag.fill")

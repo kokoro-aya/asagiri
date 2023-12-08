@@ -42,10 +42,12 @@ struct CompanyDropdownSelector : View {
                 Label("Add new one", systemImage: "plus")
             })
             
-            Button(role: .destructive) {
-                self.company = nil
-            } label: {
-                Label("Remove", systemImage: "trash")
+            if self.company != nil {
+                Button(role: .destructive) {
+                    self.company = nil
+                } label: {
+                    Label("Remove", systemImage: "trash")
+                }
             }
         } label: {
             Label(company?.name ?? "Select one", systemImage: "building.2.fill")

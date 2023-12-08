@@ -71,7 +71,7 @@ struct AnalyticsView: View {
                         Label("Menu", systemImage: "line.3.horizontal")
                     }
                     
-                    Text("Settings")
+                    Text("Analytics")
                         .font(.title2)
                 }
             }
