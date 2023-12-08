@@ -116,7 +116,13 @@ struct CreateNewApplicationView: View {
                     createdApplication.jobDescription = jobDescription
                     createdApplication.resume = Resume(content: resume)
                     createdApplication.cover = CoverLetter(content: cover)
-                    createdApplication.events.append(Event(type: .preparation))
+                    createdApplication.dateCreated = creationDate
+                    
+                    let newEvent = Event(type: .preparation)
+                    modelContext.insert(newEvent)
+                    newEvent.type = .preparation
+                
+                    createdApplication.events.append(newEvent)
                     
                     pathManager.path.removeLast(2)
                     

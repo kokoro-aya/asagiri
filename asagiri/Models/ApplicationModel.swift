@@ -33,8 +33,10 @@ final class Application : Codable {
 
     var events: [Event] = []
 
-    var status: ApplicationStatus {
-        events.sorted(by: { $0.updateTime < $1.updateTime }).last?.type ?? .not_started
+    var status: ApplicationStatus  {
+        get {
+            events.sorted(by: { $0.updateTime < $1.updateTime }).last?.type ?? .not_started
+        }
     }
     
     func setArchived() {
@@ -64,12 +66,16 @@ final class Application : Codable {
     }
     
     required init(from decoder: Decoder) throws {
+        guard let context = decoder.userInfo[CodingUserInfoKey(rawValue: "modelcontext")!] as? ModelContext else {
+            fatalError()
+        }
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.jobDescription = try? container.decode(JobDescription?.self, forKey: .jobDescription)
         self.resume = try? container.decode(Resume?.self, forKey: .resume)
         self.cover = try? container.decode(CoverLetter?.self, forKey: .cover)
         self.dateCreated = try container.decode(Date.self, forKey: .dateCreated)
         self.events = try container.decode([Event].self, forKey: .events)
+        context.insert(self)
     }
     
     func encode(to encoder: Encoder) throws {
