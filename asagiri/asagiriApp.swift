@@ -36,7 +36,7 @@ struct asagiriApp: App {
             Event.self,
             Tag.self
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false, allowsSave: true)
         
         do {
             let container = try ModelContainer(for: schema, configurations: [modelConfiguration])
