@@ -130,10 +130,24 @@ struct CreateNewApplicationView: View {
                     Label("Save", systemImage: "paperplane.fill")
                         .padding(12)
                 }
-                NavigationLink(value: PageType.home, label: {
+                
+                Button {
+                    
+                    let dummy = Item(timestamp: .now)
+                    
+                    modelContext.insert(dummy)
+                    modelContext.delete(dummy)
+                    
+                    pathManager.path.removeLast(2)
+                } label: {
                     Label("Discard", systemImage: "minus")
                         .padding(12)
-                })
+                }
+                
+//                NavigationLink(value: PageType.home, label: {
+//                    Label("Discard", systemImage: "minus")
+//                        .padding(12)
+//                })
             }
         }
         .padding(16)
