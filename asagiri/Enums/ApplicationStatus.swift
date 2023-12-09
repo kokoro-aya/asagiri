@@ -72,6 +72,13 @@ enum ApplicationStatus : Codable, Hashable, Identifiable {
         }
     }
     
+    func canArchive() -> Bool {
+        return switch self {
+        case .archived: false
+        default: true
+        }
+    }
+    
 //     Seems that the enums with SwiftData are broken in deserializing JSON files
 //     as mentioned here: https://stackoverflow.com/questions/76645050/error-trying-to-use-swiftdata-property-based-on-an-enum-with-an-associated-value
 //     A walkthrough for the current Xcode and iOS versions

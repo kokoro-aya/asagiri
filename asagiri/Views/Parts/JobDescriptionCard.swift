@@ -54,7 +54,7 @@ struct JobDescriptionCard: View {
                 Spacer()
                 
                 NavigationLink(value: jd, label: {
-                    Text("Finish")
+                    Text("Add an app.")
                 })
                 
             }

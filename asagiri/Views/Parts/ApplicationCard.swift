@@ -24,6 +24,8 @@ struct ApplicationCard: View {
     
     let app: Application
     
+    @Environment(\.modelContext) private var modelContext
+    
     @State var detailed: Bool = false
     
     @State var date: Date = .now
@@ -111,11 +113,24 @@ struct ApplicationCard: View {
                     
                 } else {
                     let possibleNexts = self.app.status.possibleNexts()
+                    let canArchive = self.app.status.canArchive()
                     
                     Menu {
                         ForEach(possibleNexts) { sts in
                             Button(sts.description) {
                                 self.app.events.append(Event(type: sts))
+                            }
+                        }
+                        if (canArchive) {
+                            Divider()
+                            Button("Archive", role: .destructive) {
+                                self.app.setArchived()
+                            }
+                        }
+                        if (self.app.status == .archived) {
+                            Divider()
+                            Button("Delete", role: .destructive) {
+                                modelContext.delete(self.app)
                             }
                         }
                     } label: {
@@ -143,7 +158,7 @@ struct ApplicationCard: View {
             .font(.callout)
             if (detailed) {
                 VStack {
-                    ForEach(app.events.sorted(by: { $0.updateTime > $1.updateTime })) { event in
+                    ForEach(app.events.sorted(by: { $0.updateTime < $1.updateTime })) { event in
                         HStack {
                             Text(event.type.description)
                             Spacer()
