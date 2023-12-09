@@ -2,18 +2,23 @@
 
 A simple iOS mobile app to track your job applications.
 
+You can save your applications to track them, update them and visualize them.
+
 Features:
 
-- Save your applications to track them, update them and visualize them
 - Update your applications in one click
-- Review your applications, and add your comments if needed
+- Bring back your updates if they happened a week before
+- Archive or delete if you feel them useless
 - Visualize your application statistics
-- Swipe to archive your expired applications
-- Export to JSON file and reimport them back
 
 Planned:
 
+- Export/Import to JSON files
 - Tags
 - Filters
-- 2 types of charts
+- More comprehensive statistics page
 - PDF-related facilities
+
+Preview:
+
+![](https://i.v2ex.co/mhVHd9AZ.png)
