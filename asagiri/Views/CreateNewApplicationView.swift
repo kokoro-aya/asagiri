@@ -118,7 +118,7 @@ struct CreateNewApplicationView: View {
                     createdApplication.cover = CoverLetter(content: cover)
                     createdApplication.dateCreated = creationDate
                     
-                    let newEvent = Event(type: .preparation)
+                    let newEvent = Event(type: .preparation, updateTime: creationDate)
                     modelContext.insert(newEvent)
                     newEvent.type = .preparation
                 

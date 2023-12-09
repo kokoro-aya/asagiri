@@ -28,7 +28,7 @@ struct ApplicationCard: View {
     
     @State var detailed: Bool = false
     
-    @State var date: Date = .now
+    @State var updateDate: Date = .now
     
     init(application: Application) {
         self.app = application
@@ -95,49 +95,35 @@ struct ApplicationCard: View {
                 }
                 Spacer()
                 
-                if (detailed) {
-                    let label = switch app.status {
-                        case .not_started: "NSTA"
-                        case .preparation: "PREP"
-                        case .applied: "APPL"
-                        case .oa: "OA"
-                        case .technical_test: "TEST"
-                        case .phone_screen: "PSCR"
-                        case .interview(let round): "INT\(round)"
-                        case .rejected: "REJ"
-                        case .offer: "OFFR"
-                        case .ghost: "GHO"
-                        case .archived: "ARC"
-                    }
-                    Text(label)
-                    
-                } else {
-                    let possibleNexts = self.app.status.possibleNexts()
-                    let canArchive = self.app.status.canArchive()
-                    
-                    Menu {
-                        ForEach(possibleNexts) { sts in
-                            Button(sts.description) {
+                let possibleNexts = self.app.status.possibleNexts()
+                let canArchive = self.app.status.canArchive()
+                
+                Menu {
+                    ForEach(possibleNexts) { sts in
+                        Button(sts.description) {
+                            if detailed {
+                                self.app.events.append(Event(type: sts, updateTime: updateDate))
+                            } else {
                                 self.app.events.append(Event(type: sts))
                             }
                         }
-                        if (canArchive) {
-                            Divider()
-                            Button("Archive", role: .destructive) {
-                                self.app.setArchived()
-                            }
-                        }
-                        if (self.app.status == .archived) {
-                            Divider()
-                            Button("Delete", role: .destructive) {
-                                modelContext.delete(self.app)
-                            }
-                        }
-                    } label: {
-                        Text(app.status.description)
-                            .font(.subheadline)
-                            .foregroundColor(app.status.color())
                     }
+                    if (canArchive) {
+                        Divider()
+                        Button("Archive", role: .destructive) {
+                            self.app.setArchived()
+                        }
+                    }
+                    if (self.app.status == .archived) {
+                        Divider()
+                        Button("Delete", role: .destructive) {
+                            modelContext.delete(self.app)
+                        }
+                    }
+                } label: {
+                    Text(app.status.description)
+                        .font(.subheadline)
+                        .foregroundColor(app.status.color())
                 }
                 
                 Button {
@@ -165,6 +151,11 @@ struct ApplicationCard: View {
                             Text(event.updateTime.formatted(.dateTime.day().month().year()))
                         }
                         .font(.footnote)
+                    }
+                    
+                    DatePicker(selection: $updateDate, in: app.events.last!.updateTime...Date.now, displayedComponents: .date) {
+                        Text("Update date")
+                            .font(.callout)
                     }
                 }
                 .padding([.leading, .trailing], 8)
