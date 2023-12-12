@@ -41,6 +41,9 @@ final class CareerType : Codable {
     }
     
     required init(from decoder: Decoder) throws {
+        guard let context = decoder.userInfo[CodingUserInfoKey(rawValue: "modelcontext")!] as? ModelContext else {
+            fatalError()
+        }
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
         self.symbol = try? container.decode(String?.self, forKey: .symbol)

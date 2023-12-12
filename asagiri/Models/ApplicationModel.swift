@@ -22,11 +22,14 @@ import SwiftData
 
 @Model
 final class Application : Codable {
-
+    
+    @Relationship
     var jobDescription: JobDescription? = nil
 
+    @Relationship
     var resume: Resume? = nil
 
+    @Relationship
     var cover: CoverLetter? = nil
 
     var dateCreated: Date
@@ -35,7 +38,7 @@ final class Application : Codable {
 
     var status: ApplicationStatus  {
         get {
-            events.sorted(by: { $0.updateTime < $1.updateTime }).last?.type ?? .not_started
+            events.sorted(by: { $0.updateTime < $1.updateTime }).last?.type ?? .notStarted
         }
     }
     
@@ -62,7 +65,7 @@ final class Application : Codable {
     
     // Boilerplates for codable conformance
     enum CodingKeys: CodingKey {
-        case jobDescription, dateCreated, resume, cover, events
+        case dateCreated, resume, cover, events
     }
     
     required init(from decoder: Decoder) throws {
@@ -70,17 +73,14 @@ final class Application : Codable {
             fatalError()
         }
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.jobDescription = try? container.decode(JobDescription?.self, forKey: .jobDescription)
         self.resume = try? container.decode(Resume?.self, forKey: .resume)
         self.cover = try? container.decode(CoverLetter?.self, forKey: .cover)
         self.dateCreated = try container.decode(Date.self, forKey: .dateCreated)
         self.events = try container.decode([Event].self, forKey: .events)
-        context.insert(self)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(jobDescription, forKey: .jobDescription)
         try container.encode(resume, forKey: .dateCreated)
         try container.encode(cover, forKey: .cover)
         try container.encode(dateCreated, forKey: .dateCreated)

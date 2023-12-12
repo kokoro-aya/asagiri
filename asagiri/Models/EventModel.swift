@@ -37,8 +37,13 @@ final class Event : Codable {
     }
     
     required init(from decoder: Decoder) throws {
+        guard let context = decoder.userInfo[CodingUserInfoKey(rawValue: "modelcontext")!] as? ModelContext else {
+            fatalError()
+        }
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        
         self.type = try container.decode(ApplicationStatus.self, forKey: .type)
+        
         self.updateTime = try container.decode(Date.self, forKey: .updateTime)
     }
     

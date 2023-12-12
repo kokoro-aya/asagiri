@@ -153,7 +153,7 @@ struct ApplicationCard: View {
                         .font(.footnote)
                     }
                     
-                    DatePicker(selection: $updateDate, in: app.events.last!.updateTime...Date.now, displayedComponents: .date) {
+                    DatePicker(selection: $updateDate, in: app.events.sorted(by: { $0.updateTime < $1.updateTime }).last!.updateTime...Date.now, displayedComponents: .date) {
                         Text("Update date")
                             .font(.callout)
                     }

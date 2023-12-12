@@ -27,6 +27,7 @@ final class Company : Codable {
     
 //    var comments: String = ""
     
+    @Relationship(deleteRule: .cascade, inverse: \JobDescription.company)
     var positions: [JobDescription] = []
     
     init(name: String, website: String) {
@@ -36,18 +37,28 @@ final class Company : Codable {
     
     // Boilerplates for codable conformance
     enum CodingKeys: CodingKey {
-        case name, website
+        case name, website, positions
     }
     
     required init(from decoder: Decoder) throws {
+        guard let context = decoder.userInfo[CodingUserInfoKey(rawValue: "modelcontext")!] as? ModelContext else {
+            fatalError()
+        }
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
         self.website = try container.decode(String.self, forKey: .website)
+        
+        self.positions = try container.decode([JobDescription].self, forKey: .positions)
+        
+        // Persist data with its relationship
+        context.insert(self)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
         try container.encode(website, forKey: .website)
+        
+        try container.encode(positions, forKey: .positions)
     }
 }

@@ -136,7 +136,7 @@ struct ApplicationListView: View {
                dateCreated: createDateFromString("2023-09-19T12:56:47-08:00"),
                events: [
                 Event(type: .applied, updateTime:  createDateFromString("2023-09-19T12:56:47-08:00")),
-                Event(type: .phone_screen, updateTime:  createDateFromString("2023-10-03T10:15:23-08:00"))
+                Event(type: .phoneScreen, updateTime:  createDateFromString("2023-10-03T10:15:23-08:00"))
                ])
         
         let app3 = Application(jobDescription: JobDescription(title: "Front-end developer", company: Company(name: "Company 3", website: "company.com"), type: CareerType(name: "Front-end")),

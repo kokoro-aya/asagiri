@@ -39,6 +39,9 @@ final class Resume : Codable {
     }
     
     required init(from decoder: Decoder) throws {
+        guard let context = decoder.userInfo[CodingUserInfoKey(rawValue: "modelcontext")!] as? ModelContext else {
+            fatalError()
+        }
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.content = try container.decode(String.self, forKey: .content)
         self.comments = try container.decode(String.self, forKey: .comments)
