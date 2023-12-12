@@ -38,11 +38,11 @@ enum AfterDialog {
 struct ProfileDocument : FileDocument {
     static var readableContentTypes: [UTType] { [.json] }
     
-    var applications: [Application]
+    var companies: [Company]
     var name: String
     
-    init (applications: [Application], name: String) {
-        self.applications = applications
+    init (companies: [Company], name: String) {
+        self.companies = companies
         self.name = name
     }
     
@@ -52,16 +52,16 @@ struct ProfileDocument : FileDocument {
             throw CocoaError(.fileReadCorruptFile)
         }
         
-        let applications = try JSONDecoder().decode([Application].self, from: data)
+        let companies = try JSONDecoder().decode([Company].self, from: data)
         
-        self.applications = applications
+        self.companies = companies
         self.name = configuration.file.filename ?? "profile"
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
         let jsonEncoder = JSONEncoder()
         jsonEncoder.outputFormatting = .prettyPrinted
-        let encoded: Data = try! jsonEncoder.encode(applications)
+        let encoded: Data = try! jsonEncoder.encode(companies)
         
         let fileWrapper = FileWrapper(regularFileWithContents: encoded)
         fileWrapper.filename = self.name
@@ -91,7 +91,7 @@ struct Export_ImportView: View {
     
     @State private var afterDialogReason: AfterDialog = .none
     
-    @Query var applications: [Application]
+    @Query var companies: [Company]
     
     @State var _exportText: ProfileDocument? = nil
     
@@ -102,7 +102,7 @@ struct Export_ImportView: View {
     
     func exportToFile() {
         
-        _exportText = ProfileDocument(applications: applications, name: "asagiri-profile")
+        _exportText = ProfileDocument(companies: companies, name: "asagiri-profile")
         exporting = true
     }
     
@@ -126,7 +126,7 @@ struct Export_ImportView: View {
                     try modelContext.delete(model: Resume.self)
                     try modelContext.delete(model: CoverLetter.self)
                     
-                    let decoded = try decoder.decode([Application].self, from: data)
+                    let decoded = try decoder.decode([Company].self, from: data)
                     
                     let results = decoded
                     

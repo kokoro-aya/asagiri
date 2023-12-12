@@ -37,7 +37,7 @@ final class Company : Codable {
     
     // Boilerplates for codable conformance
     enum CodingKeys: CodingKey {
-        case name, website
+        case name, website, positions
     }
     
     required init(from decoder: Decoder) throws {
@@ -48,6 +48,8 @@ final class Company : Codable {
         self.name = try container.decode(String.self, forKey: .name)
         self.website = try container.decode(String.self, forKey: .website)
         
+        self.positions = try container.decode([JobDescription].self, forKey: .positions)
+        
         context.insert(self)
     }
     
@@ -55,5 +57,7 @@ final class Company : Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
         try container.encode(website, forKey: .website)
+        
+        try container.encode(positions, forKey: .positions)
     }
 }
