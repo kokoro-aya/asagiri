@@ -38,7 +38,7 @@ final class Application : Codable {
 
     var status: ApplicationStatus  {
         get {
-            events.sorted(by: { $0.updateTime < $1.updateTime }).last?.type ?? .not_started
+            events.sorted(by: { $0.updateTime < $1.updateTime }).last?.type ?? .notStarted
         }
     }
     

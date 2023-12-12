@@ -114,7 +114,7 @@ func insertEventInto(paintNode node: PaintNode, events: [Event]) {
         insertOrCreatePaintEdge(node: node, label: "Pending")
     } else {
         switch events.first!.type {
-        case .not_started:
+        case .notStarted:
             var nextNode = findOrCreatePaintNode(node: node, label: "Not Started")
             insertEventInto(paintNode: nextNode, events: Array(events.dropFirst()))
         case .preparation:
@@ -126,10 +126,10 @@ func insertEventInto(paintNode node: PaintNode, events: [Event]) {
         case .oa:
             var nextNode = findOrCreatePaintNode(node: node, label: "OA")
             insertEventInto(paintNode: nextNode, events: Array(events.dropFirst()))
-        case .phone_screen:
+        case .phoneScreen:
             var nextNode = findOrCreatePaintNode(node: node, label: "Phone Screen")
             insertEventInto(paintNode: nextNode, events: Array(events.dropFirst()))
-        case .technical_test:
+        case .technicalTest:
             var nextNode = findOrCreatePaintNode(node: node, label: "Technical Test")
             insertEventInto(paintNode: nextNode, events: Array(events.dropFirst()))
         case .interview(let round):
