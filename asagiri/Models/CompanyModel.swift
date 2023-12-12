@@ -50,6 +50,7 @@ final class Company : Codable {
         
         self.positions = try container.decode([JobDescription].self, forKey: .positions)
         
+        // Persist data with its relationship
         context.insert(self)
     }
     

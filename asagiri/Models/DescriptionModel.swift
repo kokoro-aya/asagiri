@@ -60,7 +60,7 @@ final class JobDescription : Codable {
     
     // Boilerplates for codable conformance
     enum CodingKeys: CodingKey {
-        case title, company, application, type, intro, companyIntro, responsibilities, complementary
+        case title, application, type, intro, companyIntro, responsibilities, complementary
     }
     
     required init(from decoder: Decoder) throws {
@@ -69,7 +69,6 @@ final class JobDescription : Codable {
         }
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.title = try container.decode(String.self, forKey: .title)
-        self.company = try? container.decode(Company?.self, forKey: .company)
         self.application = try? container.decode(Application?.self, forKey: .application)
         
         self.type = try? container.decode(CareerType?.self, forKey: .type)
@@ -77,21 +76,13 @@ final class JobDescription : Codable {
         self.companyIntro = try container.decode(String.self, forKey: .companyIntro)
         self.responsibilities = try container.decode(String.self, forKey: .responsibilities)
         self.complementary = try container.decode(String.self, forKey: .complementary)
-//        context.insert(self)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(title, forKey: .title)
-//        if application != nil {
-            try container.encode(application, forKey: .application)
-//        }
-//        if company != nil {
-//            try container.encode(company, forKey: .company)
-//        }
-//        if type != nil {
-            try container.encode(type, forKey: .type)
-//        }
+        try container.encode(application, forKey: .application)
+        try container.encode(type, forKey: .type)
         try container.encode(intro, forKey: .intro)
         try container.encode(companyIntro, forKey: .companyIntro)
         try container.encode(responsibilities, forKey: .responsibilities)

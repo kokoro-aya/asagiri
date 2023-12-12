@@ -46,7 +46,6 @@ final class Resume : Codable {
         self.content = try container.decode(String.self, forKey: .content)
         self.comments = try container.decode(String.self, forKey: .comments)
         self.createTime = try container.decode(Date.self, forKey: .createTime)
-//        context.insert(self)
     }
     
     func encode(to encoder: Encoder) throws {

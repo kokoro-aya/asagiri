@@ -65,7 +65,7 @@ final class Application : Codable {
     
     // Boilerplates for codable conformance
     enum CodingKeys: CodingKey {
-        case /* jobDescription,*/ dateCreated, resume, cover, events
+        case dateCreated, resume, cover, events
     }
     
     required init(from decoder: Decoder) throws {
@@ -73,23 +73,16 @@ final class Application : Codable {
             fatalError()
         }
         let container = try decoder.container(keyedBy: CodingKeys.self)
-//        self.jobDescription = try? container.decode(JobDescription?.self, forKey: .jobDescription)
         self.resume = try? container.decode(Resume?.self, forKey: .resume)
         self.cover = try? container.decode(CoverLetter?.self, forKey: .cover)
         self.dateCreated = try container.decode(Date.self, forKey: .dateCreated)
         self.events = try container.decode([Event].self, forKey: .events)
-//        context.insert(self)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(jobDescription, forKey: .jobDescription)
-//        if resume != nil {
-            try container.encode(resume, forKey: .dateCreated)
-//        }
-//        if cover != nil {
-            try container.encode(cover, forKey: .cover)
-//        }
+        try container.encode(resume, forKey: .dateCreated)
+        try container.encode(cover, forKey: .cover)
         try container.encode(dateCreated, forKey: .dateCreated)
         try container.encode(events, forKey: .events)
     }

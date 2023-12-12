@@ -130,10 +130,6 @@ struct Export_ImportView: View {
                     
                     let results = decoded
                     
-//                    results.forEach {
-//                        modelContext.insert($0)
-//                    }
-                    
                     importLoading = false
                     url.stopAccessingSecurityScopedResource()
                     
@@ -164,8 +160,6 @@ struct Export_ImportView: View {
             Button("Import") {
                 importAlert = true
             }
-            // Currently not available due to issues previously encountered
-//            .disabled(true)
             .alert("This operation will erase your data", isPresented: $importAlert) {
                 Button("OK", role: .destructive) {
                     importing = true

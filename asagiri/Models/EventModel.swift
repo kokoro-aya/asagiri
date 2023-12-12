@@ -43,7 +43,6 @@ final class Event : Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.type = try container.decode(ApplicationStatus.self, forKey: .type)
         self.updateTime = try container.decode(Date.self, forKey: .updateTime)
-//        context.insert(self)
     }
     
     func encode(to encoder: Encoder) throws {
