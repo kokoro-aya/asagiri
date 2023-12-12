@@ -130,6 +130,38 @@ struct Export_ImportView: View {
                     
                     let results = decoded
                     
+                    // Processing de-duplication of careers
+                    
+                    
+                    // Fetch descriptors for retrieving SwiftData data
+                    let careerDescriptor = FetchDescriptor<CareerType>(sortBy: [SortDescriptor(\.name)])
+                    let jobDescriptionDescriptor = FetchDescriptor<JobDescription>()
+                    
+                    // find out all inserted types and get un-duplicate names
+                    let insertedTypes = try modelContext.fetch(careerDescriptor)
+                    let careerNames = Set(insertedTypes.map { $0.name })
+                    
+                    // Build two groups of these career types: first occurences of each one; and their duplicata
+                    let firstCareers = careerNames.map { name in insertedTypes.first(where: { $0.name == name }) }
+                    let duplicatedCareers = insertedTypes.filter { !firstCareers.contains($0) }
+                    
+                    // Retrieve all job descriptions
+                    let existingJDs = try modelContext.fetch(jobDescriptionDescriptor)
+                    
+                    // Rearrange job career type in case of duplicata
+                    existingJDs.forEach { job in
+                        if let match = duplicatedCareers.first(where: { $0 == job.type }) {
+                            job.type = firstCareers.first(where: { $0!.name == match.name })!
+                        }
+                    }
+                    
+                    // Remove all duplicated job types
+                    duplicatedCareers.forEach {
+                        modelContext.delete($0)
+                    }
+                    
+                    // TODO: Same process for tags
+                    
                     importLoading = false
                     url.stopAccessingSecurityScopedResource()
                     
