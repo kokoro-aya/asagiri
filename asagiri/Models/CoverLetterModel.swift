@@ -39,9 +39,13 @@ final class CoverLetter : Codable {
     }
     
     required init(from decoder: Decoder) throws {
+        guard let context = decoder.userInfo[CodingUserInfoKey(rawValue: "modelcontext")!] as? ModelContext else {
+            fatalError()
+        }
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.content = try container.decode(String.self, forKey: .content)
         self.createTime = try container.decode(Date.self, forKey: .createTime)
+//        context.insert(self)
     }
     
     func encode(to encoder: Encoder) throws {

@@ -119,9 +119,6 @@ struct Export_ImportView: View {
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     decoder.userInfo[modelContextKey] = modelContext
                     
-                    let decoded = try decoder.decode([Application].self, from: data)
-                    
-                    let results = decoded
                     
                     try modelContext.delete(model: Application.self)
                     try modelContext.delete(model: JobDescription.self)
@@ -129,10 +126,14 @@ struct Export_ImportView: View {
                     try modelContext.delete(model: Resume.self)
                     try modelContext.delete(model: CoverLetter.self)
                     
-                    results.forEach {
-                        modelContext.insert($0)
-                    }
-                 
+                    let decoded = try decoder.decode([Application].self, from: data)
+                    
+                    let results = decoded
+                    
+//                    results.forEach {
+//                        modelContext.insert($0)
+//                    }
+                    
                     importLoading = false
                     url.stopAccessingSecurityScopedResource()
                     
@@ -163,6 +164,8 @@ struct Export_ImportView: View {
             Button("Import") {
                 importAlert = true
             }
+            // Currently not available due to issues previously encountered
+//            .disabled(true)
             .alert("This operation will erase your data", isPresented: $importAlert) {
                 Button("OK", role: .destructive) {
                     importing = true

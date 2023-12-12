@@ -24,6 +24,10 @@ import SwiftData
 final class JobDescription : Codable {
     var title: String
     
+    @Relationship
+    var application: Application? = nil
+    
+    @Relationship(deleteRule: .cascade)
     var company: Company?
     
     var type: CareerType?
@@ -60,14 +64,18 @@ final class JobDescription : Codable {
     }
     
     required init(from decoder: Decoder) throws {
+        guard let context = decoder.userInfo[CodingUserInfoKey(rawValue: "modelcontext")!] as? ModelContext else {
+            fatalError()
+        }
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.title = try container.decode(String.self, forKey: .title)
         self.company = try? container.decode(Company?.self, forKey: .company)
-        self.type = try? container.decode(CareerType?.self, forKey: .type)
+        self.type = try container.decode(CareerType?.self, forKey: .type)
         self.intro = try container.decode(String.self, forKey: .intro)
         self.companyIntro = try container.decode(String.self, forKey: .companyIntro)
         self.responsibilities = try container.decode(String.self, forKey: .responsibilities)
         self.complementary = try container.decode(String.self, forKey: .complementary)
+//        context.insert(self)
     }
     
     func encode(to encoder: Encoder) throws {

@@ -27,6 +27,7 @@ final class Company : Codable {
     
 //    var comments: String = ""
     
+    @Relationship(deleteRule: .cascade, inverse: \JobDescription.company)
     var positions: [JobDescription] = []
     
     init(name: String, website: String) {
@@ -40,9 +41,14 @@ final class Company : Codable {
     }
     
     required init(from decoder: Decoder) throws {
+        guard let context = decoder.userInfo[CodingUserInfoKey(rawValue: "modelcontext")!] as? ModelContext else {
+            fatalError()
+        }
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
         self.website = try container.decode(String.self, forKey: .website)
+        
+        context.insert(self)
     }
     
     func encode(to encoder: Encoder) throws {

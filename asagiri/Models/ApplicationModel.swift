@@ -22,11 +22,14 @@ import SwiftData
 
 @Model
 final class Application : Codable {
-
+    
+    @Relationship
     var jobDescription: JobDescription? = nil
 
+    @Relationship
     var resume: Resume? = nil
 
+    @Relationship
     var cover: CoverLetter? = nil
 
     var dateCreated: Date
