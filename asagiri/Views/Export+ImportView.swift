@@ -108,65 +108,20 @@ struct Export_ImportView: View {
     
     func importFromFile(url: URL) {
         Task {
+            
+            let postCompletionSuccess = {
+                importLoading = false
+                url.stopAccessingSecurityScopedResource()
+                
+                afterDialog = true
+                afterDialogReason = .import_success
+            }
+            
             if url.startAccessingSecurityScopedResource() {
                 do {
-                    let (data, _) = try await URLSession.shared.data(from: url)
-                    print(data)
-                    
-                    let modelContextKey = CodingUserInfoKey(rawValue: "modelcontext")!
-                    
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    decoder.userInfo[modelContextKey] = modelContext
-                    
-                    
-                    try modelContext.delete(model: Application.self)
-                    try modelContext.delete(model: JobDescription.self)
-                    try modelContext.delete(model: Organization.self)
-                    try modelContext.delete(model: Resume.self)
-                    try modelContext.delete(model: CoverLetter.self)
-                    
-                    let decoded = try decoder.decode([Organization].self, from: data)
-                    
-                    let results = decoded
-                    
-                    // Processing de-duplication of careers
-                    
-                    
-                    // Fetch descriptors for retrieving SwiftData data
-                    let careerDescriptor = FetchDescriptor<CareerType>(sortBy: [SortDescriptor(\.name)])
-                    let jobDescriptionDescriptor = FetchDescriptor<JobDescription>()
-                    
-                    // find out all inserted types and get un-duplicate names
-                    let insertedTypes = try modelContext.fetch(careerDescriptor)
-                    let careerNames = Set(insertedTypes.map { $0.name })
-                    
-                    // Build two groups of these career types: first occurences of each one; and their duplicata
-                    let firstCareers = careerNames.map { name in insertedTypes.first(where: { $0.name == name }) }
-                    let duplicatedCareers = insertedTypes.filter { !firstCareers.contains($0) }
-                    
-                    // Retrieve all job descriptions
-                    let existingJDs = try modelContext.fetch(jobDescriptionDescriptor)
-                    
-                    // Rearrange job career type in case of duplicata
-                    existingJDs.forEach { job in
-                        if let match = duplicatedCareers.first(where: { $0 == job.type }) {
-                            job.type = firstCareers.first(where: { $0!.name == match.name })!
-                        }
-                    }
-                    
-                    // Remove all duplicated job types
-                    duplicatedCareers.forEach {
-                        modelContext.delete($0)
-                    }
-                    
-                    // TODO: Same process for tags
-                    
-                    importLoading = false
-                    url.stopAccessingSecurityScopedResource()
-                    
-                    afterDialog = true
-                    afterDialogReason = .import_success
+                    try await processImportFromFile(
+                        url: url, modelContext: modelContext,
+                        postCompletion: postCompletionSuccess)
                 } catch {
                     print("Invalid data")
                     print(error)
@@ -368,4 +323,74 @@ struct Export_ImportView: View {
         return Export_ImportView(pathManager: .constant(PathManager()))
             .modelContainer(previewContainer)
     }
+}
+
+@MainActor
+func dropDatabase(modelContext: ModelContext) throws {
+    try modelContext.delete(model: Organization.self)
+    try modelContext.delete(model: JobDescription.self)
+    try modelContext.delete(model: Application.self)
+    try modelContext.delete(model: Resume.self)
+    try modelContext.delete(model: CoverLetter.self)
+    try modelContext.delete(model: Event.self)
+    try modelContext.delete(model: CareerType.self)
+    try modelContext.delete(model: Tag.self)
+}
+
+
+@MainActor
+func processImportFromFile(url: URL, modelContext: ModelContext, postCompletion: () -> ()) async throws {
+    let (data, _) = try await URLSession.shared.data(from: url)
+    print(data)
+    
+    let modelContextKey = CodingUserInfoKey(rawValue: "modelcontext")!
+    
+    let decoder = JSONDecoder()
+    decoder.keyDecodingStrategy = .convertFromSnakeCase
+    decoder.userInfo[modelContextKey] = modelContext
+    
+    do {
+        try dropDatabase(modelContext: modelContext)
+    } catch {
+        print(error)
+    }
+    
+    let decoded = try decoder.decode([Organization].self, from: data)
+    
+    let results = decoded
+    
+    // Processing de-duplication of careers
+    
+    
+    // Fetch descriptors for retrieving SwiftData data
+    let careerDescriptor = FetchDescriptor<CareerType>(sortBy: [SortDescriptor(\.name)])
+    let jobDescriptionDescriptor = FetchDescriptor<JobDescription>()
+    
+    // find out all inserted types and get un-duplicate names
+    let insertedTypes = try modelContext.fetch(careerDescriptor)
+    let careerNames = Set(insertedTypes.map { $0.name })
+    
+    // Build two groups of these career types: first occurences of each one; and their duplicata
+    let firstCareers = careerNames.map { name in insertedTypes.first(where: { $0.name == name }) }
+    let duplicatedCareers = insertedTypes.filter { !firstCareers.contains($0) }
+    
+    // Retrieve all job descriptions
+    let existingJDs = try modelContext.fetch(jobDescriptionDescriptor)
+    
+    // Rearrange job career type in case of duplicata
+    existingJDs.forEach { job in
+        if let match = duplicatedCareers.first(where: { $0 == job.type }) {
+            job.type = firstCareers.first(where: { $0!.name == match.name })!
+        }
+    }
+    
+    // Remove all duplicated job types
+    duplicatedCareers.forEach {
+        modelContext.delete($0)
+    }
+    
+    // TODO: Same process for tags
+    
+    postCompletion()
+    
 }
