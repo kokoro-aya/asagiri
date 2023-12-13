@@ -38,11 +38,11 @@ enum AfterDialog {
 struct ProfileDocument : FileDocument {
     static var readableContentTypes: [UTType] { [.json] }
     
-    var companies: [Company]
+    var organizations: [Organization]
     var name: String
     
-    init (companies: [Company], name: String) {
-        self.companies = companies
+    init (organizations: [Organization], name: String) {
+        self.organizations = organizations
         self.name = name
     }
     
@@ -52,16 +52,16 @@ struct ProfileDocument : FileDocument {
             throw CocoaError(.fileReadCorruptFile)
         }
         
-        let companies = try JSONDecoder().decode([Company].self, from: data)
+        let organizations = try JSONDecoder().decode([Organization].self, from: data)
         
-        self.companies = companies
+        self.organizations = organizations
         self.name = configuration.file.filename ?? "profile"
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
         let jsonEncoder = JSONEncoder()
         jsonEncoder.outputFormatting = .prettyPrinted
-        let encoded: Data = try! jsonEncoder.encode(companies)
+        let encoded: Data = try! jsonEncoder.encode(organizations)
         
         let fileWrapper = FileWrapper(regularFileWithContents: encoded)
         fileWrapper.filename = self.name
@@ -91,7 +91,7 @@ struct Export_ImportView: View {
     
     @State private var afterDialogReason: AfterDialog = .none
     
-    @Query var companies: [Company]
+    @Query var organizations: [Organization]
     
     @State var _exportText: ProfileDocument? = nil
     
@@ -102,7 +102,7 @@ struct Export_ImportView: View {
     
     func exportToFile() {
         
-        _exportText = ProfileDocument(companies: companies, name: "asagiri-profile")
+        _exportText = ProfileDocument(organizations: organizations, name: "asagiri-profile")
         exporting = true
     }
     
@@ -122,11 +122,11 @@ struct Export_ImportView: View {
                     
                     try modelContext.delete(model: Application.self)
                     try modelContext.delete(model: JobDescription.self)
-                    try modelContext.delete(model: Company.self)
+                    try modelContext.delete(model: Organization.self)
                     try modelContext.delete(model: Resume.self)
                     try modelContext.delete(model: CoverLetter.self)
                     
-                    let decoded = try decoder.decode([Company].self, from: data)
+                    let decoded = try decoder.decode([Organization].self, from: data)
                     
                     let results = decoded
                     
@@ -337,25 +337,25 @@ struct Export_ImportView: View {
         var previewContainer: ModelContainer = initializePreviewContainer()
         
         let applications = [
-            Application(jobDescription: JobDescription(title: "A", company: Company(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+            Application(jobDescription: JobDescription(title: "A", organization: Organization(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
                 Event(type: .applied, updateTime: createDateFromString("2023-10-12T12:00:00-08:00")),
                 Event(type: .rejected, updateTime: createDateFromString("2023-10-13T14:50:00-08:00"))
             ]),
-            Application(jobDescription: JobDescription(title: "A", company: Company(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+            Application(jobDescription: JobDescription(title: "A", organization: Organization(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
                 Event(type: .applied, updateTime: createDateFromString("2023-10-11T12:00:00-08:00")),
                 Event(type: .interview(round: 1), updateTime: createDateFromString("2023-10-12T21:00:00-08:00")),
                 Event(type: .interview(round: 2), updateTime: createDateFromString("2023-10-16T15:20:00-08:00")),
                 Event(type: .interview(round: 3), updateTime: createDateFromString("2023-10-19T14:00:00-08:00"))
             ]),
-            Application(jobDescription: JobDescription(title: "A", company: Company(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+            Application(jobDescription: JobDescription(title: "A", organization: Organization(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
                 Event(type: .applied, updateTime: createDateFromString("2023-10-17T12:00:00-08:00")),
                 Event(type: .interview(round: 1), updateTime: createDateFromString("2023-10-18T14:30:00-08:00")),
                 Event(type: .ghost, updateTime: createDateFromString("2023-10-22T14:20:00-08:00"))
             ]),
-            Application(jobDescription: JobDescription(title: "A", company: Company(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+            Application(jobDescription: JobDescription(title: "A", organization: Organization(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
                 Event(type: .applied, updateTime: createDateFromString("2023-10-22T13:50:00-08:00"))
             ]),
-            Application(jobDescription: JobDescription(title: "A", company: Company(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+            Application(jobDescription: JobDescription(title: "A", organization: Organization(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
                 Event(type: .applied, updateTime: createDateFromString("2023-10-22T13:50:00-08:00")),
                 Event(type: .oa, updateTime: createDateFromString("2023-11-15T13:00:00-08:00"))
             ])

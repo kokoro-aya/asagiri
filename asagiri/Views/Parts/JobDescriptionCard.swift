@@ -41,7 +41,7 @@ struct JobDescriptionCard: View {
                 VStack(alignment: .leading) {
                     Text(jd.title)
                         .font(.headline)
-                    Text(jd.company?.name ?? "")
+                    Text(jd.organization?.name ?? "")
                         .font(.subheadline)
                 }
                 Spacer()

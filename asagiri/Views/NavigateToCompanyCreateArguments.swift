@@ -11,7 +11,7 @@
 //
 //  You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
 //
-//  NavigateToCompanyCreateArguments.swift
+//  NavigateToOrganizationCreateArguments.swift
 //  asagiri
 //
 //  Created by irony on 01/12/2023.
@@ -19,9 +19,9 @@
 
 import Foundation
 
-struct NavigateToCompanyCreateArguments : Identifiable, Hashable {
+struct NavigateToOrganizationCreateArguments : Identifiable, Hashable {
     
-    let onCompletion: (Company) -> ()
+    let onCompletion: (Organization) -> ()
     
     // Since it's impossible to hash a closure, we attribute a UUID for each value of this type and refers it for our hash
     var id: String {
@@ -32,7 +32,7 @@ struct NavigateToCompanyCreateArguments : Identifiable, Hashable {
       hasher.combine(id)
     }
     
-    static func == (lhs: NavigateToCompanyCreateArguments, rhs: NavigateToCompanyCreateArguments) -> Bool {
+    static func == (lhs: NavigateToOrganizationCreateArguments, rhs: NavigateToOrganizationCreateArguments) -> Bool {
         return lhs.id == rhs.id
     }
 }

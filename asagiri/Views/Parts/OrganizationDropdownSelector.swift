@@ -11,7 +11,7 @@
 //
 //  You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
 //
-//  CompanyDropdownSelector.swift
+//  OrganizationDropdownSelector.swift
 //  asagiri
 //
 //  Created by irony on 01/12/2023.
@@ -20,38 +20,38 @@
 import Foundation
 import SwiftUI
 
-struct CompanyDropdownSelector : View {
+struct OrganizationDropdownSelector : View {
     
-    let allCompanies: [Company]
+    let allOrganizations: [Organization]
     
     @Binding var pathManager: PathManager
     
-    @Binding var company: Company?
+    @Binding var organization: Organization?
     
     
     var body: some View {
         Menu {
-            ForEach(allCompanies) { com in
+            ForEach(allOrganizations) { com in
                 Button(com.name) {
-                    self.company = com
+                    self.organization = com
                 }
             }
             Divider()
             
-            NavigationLink(value: NavigateToCompanyCreateArguments(onCompletion: { newCo in self.company = newCo }), label: {
+            NavigationLink(value: NavigateToOrganizationCreateArguments(onCompletion: { newCo in self.organization = newCo }), label: {
                 Label("Add new one", systemImage: "plus")
             })
             
-            if self.company != nil {
+            if self.organization != nil {
                 Button(role: .destructive) {
-                    self.company = nil
+                    self.organization = nil
                 } label: {
                     Label("Remove", systemImage: "trash")
                 }
             }
         } label: {
-            Label(company?.name ?? "Select one", systemImage: "building.2.fill")
-                .foregroundColor(company == nil ? .blue : .black)
+            Label(organization?.name ?? "Select one", systemImage: "building.2.fill")
+                .foregroundColor(organization == nil ? .blue : .black)
         }
     }
 }

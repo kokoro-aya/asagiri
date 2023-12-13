@@ -11,7 +11,7 @@
 //
 //  You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
 //
-//  CompanyModel.swift
+//  OrganizationModel.swift
 //  asagiri
 //
 //  Created by irony on 23/11/2023.
@@ -21,13 +21,13 @@ import Foundation
 import SwiftData
 
 @Model
-final class Company : Codable {
+final class Organization : Codable {
     var name: String
     var website: String
     
 //    var comments: String = ""
     
-    @Relationship(deleteRule: .cascade, inverse: \JobDescription.company)
+    @Relationship(deleteRule: .cascade, inverse: \JobDescription.organization)
     var positions: [JobDescription] = []
     
     init(name: String, website: String) {

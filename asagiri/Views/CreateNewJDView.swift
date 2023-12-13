@@ -31,10 +31,10 @@ struct CreateNewJDView: View {
     init(pathManager: Binding<PathManager>, pendingJD: JobDescription) {
         self._pathManager = pathManager
         self.title = pendingJD.title
-        self.company = pendingJD.company
+        self.organization = pendingJD.organization
         self.type = pendingJD.type
         self.intro = pendingJD.intro
-        self.companyIntro = pendingJD.companyIntro
+        self.orgIntro = pendingJD.orgIntro
         self.responsibilities = pendingJD.responsibilities
         self.complementary = pendingJD.complementary
         
@@ -47,7 +47,7 @@ struct CreateNewJDView: View {
     
     @Query let allJobTypes: [CareerType]
     
-    @Query let allCompanies: [Company]
+    @Query let allOrganizations: [Organization]
     
     @State var expanded: (Bool, Bool, Bool, Bool) = (true, false, false, false)
     
@@ -57,17 +57,17 @@ struct CreateNewJDView: View {
     
     @State var intro: String = ""
     
-    @State var companyIntro: String = ""
+    @State var orgIntro: String = ""
     
     @State var responsibilities: String = ""
     
     @State var complementary: String = ""
     
-    @State var company: Company? = nil
+    @State var organization: Organization? = nil
     
     var incomplete: Bool {
         return title.count > 0
-            && company != nil
+            && organization != nil
             && type != nil
     }
     
@@ -88,12 +88,12 @@ struct CreateNewJDView: View {
                     }
                     HStack(alignment: .top) {
                         VStack(alignment: .leading) {
-                            Text("Company")
+                            Text("Organization")
                                 .font(.title3)
                         }
                         Spacer()
                         
-                        CompanyDropdownSelector(allCompanies: allCompanies, pathManager: $pathManager, company: $company)
+                        OrganizationDropdownSelector(allOrganizations: allOrganizations, pathManager: $pathManager, organization: $organization)
                     }
                     Divider()
                     HStack {
@@ -105,14 +105,14 @@ struct CreateNewJDView: View {
                         }
                     }
                     if (expanded.0) {
-                        CustomTextEditor(text: $intro, height: 60)
+                        CustomTextEditor(text: $intro, height: 160)
                     } else {
                         Spacer()
                             .frame(height: 16)
                     }
                     Divider()
                     HStack {
-                        Text("Company Intro")
+                        Text("Org. Intro")
                             .font(.title3)
                         Spacer()
                         CollapseToggle(toggled: $expanded.1) {
@@ -120,7 +120,7 @@ struct CreateNewJDView: View {
                         }
                     }
                     if (expanded.1) {
-                        CustomTextEditor(text: $companyIntro, height: 60)
+                        CustomTextEditor(text: $orgIntro, height: 160)
                     } else {
                         Spacer()
                             .frame(height: 16)
@@ -135,7 +135,7 @@ struct CreateNewJDView: View {
                         }
                     }
                     if (expanded.2) {
-                        CustomTextEditor(text: $responsibilities, height: 60)
+                        CustomTextEditor(text: $responsibilities, height: 160)
                     } else {
                         Spacer()
                             .frame(height: 16)
@@ -150,7 +150,7 @@ struct CreateNewJDView: View {
                         }
                     }
                     if (expanded.3) {
-                        CustomTextEditor(text: $complementary, height: 60)
+                        CustomTextEditor(text: $complementary, height: 160)
                     } else {
                         Spacer()
                             .frame(height: 16)
@@ -164,14 +164,14 @@ struct CreateNewJDView: View {
                 Button {
                     let generatedJD = JobDescription(
                         title: title,
-                        company: nil,
+                        organization: nil,
                         type: nil,
                         intro: self.intro,
-                        companyIntro: self.companyIntro,
+                        orgIntro: self.orgIntro,
                         responsibilities: self.responsibilities,
                         complementary: self.complementary)
                     
-                    generatedJD.company = self.company
+                    generatedJD.organization = self.organization
                     generatedJD.type = self.type
                     
                     // Do not save JD but proceed it as an argument to the next page
@@ -186,14 +186,14 @@ struct CreateNewJDView: View {
                     
                     let jobDescription = JobDescription(
                         title: title,
-                        company: nil,
+                        organization: nil,
                         type: nil,
                         intro: self.intro,
-                        companyIntro: self.companyIntro,
+                        orgIntro: self.orgIntro,
                         responsibilities: self.responsibilities,
                         complementary: self.complementary)
                     
-                    jobDescription.company = self.company
+                    jobDescription.organization = self.organization
                     jobDescription.type = self.type
                     
                     // Save job description to the database
@@ -255,12 +255,12 @@ struct CreateNewJDView: View {
     MainActor.assumeIsolated {
         var previewContainer: ModelContainer = initializePreviewContainer()
         
-        let companies = [
-            Company(name: "Company 1", website: "com.1"),
-            Company(name: "Company 2", website: "com.2"),
-            Company(name: "Company 3", website: "com.3"),
-            Company(name: "Company 4", website: "com.4"),
-            Company(name: "Company 5", website: "com.5"),
+        let orgs = [
+            Organization(name: "Company 1", website: "com.1"),
+            Organization(name: "Company 2", website: "com.2"),
+            Organization(name: "Company 3", website: "com.3"),
+            Organization(name: "Company 4", website: "com.4"),
+            Organization(name: "Company 5", website: "com.5"),
         ]
         
         let allJobTypes = [
@@ -269,7 +269,7 @@ struct CreateNewJDView: View {
             CareerType(name: "Fullstack"),
         ]
         
-        companies.forEach {
+        orgs.forEach {
             previewContainer.mainContext.insert($0)
         }
         

@@ -11,7 +11,7 @@
 //
 //  You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
 //
-//  CompanyListView.swift
+//  OrganizationListView.swift
 //  asagiri
 //
 //  Created by irony on 02/12/2023.
@@ -20,22 +20,22 @@
 import SwiftUI
 import SwiftData
 
-struct CompanyListView: View {
+struct OrganizationListView: View {
     
     @State private var displayMenuBar = false
     
     @Binding var pathManager:PathManager
     
-    @Query private var companies: [Company]
+    @Query private var organizations: [Organization]
     
     var body: some View {
         VStack {
             List {
-                ForEach(companies) { company in
+                ForEach(organizations) { org in
                     VStack(alignment: .leading) {
-                        Text(company.name)
-                        if company.website.count > 0 {
-                            Text(company.website)
+                        Text(org.name)
+                        if org.website.count > 0 {
+                            Text(org.website)
                                 .font(.caption)
                         }
                     }
@@ -83,16 +83,16 @@ struct CompanyListView: View {
     MainActor.assumeIsolated {
         var previewContainer: ModelContainer = initializePreviewContainer()
         
-        let companies = [
-            Company(name: "New Co", website: ""),
-            Company(name: "Cat Inc", website: "https://www.cat.org")
+        let organizations = [
+            Organization(name: "New Co", website: ""),
+            Organization(name: "Cat Inc", website: "https://www.cat.org")
         ]
         
-        companies.forEach {
+        organizations.forEach {
             previewContainer.mainContext.insert($0)
         }
         
-        return CompanyListView(pathManager: .constant(PathManager()))
+        return OrganizationListView(pathManager: .constant(PathManager()))
             .modelContainer(previewContainer)
     }
 }

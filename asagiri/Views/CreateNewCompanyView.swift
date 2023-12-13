@@ -11,7 +11,7 @@
 //
 //  You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
 //
-//  CreateNewCompanyView.swift
+//  CreateNewOrganizationView.swift
 //  asagiri
 //
 //  Created by irony on 24/11/2023.
@@ -20,7 +20,7 @@
 import SwiftUI
 import SwiftData
 
-struct CreateNewCompanyView: View {
+struct CreateNewOrganizationView: View {
     
     @State private var displayMenuBar: Bool = false
     
@@ -34,7 +34,7 @@ struct CreateNewCompanyView: View {
     
     @State var website: String = ""
     
-    var onCompletion: (_ company: Company) -> ()
+    var onCompletion: (_ organization: Organization) -> ()
     
     var body: some View {
         VStack {
@@ -44,7 +44,7 @@ struct CreateNewCompanyView: View {
                         .font(.title3)
                     Spacer()
                 }
-                TextField("Company name", text: $name)
+                TextField("Organization name", text: $name)
                     .padding([.leading], 6)
                 HStack {
                     Text("Website")
@@ -57,8 +57,8 @@ struct CreateNewCompanyView: View {
             Spacer()
             Divider()
             Button {
-                let company = Company(name: name, website: website)
-                onCompletion(company)
+                let organization = Organization(name: name, website: website)
+                onCompletion(organization)
                 presentationMode.wrappedValue.dismiss()
                 
             } label: {
@@ -95,7 +95,7 @@ struct CreateNewCompanyView: View {
                         Label("Menu", systemImage: "line.3.horizontal")
                     }
                     
-                    Text("Add a new company")
+                    Text("Add a new organization")
                         .font(.title2)
                 }
             }
@@ -114,7 +114,7 @@ struct CreateNewCompanyView: View {
     MainActor.assumeIsolated {
         var previewContainer: ModelContainer = initializePreviewContainer()
         
-        return CreateNewCompanyView(pathManager: .constant(PathManager()), onCompletion: { _ in })
+        return CreateNewOrganizationView(pathManager: .constant(PathManager()), onCompletion: { _ in })
             .modelContainer(previewContainer)
     }
 }

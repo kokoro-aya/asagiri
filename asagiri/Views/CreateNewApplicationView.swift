@@ -45,11 +45,11 @@ struct CreateNewApplicationView: View {
     var body: some View {
         VStack {
             HStack {
-                Text(jobDescription.company?.name ?? "")
+                Text(jobDescription.organization?.name ?? "")
                     .font(.title3)
                     .foregroundStyle(.gray)
                 Spacer()
-                Text(jobDescription.company?.website ?? "")
+                Text(jobDescription.organization?.website ?? "")
                     .font(.title3)
                     .foregroundStyle(.gray)
             }
@@ -79,10 +79,10 @@ struct CreateNewApplicationView: View {
                         }
                     }
                     if (filled.0) {
-                        CustomTextEditor(text: $resume, height: 60)
+                        CustomTextEditor(text: $resume, height: 160)
                         Text("Comment")
                             .font(.title3)
-                        CustomTextEditor(text: $resumeComment, height: 20)
+                        CustomTextEditor(text: $resumeComment, height: 120)
                     } else {
                         Spacer()
                             .frame(height: 16)
@@ -97,7 +97,7 @@ struct CreateNewApplicationView: View {
                         }
                     }
                     if (filled.1) {
-                        CustomTextEditor(text: $cover, height: 60)
+                        CustomTextEditor(text: $cover, height: 160)
                     } else {
                         Spacer()
                             .frame(height: 16)
@@ -195,10 +195,10 @@ struct CreateNewApplicationView: View {
     MainActor.assumeIsolated {
         var previewContainer: ModelContainer = initializePreviewContainer()
         
-        let jd = JobDescription(title: "junior DevOps", company: Company(name: "newco", website: "https://new.co"), type: CareerType(name: "Hello Inc"))
+        let jd = JobDescription(title: "junior DevOps", organization: Organization(name: "newco", website: "https://new.co"), type: CareerType(name: "Hello Inc"))
         
         // Make sure to also push the dummy data sample into container otherwise preview will crash
-        // as the `.company` relationship is accessed
+        // as the `.organization` relationship is accessed
         previewContainer.mainContext.insert(jd)
         
         return CreateNewApplicationView(pathManager: .constant(PathManager()), jobDescription: jd)

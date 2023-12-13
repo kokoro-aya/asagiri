@@ -46,7 +46,7 @@ struct ApplicationPreviewView: View {
                     }
                     .padding([.bottom], 8)
                         
-                    Text(app.jobDescription?.company?.name ?? "")
+                    Text(app.jobDescription?.organization?.name ?? "")
                         .font(.title3)
                     
                     Divider()
@@ -137,7 +137,7 @@ struct ApplicationPreviewView: View {
                     }
                     Divider()
                     HStack {
-                        Text("Company Intro")
+                        Text("Org. Intro")
                             .font(.title3)
                         Spacer()
                         CollapseToggle(toggled: $expanded.1) {
@@ -145,7 +145,7 @@ struct ApplicationPreviewView: View {
                         }
                     }
                     if (expanded.1) {
-                        Text(app.jobDescription?.companyIntro ?? "")
+                        Text(app.jobDescription?.orgIntro ?? "")
                     } else {
                         Spacer()
                             .frame(height: 16)
@@ -241,12 +241,12 @@ struct ApplicationPreviewView: View {
         let app = Application(
             jobDescription: JobDescription(
                 title: "Backend developer",
-                company: Company(
+                organization: Organization(
                     name: "Company 1",
                     website: "company.com"),
                 type: CareerType(name: "Back-end"),
                 intro: "Some introduction\ngoes\nhere",
-                companyIntro: "A simple introduction of the company",
+                orgIntro: "A simple introduction of the company",
                 responsibilities: "Here are several leadership principles:\n1. xxx\n2. yyy\n3.zzz",
                 complementary: "Nothing here yet"
             ),

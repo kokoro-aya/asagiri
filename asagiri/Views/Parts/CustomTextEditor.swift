@@ -31,7 +31,7 @@ struct CustomTextEditor : View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             TextEditor(text: $text)
-                .frame(height: 160)
+                .frame(height: CGFloat(height)) // 160
             if (text == "") {
                 Text(placeholder).fontWeight(.light).foregroundColor(.black.opacity(0.25))
                     .padding(8)

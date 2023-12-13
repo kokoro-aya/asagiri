@@ -73,6 +73,7 @@ struct AppNavigationStack : View {
                             .navigationBarBackButtonHidden(true)
                     case .export_import:
                         Export_ImportView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden(true)
                     }
                 }
                 .navigationDestination(for: JobDescription.self) { jd in
@@ -83,8 +84,8 @@ struct AppNavigationStack : View {
                     ApplicationPreviewView(pathManager: $pathManager, app: app)
                         .navigationBarBackButtonHidden(true)
                 }
-                .navigationDestination(for: NavigateToCompanyCreateArguments.self) { args in
-                    CreateNewCompanyView(
+                .navigationDestination(for: NavigateToOrganizationCreateArguments.self) { args in
+                    CreateNewOrganizationView(
                         pathManager: $pathManager,
                         onCompletion: args.onCompletion)
                     .navigationBarBackButtonHidden(true)
@@ -113,13 +114,13 @@ enum PageType {
             previewContainer.mainContext.insert($0)
         }
         
-        let companies = [
-            Company(name: "New Co", website: ""),
-            Company(name: "Cat Inc", website: "")
+        let orgs = [
+            Organization(name: "New Co", website: ""),
+            Organization(name: "Cat Inc", website: "")
         ]
         
         
-        companies.forEach {
+        orgs.forEach {
             previewContainer.mainContext.insert($0)
         }
         

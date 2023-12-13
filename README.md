@@ -10,10 +10,10 @@ Features:
 - Bring back your updates if they happened a week before
 - Archive or delete if you feel them useless
 - Visualize your application statistics
+- Export/Import to JSON files
 
 Planned:
 
-- Export/Import to JSON files
 - Tags
 - Filters
 - More comprehensive statistics page

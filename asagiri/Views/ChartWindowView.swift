@@ -183,22 +183,22 @@ func computeMaxInterviewRound(apps: [Application]) -> Int {
         var previewContainer: ModelContainer = initializePreviewContainer()
         
         let applications = [
-            Application(jobDescription: JobDescription(title: "A", company: Company(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+            Application(jobDescription: JobDescription(title: "A", organization: Organization(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
                 Event(type: .applied, updateTime: createDateFromString("2023-10-12T12:00:00-08:00")),
                 Event(type: .rejected, updateTime: createDateFromString("2023-10-13T14:50:00-08:00"))
             ]),
-            Application(jobDescription: JobDescription(title: "A", company: Company(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+            Application(jobDescription: JobDescription(title: "A", organization: Organization(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
                 Event(type: .applied, updateTime: createDateFromString("2023-10-11T12:00:00-08:00")),
                 Event(type: .interview(round: 1), updateTime: createDateFromString("2023-10-12T21:00:00-08:00")),
                 Event(type: .interview(round: 2), updateTime: createDateFromString("2023-10-16T15:20:00-08:00")),
                 Event(type: .interview(round: 3), updateTime: createDateFromString("2023-10-19T14:00:00-08:00"))
             ]),
-            Application(jobDescription: JobDescription(title: "A", company: Company(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+            Application(jobDescription: JobDescription(title: "A", organization: Organization(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
                 Event(type: .applied, updateTime: createDateFromString("2023-10-17T12:00:00-08:00")),
                 Event(type: .interview(round: 1), updateTime: createDateFromString("2023-10-18T14:30:00-08:00")),
                 Event(type: .ghost, updateTime: createDateFromString("2023-10-22T14:20:00-08:00"))
             ]),
-            Application(jobDescription: JobDescription(title: "A", company: Company(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+            Application(jobDescription: JobDescription(title: "A", organization: Organization(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
                 Event(type: .applied, updateTime: createDateFromString("2023-10-22T13:50:00-08:00"))
             ])
         ]

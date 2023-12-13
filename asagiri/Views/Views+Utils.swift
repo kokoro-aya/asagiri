@@ -29,7 +29,7 @@ func initializePreviewContainer() -> ModelContainer {
             Item.self,
             
             Application.self,
-            Company.self,
+            Organization.self,
             Resume.self,
             CoverLetter.self,
             JobDescription.self,
@@ -48,7 +48,7 @@ func initializePreviewContainer() -> ModelContainer {
     // Remove existing applications just for preview
     do {
         try previewContainer.mainContext.delete(model: Application.self)
-        try previewContainer.mainContext.delete(model: Company.self)
+        try previewContainer.mainContext.delete(model: Organization.self)
         try previewContainer.mainContext.delete(model: Resume.self)
         try previewContainer.mainContext.delete(model: CoverLetter.self)
         try previewContainer.mainContext.delete(model: JobDescription.self)

@@ -28,13 +28,13 @@ final class JobDescription : Codable {
     var application: Application? = nil
     
     @Relationship(deleteRule: .cascade)
-    var company: Company?
+    var organization: Organization?
     
     var type: CareerType?
     
     var intro: String = ""
     
-    var companyIntro: String = ""
+    var orgIntro: String = ""
     
     var responsibilities: String = ""
     
@@ -42,25 +42,25 @@ final class JobDescription : Codable {
     
 //    var comments: String = ""
     
-    init(title: String, company: Company, type: CareerType) {
+    init(title: String, organization: Organization, type: CareerType) {
         self.title = title
-        self.company = company
+        self.organization = organization
         self.type = type
     }
     
-    init(title: String, company: Company?, type: CareerType?, intro: String, companyIntro: String, responsibilities: String, complementary: String) {
+    init(title: String, organization: Organization?, type: CareerType?, intro: String, orgIntro: String, responsibilities: String, complementary: String) {
         self.title = title
-        self.company = company
+        self.organization = organization
         self.type = type
         self.intro = intro
-        self.companyIntro = companyIntro
+        self.orgIntro = orgIntro
         self.responsibilities = responsibilities
         self.complementary = complementary
     }
     
     // Boilerplates for codable conformance
     enum CodingKeys: CodingKey {
-        case title, application, type, intro, companyIntro, responsibilities, complementary
+        case title, application, type, intro, orgIntro, responsibilities, complementary
     }
     
     required init(from decoder: Decoder) throws {
@@ -73,7 +73,7 @@ final class JobDescription : Codable {
         
         self.type = try? container.decode(CareerType?.self, forKey: .type)
         self.intro = try container.decode(String.self, forKey: .intro)
-        self.companyIntro = try container.decode(String.self, forKey: .companyIntro)
+        self.orgIntro = try container.decode(String.self, forKey: .orgIntro)
         self.responsibilities = try container.decode(String.self, forKey: .responsibilities)
         self.complementary = try container.decode(String.self, forKey: .complementary)
     }
@@ -84,7 +84,7 @@ final class JobDescription : Codable {
         try container.encode(application, forKey: .application)
         try container.encode(type, forKey: .type)
         try container.encode(intro, forKey: .intro)
-        try container.encode(companyIntro, forKey: .companyIntro)
+        try container.encode(orgIntro, forKey: .orgIntro)
         try container.encode(responsibilities, forKey: .responsibilities)
         try container.encode(complementary, forKey: .complementary)
     }

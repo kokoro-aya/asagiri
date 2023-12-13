@@ -28,7 +28,7 @@ struct asagiriApp: App {
             Item.self,
             
             Application.self,
-            Company.self,
+            Organization.self,
             Resume.self,
             CoverLetter.self,
             JobDescription.self,
