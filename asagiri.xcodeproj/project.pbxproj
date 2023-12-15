@@ -51,6 +51,7 @@
 		F7B9E4452B1121C600964F46 /* CreateNewJDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */; };
 		F7B9E4472B11374100964F46 /* Views+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4462B11374100964F46 /* Views+Utils.swift */; };
 		F7B9E4492B114BDF00964F46 /* CreateNewCompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */; };
+		F7C4C0BC2B2CAB19003DDCE4 /* Comparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C4C0BB2B2CAB19003DDCE4 /* Comparators.swift */; };
 		F7C708342B1E65CF00B87680 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C708332B1E65CF00B87680 /* AnalyticsView.swift */; };
 		F7D34A6B2B1B93C400A7B005 /* ApplicationPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D34A6A2B1B93C400A7B005 /* ApplicationPreviewView.swift */; };
 		F7D34A6D2B1B93E800A7B005 /* ChartWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D34A6C2B1B93E800A7B005 /* ChartWindowView.swift */; };
@@ -127,6 +128,7 @@
 		F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewJDView.swift; sourceTree = "<group>"; };
 		F7B9E4462B11374100964F46 /* Views+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views+Utils.swift"; sourceTree = "<group>"; };
 		F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCompanyView.swift; sourceTree = "<group>"; };
+		F7C4C0BB2B2CAB19003DDCE4 /* Comparators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comparators.swift; sourceTree = "<group>"; };
 		F7C708332B1E65CF00B87680 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		F7CA2FE72B08E8270068EDC2 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		F7CA2FE82B08E8270068EDC2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				F7D34A702B1CA2F600A7B005 /* Export+ImportView.swift */,
 				F7B9E4462B11374100964F46 /* Views+Utils.swift */,
 				F71827252B1A77F400A6BEE3 /* NavigateToCompanyCreateArguments.swift */,
+				F7C4C0BB2B2CAB19003DDCE4 /* Comparators.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 				F738D15D2B150D2D006AC134 /* TagManageView.swift in Sources */,
 				F7D34A712B1CA2F600A7B005 /* Export+ImportView.swift in Sources */,
 				F71827222B1A77D400A6BEE3 /* CustomTextEditor.swift in Sources */,
+				F7C4C0BC2B2CAB19003DDCE4 /* Comparators.swift in Sources */,
 				F7D34A6F2B1B940C00A7B005 /* OrganizationListView.swift in Sources */,
 				F75561AE2B17AD55004FC072 /* StaticDetailAbstractDiagramView.swift in Sources */,
 				F71827282B1A780F00A6BEE3 /* JobTypeDropdownSelector.swift in Sources */,
