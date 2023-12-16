@@ -18,54 +18,6 @@
 //
 
 import Foundation
-import SwiftUI
-
-struct TagChip: View {
-    let text: String
-    
-    let onDelete: (any Hashable) -> ()
-    
-    var body: some View {
-        HStack {
-            Text(text)
-                .font(.callout)
-                .foregroundColor(.black)
-            Button {
-                onDelete(text)
-            } label: {
-                Image(systemName: "multiply")
-                    .foregroundColor(.black)
-                    .frame(width: 16, height: 16)
-            }
-        }
-        .padding(8)
-        .background(RoundedRectangle(cornerRadius: 16))
-        .foregroundColor(.gray.opacity(0.5))
-    }
-}
-
-#Preview {
-    TagChip(text: "Hello", onDelete: { _ in })
-}
-
-struct ApplicationSortingOptionsView: View {
-
-    @Binding var criteria: [ApplicationSortOption]
-    
-    func add(criterion: ApplicationSortOption) {
-        if !criteria.contains(criterion) {
-            criteria.append(criterion)
-        }
-    }
-    
-    var body: some View {
-        Text("")
-    }
-}
-
-#Preview {
-    ApplicationSortingOptionsView(criteria: .constant([.byCareer, .byCreationDate, .byTitle]))
-}
 
 /**
    Uses multiple comparators to sort the source, this function calls the `sorted` method to return a copy or original list sorted
@@ -105,8 +57,26 @@ func nilComparator<T: Comparable>(lhs: T?, rhs: T?, nilsAtEnd: Bool) -> Comparis
     }
 }
 
-enum ApplicationSortOption {
+enum ApplicationSortOption : Identifiable, CustomStringConvertible, CaseIterable {
+    var id: Self {
+        return self
+    }
+    
     case byTitle, byCareer, byCreationDate, byLastUpdateDate
+    
+    var description: String {
+        switch self {
+            case .byTitle:
+                "by title"
+            case .byCareer:
+                "by career"
+            case .byCreationDate:
+                "by date created"
+            case .byLastUpdateDate:
+                "by date last updated"
+        }
+    }
+    
 }
 
 let applicationComparators: [ApplicationSortOption : (Application, Application) -> ComparisonResult] = [
