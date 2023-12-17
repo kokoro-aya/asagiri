@@ -72,3 +72,10 @@ func createDateFromString(_ s: String) -> Date {
     
     return RFC3339DateFormatter.date(from: s)!
 }
+
+
+extension String {
+    var isNotEmpty: Bool {
+        return !self.isEmpty
+    }
+}

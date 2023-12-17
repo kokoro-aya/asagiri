@@ -56,6 +56,9 @@ struct AppNavigationStack : View {
                     case .jd_list:
                         JDListView(pathManager: $pathManager)
                             .navigationBarBackButtonHidden(true)
+                    case .company_list:
+                        OrganizationListView(pathManager: $pathManager)
+                            .navigationBarBackButtonHidden()
                     case .settings:
                         SettingsView(pathManager: $pathManager)
                             .navigationBarBackButtonHidden(true)
@@ -96,7 +99,7 @@ struct AppNavigationStack : View {
 }
 
 enum PageType {
-    case home, jd_list, settings, create_new_jd, career_manage, tag_manage, analytics, export_import
+    case home, jd_list, company_list, settings, create_new_jd, career_manage, tag_manage, analytics, export_import
 }
 
 

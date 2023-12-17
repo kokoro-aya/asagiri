@@ -89,97 +89,120 @@ struct ApplicationPreviewView: View {
                     
                     Divider()
                     
-                    HStack {
-                        Text("Resume")
-                            .font(.title3)
-                        Spacer()
-                        CollapseToggle(toggled: $expanded.4) {
-                            expanded.4 = !(expanded.4)
+                    if app.resume?.content.isNotEmpty ?? false {
+                        HStack {
+                            Text("Resume")
+                                .font(.title3)
+                            Spacer()
+                            CollapseToggle(toggled: $expanded.4) {
+                                expanded.4 = !(expanded.4)
+                            }
                         }
-                    }
-                    if (expanded.4) {
-                        Text(app.resume?.content ?? "")
-                    } else {
-                        Spacer()
-                            .frame(height: 16)
-                    }
-                    Divider()
-                    HStack {
-                        Text("Cover Letter")
-                            .font(.title3)
-                        Spacer()
-                        CollapseToggle(toggled: $expanded.5) {
-                            expanded.5 = !(expanded.5)
+                        if (expanded.4) {
+                            Text(app.resume?.content ?? "")
+                        } else {
+                            Spacer()
+                                .frame(height: 16)
                         }
+                        
+                        Divider()
                     }
-                    if (expanded.5) {
-                        Text(app.cover?.content ?? "")
-                    } else {
-                        Spacer()
-                            .frame(height: 16)
+                    
+                    if app.cover?.content.isNotEmpty ?? false {
+                        HStack {
+                            Text("Cover Letter")
+                                .font(.title3)
+                            Spacer()
+                            CollapseToggle(toggled: $expanded.5) {
+                                expanded.5 = !(expanded.5)
+                            }
+                        }
+                        if (expanded.5) {
+                            Text(app.cover?.content ?? "")
+                        } else {
+                            Spacer()
+                                .frame(height: 16)
+                        }
+                        
+                        Divider()
                     }
                 
-                    Divider()
                     
-                    HStack {
-                        Text("Introduction")
-                            .font(.title3)
-                        Spacer()
-                        CollapseToggle(toggled: $expanded.0) {
-                            expanded.0 = !(expanded.0)
+                    if app.jobDescription?.intro.isNotEmpty ?? false {
+                        HStack {
+                            Text("Introduction")
+                                .font(.title3)
+                            Spacer()
+                            CollapseToggle(toggled: $expanded.0) {
+                                expanded.0 = !(expanded.0)
+                            }
+                        }
+                        if (expanded.0) {
+                            Text(app.jobDescription?.intro ?? "")
+                        } else {
+                            Spacer()
+                                .frame(height: 16)
+                        }
+                        
+                        Divider()
+                    }
+                    
+                    
+                    if app.jobDescription?.orgIntro.isNotEmpty ?? false {
+                        HStack {
+                            Text("Org. Intro")
+                                .font(.title3)
+                            Spacer()
+                            CollapseToggle(toggled: $expanded.1) {
+                                expanded.1 = !(expanded.1)
+                            }
+                        }
+                        if (expanded.1) {
+                            Text(app.jobDescription?.orgIntro ?? "")
+                        } else {
+                            Spacer()
+                                .frame(height: 16)
+                        }
+                        
+                        Divider()
+                    }
+                    
+                    if app.jobDescription?.responsibilities.isNotEmpty ?? false {
+                        HStack {
+                            Text("Responsibilities")
+                                .font(.title3)
+                            Spacer()
+                            CollapseToggle(toggled: $expanded.2) {
+                                expanded.2 = !(expanded.2)
+                            }
+                        }
+                        if (expanded.2) {
+                            Text(app.jobDescription?.responsibilities ?? "")
+                        } else {
+                            Spacer()
+                                .frame(height: 16)
+                        }
+                        
+                        Divider()
+                    }
+                    
+                    if app.jobDescription?.complementary.isNotEmpty ?? false {
+                        HStack {
+                            Text("Complementary")
+                                .font(.title3)
+                            Spacer()
+                            CollapseToggle(toggled: $expanded.3) {
+                                expanded.3 = !(expanded.3)
+                            }
+                        }
+                        if (expanded.3) {
+                            Text(app.jobDescription?.complementary ?? "")
+                        } else {
+                            Spacer()
+                                .frame(height: 16)
                         }
                     }
-                    if (expanded.0) {
-                        Text(app.jobDescription?.intro ?? "")
-                    } else {
-                        Spacer()
-                            .frame(height: 16)
-                    }
-                    Divider()
-                    HStack {
-                        Text("Org. Intro")
-                            .font(.title3)
-                        Spacer()
-                        CollapseToggle(toggled: $expanded.1) {
-                            expanded.1 = !(expanded.1)
-                        }
-                    }
-                    if (expanded.1) {
-                        Text(app.jobDescription?.orgIntro ?? "")
-                    } else {
-                        Spacer()
-                            .frame(height: 16)
-                    }
-                    Divider()
-                    HStack {
-                        Text("Responsibilities")
-                            .font(.title3)
-                        Spacer()
-                        CollapseToggle(toggled: $expanded.2) {
-                            expanded.2 = !(expanded.2)
-                        }
-                    }
-                    if (expanded.2) {
-                        Text(app.jobDescription?.responsibilities ?? "")
-                    } else {
-                        Spacer()
-                            .frame(height: 16)
-                    }
-                    Divider()
-                    HStack {
-                        Text("Complementary")
-                            .font(.title3)
-                        Spacer()
-                        CollapseToggle(toggled: $expanded.3) {
-                            expanded.3 = !(expanded.3)
-                        }
-                    }
-                    if (expanded.3) {
-                        Text(app.jobDescription?.complementary ?? "")
-                    } else {
-                        Spacer()
-                            .frame(height: 16)
-                    }
+                    
                 }
             }
             Spacer()
