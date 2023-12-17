@@ -11,7 +11,7 @@
 //
 //  You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
 //
-//  ApplicationListFilterPart.swift
+//  ApplicationListSortingPart.swift
 //  asagiri
 //
 //  Created by irony on 16/12/2023.
@@ -25,13 +25,13 @@ struct ApplicationSortingOptionsView: View {
     @Binding var criteria: [ApplicationSortOption]
     
     func add(criterion: ApplicationSortOption) {
-        if !criteria.contains(criterion) {
+        if !criteria.contains(where: { $0.type == criterion.type}) {
             criteria.append(criterion)
         }
     }
     
     func remove(criterion: ApplicationSortOption) {
-        if let pos = criteria.firstIndex(of: criterion) {
+        if let pos = criteria.firstIndex(where: { $0.type == criterion.type }) {
             criteria.remove(at: pos)
         }
     }
@@ -42,18 +42,18 @@ struct ApplicationSortingOptionsView: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            WrappingHStack(criteria) { crit in
-                TagChip(text: crit.description, onDelete: {_ in
+            WrappingHStack($criteria) { $crit in
+                TagChip(option: $crit, onDelete: { crit in
                     remove(criterion: crit)
                 })
                 .padding([.top, .bottom], 4)
             }
             Spacer()
             Menu {
-                ForEach(ApplicationSortOption.allCases) { crit in
-                    if !criteria.contains(crit) {
-                        Button(crit.description) {
-                            add(criterion: crit)
+                ForEach(ApplicationSortOptionType.allCases) { ty in
+                    if !criteria.contains(where: { $0.type == ty }) {
+                        Button(ty.description) {
+                            add(criterion: ApplicationSortOption(type: ty, direction: .ascending))
                         }
                     }
                 }
@@ -76,5 +76,10 @@ struct ApplicationSortingOptionsView: View {
 }
 
 #Preview {
-    ApplicationSortingOptionsView(criteria: .constant([.byCareer, .byCreationDate, .byTitle, .byLastUpdateDate]))
+    ApplicationSortingOptionsView(criteria: .constant([
+        ApplicationSortOption(type: .byCareer, direction: .ascending),
+        ApplicationSortOption(type: .byCreationDate, direction: .descending),
+        ApplicationSortOption(type: .byTitle, direction: .descending),
+        ApplicationSortOption(type: .byLastUpdateDate, direction: .ascending)
+    ]))
 }

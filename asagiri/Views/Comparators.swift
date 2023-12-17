@@ -36,7 +36,7 @@ func sortByMultiComparators<T: Comparable>(source: [T], comparators: [(T, T) -> 
     })
 }
 
-func nonNilcompare<T: Comparable>(a: T, b: T) -> ComparisonResult {
+func nonNilAscendingCompare<T: Comparable>(a: T, b: T) -> ComparisonResult {
     if a < b {
         return .orderedAscending
     } else if a > b {
@@ -46,18 +46,50 @@ func nonNilcompare<T: Comparable>(a: T, b: T) -> ComparisonResult {
     }
 }
 
+func nonNilDescendingCompare<T: Comparable>(a: T, b: T) -> ComparisonResult {
+    if a < b {
+        return .orderedDescending
+    } else if a > b {
+        return .orderedAscending
+    } else {
+        return .orderedSame
+    }
+}
+
+
+
 // Adaped from `nilComparator` here:
 // source: https://stackoverflow.com/questions/44808391/why-cant-swifts-greater-than-or-less-than-operators-compare-optionals-when-the/44808567#44808567
-func nilComparator<T: Comparable>(lhs: T?, rhs: T?, nilsAtEnd: Bool) -> ComparisonResult {
+func nilAscendingComparator<T: Comparable>(lhs: T?, rhs: T?, nilsAtEnd: Bool) -> ComparisonResult {
     return switch (lhs, rhs) {
     case (nil, nil):  .orderedSame
     case (nil, _?):  nilsAtEnd ? .orderedDescending : .orderedAscending
     case (_?, nil):  nilsAtEnd ? .orderedAscending : .orderedDescending
-    case let (a?, b?):  nonNilcompare(a: a, b: b)
+    case let (a?, b?):  nonNilAscendingCompare(a: a, b: b)
     }
 }
 
-enum ApplicationSortOption : Identifiable, CustomStringConvertible, CaseIterable {
+func nilDescendingComparator<T: Comparable>(lhs: T?, rhs: T?, nilsAtEnd: Bool) -> ComparisonResult {
+    return switch (lhs, rhs) {
+    case (nil, nil):  .orderedSame
+    case (nil, _?):  nilsAtEnd ? .orderedDescending : .orderedAscending
+    case (_?, nil):  nilsAtEnd ? .orderedAscending : .orderedDescending
+    case let (a?, b?):  nonNilDescendingCompare(a: a, b: b)
+    }
+}
+
+struct ApplicationSortOption : Hashable {
+    
+    var type: ApplicationSortOptionType
+    var direction: Bool
+    
+    init(type: ApplicationSortOptionType, direction: ApplicationSortDirection) {
+        self.type = type
+        self.direction = direction == .ascending
+    }
+}
+
+enum ApplicationSortOptionType : Identifiable, CustomStringConvertible, CaseIterable {
     var id: Self {
         return self
     }
@@ -76,21 +108,54 @@ enum ApplicationSortOption : Identifiable, CustomStringConvertible, CaseIterable
                 "by date last updated"
         }
     }
-    
 }
 
-let applicationComparators: [ApplicationSortOption : (Application, Application) -> ComparisonResult] = [
-    .byTitle: { lhs, rhs in
-        nilComparator(lhs: lhs.jobDescription?.title, rhs: rhs.jobDescription?.title, nilsAtEnd: false)
-    },
-    .byCareer: { lhs, rhs in
-        nilComparator(lhs: lhs.jobDescription?.type?.name, rhs: rhs.jobDescription?.type?.name, nilsAtEnd: false)
-    },
-    .byCreationDate: { lhs, rhs in
-        nilComparator(lhs: lhs.jobDescription?.application?.dateCreated, rhs: rhs.jobDescription?.application?.dateCreated, nilsAtEnd: false)
-    },
-    .byLastUpdateDate: { lhs, rhs in
-        nilComparator(lhs: lhs.jobDescription?.application?.lastEvent?.updateTime, rhs: rhs.jobDescription?.application?.lastEvent?.updateTime, nilsAtEnd: false)
+enum ApplicationSortDirection : Identifiable, CustomStringConvertible, CaseIterable {
+    var id: Self {
+        return self
     }
+    
+    case ascending, descending
+    
+    static prefix func !(dir: ApplicationSortDirection) -> ApplicationSortDirection {
+        return switch dir {
+        case .ascending: .descending
+        case .descending: .ascending
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .ascending: "ascending"
+        case .descending: "descending"
+        }
+    }
+}
+
+typealias ApplicationComparator = (Application, Application) -> ComparisonResult
+typealias ApplicationComparatorPair = (ascending: ApplicationComparator, descending: ApplicationComparator)
+
+let applicationComparators: [ApplicationSortOptionType : ApplicationComparatorPair] = [
+    .byTitle: (
+        ascending: { lhs, rhs in nilAscendingComparator(lhs: lhs.jobDescription?.title, rhs: rhs.jobDescription?.title, nilsAtEnd: false) },
+        descending: { lhs, rhs in nilDescendingComparator(lhs: lhs.jobDescription?.title, rhs: rhs.jobDescription?.title, nilsAtEnd: false) }
+    )
+    ,
+    .byCareer: (
+        ascending: { lhs, rhs in nilAscendingComparator(lhs: lhs.jobDescription?.type?.name, rhs: rhs.jobDescription?.type?.name, nilsAtEnd: false) },
+        descending: { lhs, rhs in nilDescendingComparator(lhs: lhs.jobDescription?.type?.name, rhs: rhs.jobDescription?.type?.name, nilsAtEnd: false) }
+    )
+        
+    ,
+    .byCreationDate: (
+        ascending: { lhs, rhs in nilAscendingComparator(lhs: lhs.jobDescription?.application?.dateCreated, rhs: rhs.jobDescription?.application?.dateCreated, nilsAtEnd: false) },
+        descending: { lhs, rhs in nilDescendingComparator(lhs: lhs.jobDescription?.application?.dateCreated, rhs: rhs.jobDescription?.application?.dateCreated, nilsAtEnd: false) }
+    )
+    ,
+    .byLastUpdateDate: (
+        ascending: { lhs, rhs in nilAscendingComparator(lhs: lhs.jobDescription?.application?.lastEvent?.updateTime, rhs: rhs.jobDescription?.application?.lastEvent?.updateTime, nilsAtEnd: false) },
+        descending: { lhs, rhs in nilDescendingComparator(lhs: lhs.jobDescription?.application?.lastEvent?.updateTime, rhs: rhs.jobDescription?.application?.lastEvent?.updateTime, nilsAtEnd: false) }
+    )
+    
 ]
 

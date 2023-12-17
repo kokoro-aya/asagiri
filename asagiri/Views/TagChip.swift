@@ -20,21 +20,33 @@
 import SwiftUI
 
 struct TagChip: View {
-    let text: String
     
-    let onDelete: (any Hashable) -> ()
+    @Binding var option: ApplicationSortOption
+    
+    let onDelete: (ApplicationSortOption) -> ()
     
     var body: some View {
         HStack {
-            Text(text)
+            Button {
+                option.direction = !option.direction
+            } label: {
+                if option.direction {
+                    Image(systemName: "arrow.up")
+                        .foregroundColor(.gray)
+                } else {
+                    Image(systemName: "arrow.down")
+                        .foregroundColor(.gray)
+                }
+            }
+            Text(option.type.description)
                 .font(.callout)
                 .foregroundColor(.gray)
             Button {
-                onDelete(text)
+                onDelete(option)
             } label: {
                 Image(systemName: "multiply")
                     .foregroundColor(.gray)
-                    .frame(width: 16, height: 12)
+                    .frame(width: 12, height: 12)
             }
         }
         .padding(8)
@@ -44,6 +56,9 @@ struct TagChip: View {
 }
 
 #Preview {
-    TagChip(text: "Hello", onDelete: { _ in })
+    
+    let option = ApplicationSortOption(type: .byCreationDate, direction: .ascending)
+    
+    return TagChip(option: .constant(option), onDelete: { _ in })
 }
 
