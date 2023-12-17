@@ -40,6 +40,43 @@ struct ApplicationListView: View {
     
     // TODO: Add filter facilities
     
+    @State private var searchText = ""
+    
+    var searchOngoingApps: [Application] {
+        let trimmedSearchText = searchText.trimmingCharacters(in: .whitespaces)
+        
+        if trimmedSearchText.isEmpty {
+            return ongoingApps
+        } else {
+            return filterApplicationsByTokensAnd(trimmedSearchText: trimmedSearchText, apps: ongoingApps)
+        }
+    }
+    
+    var searchArchivedApps: [Application] {
+        let trimmedSearchText = searchText.trimmingCharacters(in: .whitespaces)
+        
+        if trimmedSearchText.isEmpty {
+            return archivedApps
+        } else {
+            return filterApplicationsByTokensAnd(trimmedSearchText: trimmedSearchText, apps: archivedApps)
+        }
+    }
+    
+    func filterApplicationsByTokensAnd(trimmedSearchText: String, apps: [Application]) -> [Application] {
+        
+        // Split searching text into tokens
+        let tokens = trimmedSearchText.split(separator: " ").filter { $0.count > 0 }.map { $0.lowercased() }
+        
+        return apps.filter { app in
+            // Filter apps that has a title, a type name or org name matches the token
+            tokens.allSatisfy { token in
+                app.jobDescription?.title.lowercased().contains(token) ?? false
+                || app.jobDescription?.type?.name.lowercased().contains(token) ?? false
+                || app.jobDescription?.organization?.name.lowercased().contains(token) ?? false
+            }
+        }
+    }
+    
     var body: some View {
         VStack {
             HStack {
@@ -58,14 +95,14 @@ struct ApplicationListView: View {
             }
             .padding([.leading, .trailing, .bottom], 10)
             ScrollView {
-                ForEach(showArchived ? archivedApps : ongoingApps) { app in
+                ForEach(showArchived ? searchArchivedApps : searchOngoingApps) { app in
                     ApplicationCard(application: app)
                         .padding([.leading, .trailing], 10)
                 }
+                .searchable(text: $searchText, prompt: Text("Filter by job name/type or org name"))
             }
         }
-        .padding([.top], 12)
-        .padding(8)
+        .padding([.leading, .trailing], 8)
         .toolbar {
             if displayMenuBar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
