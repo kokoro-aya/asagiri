@@ -81,11 +81,45 @@ func nilDescendingComparator<T: Comparable>(lhs: T?, rhs: T?, nilsAtEnd: Bool) -
 struct ApplicationSortOption : Hashable {
     
     var type: ApplicationSortOptionType
-    var direction: Bool
+    var direction: ApplicationSortDirection
     
     init(type: ApplicationSortOptionType, direction: ApplicationSortDirection) {
         self.type = type
-        self.direction = direction == .ascending
+        self.direction = direction
+    }
+    
+    static let applicationComparators: [ApplicationSortOptionType : ApplicationComparatorPair] = [
+        .byTitle: (
+            ascending: { lhs, rhs in nilAscendingComparator(lhs: lhs.jobDescription?.title, rhs: rhs.jobDescription?.title, nilsAtEnd: false) },
+            descending: { lhs, rhs in nilDescendingComparator(lhs: lhs.jobDescription?.title, rhs: rhs.jobDescription?.title, nilsAtEnd: false) }
+        )
+        ,
+        .byCareer: (
+            ascending: { lhs, rhs in nilAscendingComparator(lhs: lhs.jobDescription?.type?.name, rhs: rhs.jobDescription?.type?.name, nilsAtEnd: false) },
+            descending: { lhs, rhs in nilDescendingComparator(lhs: lhs.jobDescription?.type?.name, rhs: rhs.jobDescription?.type?.name, nilsAtEnd: false) }
+        )
+            
+        ,
+        .byCreationDate: (
+            ascending: { lhs, rhs in nilAscendingComparator(lhs: lhs.jobDescription?.application?.dateCreated, rhs: rhs.jobDescription?.application?.dateCreated, nilsAtEnd: false) },
+            descending: { lhs, rhs in nilDescendingComparator(lhs: lhs.jobDescription?.application?.dateCreated, rhs: rhs.jobDescription?.application?.dateCreated, nilsAtEnd: false) }
+        )
+        ,
+        .byLastUpdateDate: (
+            ascending: { lhs, rhs in nilAscendingComparator(lhs: lhs.jobDescription?.application?.lastEvent?.updateTime, rhs: rhs.jobDescription?.application?.lastEvent?.updateTime, nilsAtEnd: false) },
+            descending: { lhs, rhs in nilDescendingComparator(lhs: lhs.jobDescription?.application?.lastEvent?.updateTime, rhs: rhs.jobDescription?.application?.lastEvent?.updateTime, nilsAtEnd: false) }
+        )
+    ]
+    
+    static func findComparators(options: [ApplicationSortOption]) -> [ApplicationComparator] {
+        return options.map {
+            let ty = applicationComparators[$0.type]!
+            if $0.direction == .ascending {
+                return ty.ascending
+            } else {
+                return ty.descending
+            }
+        }
     }
 }
 
@@ -134,28 +168,4 @@ enum ApplicationSortDirection : Identifiable, CustomStringConvertible, CaseItera
 
 typealias ApplicationComparator = (Application, Application) -> ComparisonResult
 typealias ApplicationComparatorPair = (ascending: ApplicationComparator, descending: ApplicationComparator)
-
-let applicationComparators: [ApplicationSortOptionType : ApplicationComparatorPair] = [
-    .byTitle: (
-        ascending: { lhs, rhs in nilAscendingComparator(lhs: lhs.jobDescription?.title, rhs: rhs.jobDescription?.title, nilsAtEnd: false) },
-        descending: { lhs, rhs in nilDescendingComparator(lhs: lhs.jobDescription?.title, rhs: rhs.jobDescription?.title, nilsAtEnd: false) }
-    )
-    ,
-    .byCareer: (
-        ascending: { lhs, rhs in nilAscendingComparator(lhs: lhs.jobDescription?.type?.name, rhs: rhs.jobDescription?.type?.name, nilsAtEnd: false) },
-        descending: { lhs, rhs in nilDescendingComparator(lhs: lhs.jobDescription?.type?.name, rhs: rhs.jobDescription?.type?.name, nilsAtEnd: false) }
-    )
-        
-    ,
-    .byCreationDate: (
-        ascending: { lhs, rhs in nilAscendingComparator(lhs: lhs.jobDescription?.application?.dateCreated, rhs: rhs.jobDescription?.application?.dateCreated, nilsAtEnd: false) },
-        descending: { lhs, rhs in nilDescendingComparator(lhs: lhs.jobDescription?.application?.dateCreated, rhs: rhs.jobDescription?.application?.dateCreated, nilsAtEnd: false) }
-    )
-    ,
-    .byLastUpdateDate: (
-        ascending: { lhs, rhs in nilAscendingComparator(lhs: lhs.jobDescription?.application?.lastEvent?.updateTime, rhs: rhs.jobDescription?.application?.lastEvent?.updateTime, nilsAtEnd: false) },
-        descending: { lhs, rhs in nilDescendingComparator(lhs: lhs.jobDescription?.application?.lastEvent?.updateTime, rhs: rhs.jobDescription?.application?.lastEvent?.updateTime, nilsAtEnd: false) }
-    )
-    
-]
 

@@ -21,7 +21,8 @@ import Foundation
 import SwiftData
 
 @Model
-final class Application : Codable {
+final class Application : Codable, Comparable {
+
     
     @Relationship
     var jobDescription: JobDescription? = nil
@@ -85,5 +86,16 @@ final class Application : Codable {
         try container.encode(cover, forKey: .cover)
         try container.encode(dateCreated, forKey: .dateCreated)
         try container.encode(events, forKey: .events)
+    }
+    
+    // For comparison purpose
+    static func < (lhs: Application, rhs: Application) -> Bool {
+        if let lj = lhs.jobDescription, let rj = rhs.jobDescription {
+            return lj < rj
+        }
+        if lhs.dateCreated < rhs.dateCreated {
+            return true
+        }
+        return false
     }
 }

@@ -68,7 +68,7 @@ struct ApplicationSortingOptionsView: View {
                     }
                 }
             } label: {
-                Label("Add filter", systemImage: "bag.fill")
+                Label("", systemImage: "line.3.horizontal.decrease.circle")
             }
             .padding([.top], 10)
         }

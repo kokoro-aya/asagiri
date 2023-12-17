@@ -21,7 +21,8 @@ import Foundation
 import SwiftData
 
 @Model
-final class JobDescription : Codable {
+final class JobDescription : Codable, Comparable {
+    
     var title: String
     
     @Relationship
@@ -87,5 +88,19 @@ final class JobDescription : Codable {
         try container.encode(orgIntro, forKey: .orgIntro)
         try container.encode(responsibilities, forKey: .responsibilities)
         try container.encode(complementary, forKey: .complementary)
+    }
+    
+    // For comparison purpose
+    static func < (lhs: JobDescription, rhs: JobDescription) -> Bool {
+        if lhs.title < rhs.title {
+            return true
+        }
+        if let lt = lhs.type, let rt = rhs.type {
+            return lt < rt
+        }
+        if let lo = lhs.organization, let ro = rhs.organization {
+            return lo < ro
+        }
+        return false
     }
 }

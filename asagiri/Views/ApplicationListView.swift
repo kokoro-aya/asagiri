@@ -38,7 +38,7 @@ struct ApplicationListView: View {
         return applications.filter { $0.status == .archived }
     }
     
-    // TODO: Add filter facilities
+    // MARK: Filter Facilities
     
     @State private var searchText = ""
     
@@ -77,8 +77,29 @@ struct ApplicationListView: View {
         }
     }
     
+    // MARK: Sorting facilities
+    
+    @State var criteria: [ApplicationSortOption] = []
+    
+    var sortedFilteredOngoingApps: [Application] {
+        if criteria.isEmpty {
+            return searchOngoingApps
+        } else {
+            return sortByMultiComparators(source: searchOngoingApps, comparators: ApplicationSortOption.findComparators(options: criteria))
+        }
+    }
+    
+    var sortedFilteredArchivedApps: [Application] {
+        if criteria.isEmpty {
+            return searchArchivedApps
+        } else {
+            return sortByMultiComparators(source: searchArchivedApps, comparators: ApplicationSortOption.findComparators(options: criteria))
+        }
+    }
+    
     var body: some View {
         VStack {
+            ApplicationSortingOptionsView(criteria: $criteria)
             HStack {
                 if showArchived {
                     Button("Active apps") {
@@ -95,7 +116,7 @@ struct ApplicationListView: View {
             }
             .padding([.leading, .trailing, .bottom], 10)
             ScrollView {
-                ForEach(showArchived ? searchArchivedApps : searchOngoingApps) { app in
+                ForEach(showArchived ? sortedFilteredArchivedApps : sortedFilteredOngoingApps) { app in
                     ApplicationCard(application: app)
                         .padding([.leading, .trailing], 10)
                 }

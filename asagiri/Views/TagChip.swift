@@ -30,7 +30,7 @@ struct TagChip: View {
             Button {
                 option.direction = !option.direction
             } label: {
-                if option.direction {
+                if option.direction == .ascending {
                     Image(systemName: "arrow.up")
                         .foregroundColor(.gray)
                 } else {
