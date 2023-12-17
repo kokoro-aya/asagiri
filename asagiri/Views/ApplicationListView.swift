@@ -85,7 +85,7 @@ struct ApplicationListView: View {
         if criteria.isEmpty {
             return searchOngoingApps
         } else {
-            return sortByMultiComparators(source: searchOngoingApps, comparators: ApplicationSortOption.findComparators(options: criteria))
+            return sortByMultiComparators(source: searchOngoingApps, comparators: ApplicationSortOption.findComparators(options: criteria.reversed()))
         }
     }
     
@@ -93,7 +93,7 @@ struct ApplicationListView: View {
         if criteria.isEmpty {
             return searchArchivedApps
         } else {
-            return sortByMultiComparators(source: searchArchivedApps, comparators: ApplicationSortOption.findComparators(options: criteria))
+            return sortByMultiComparators(source: searchArchivedApps, comparators: ApplicationSortOption.findComparators(options: criteria.reversed()))
         }
     }
     

@@ -26,7 +26,7 @@ func sortByMultiComparators<T: Comparable>(source: [T], comparators: [(T, T) -> 
     source.sorted(by: { lhs, rhs in
         for cmp in comparators {
             let curr = cmp(lhs, rhs)
-            if curr != .orderedAscending {
+            if curr == .orderedAscending {
                 return true
             } else {
                 continue
@@ -112,7 +112,7 @@ struct ApplicationSortOption : Hashable {
     ]
     
     static func findComparators(options: [ApplicationSortOption]) -> [ApplicationComparator] {
-        return options.map {
+        let res = options.map {
             let ty = applicationComparators[$0.type]!
             if $0.direction == .ascending {
                 return ty.ascending
@@ -120,6 +120,7 @@ struct ApplicationSortOption : Hashable {
                 return ty.descending
             }
         }
+        return res
     }
 }
 
