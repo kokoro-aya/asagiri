@@ -11,7 +11,7 @@
 //
 //  You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
 //
-//  Analytics+GoalView.swift
+//  Analytics+FullScreen+GoalView.swift
 //  asagiri
 //
 //  Created by irony on 18/12/2023.
@@ -19,8 +19,9 @@
 
 import SwiftUI
 import SwiftData
+import Charts
 
-struct Analytics_GoalView: View {
+struct Analytics_FullScreen_GoalView: View {
     
     @Query var applications: [Application]
     
@@ -48,38 +49,49 @@ struct Analytics_GoalView: View {
         return "\(begins) - \(curr)"
     }
     
+    var data: [(name: String, count: Int)] {
+        return [
+            (name: "Applied", count: appliedThisMonth),
+            (name: "Unfinished", count: goal - appliedThisMonth)
+        ]
+    }
+    
+    let domains = ["Applied", "Unfinished"]
+    let chartColors: [Color] = [.blue, .teal.opacity(0.5)]
+    
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("This month")
-                .font(.title3)
-            Text(dateRange())
-                .font(.subheadline)
-            HStack {
-                Text("\(appliedThisMonth)/\(goal)")
-                    .foregroundStyle(.blue)
-                    .font(.title)
+        VStack {
+            Text("This Month")
+                .font(.title2)
+                .padding([.bottom], 16)
+            ZStack {
+                Chart {
+                    ForEach(data, id: \.name) { data in
+                        SectorMark(
+                            angle: .value("App", data.count),
+                            innerRadius: .ratio(0.8),
+                            angularInset: 2.0
+                        )
+                        .foregroundStyle(by: .value("Type", data.name))
+                    }
+                }
+                .frame(height: 240)
+                .chartForegroundStyleScale(domain: domains, range: chartColors)
+                .chartLegend(.hidden)
                 
-                Spacer()
-                
-                ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerSize: CGSize(width: 4, height: 4))
-                        .foregroundColor(.teal)
-                        .opacity(0.5)
-                        .frame(width: 180, height: 10)
-                
-                    RoundedRectangle(cornerSize: CGSize(width: 4, height: 4))
-                        .foregroundColor(.green)
-                        .frame(width: CGFloat((Float(appliedThisMonth) / Float(goal))) * 180, height: 10)
+                VStack {
+                    Text("\(appliedThisMonth)")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.blue)
+                    Text("\(goal)")
+                        .font(.callout)
+                        .foregroundStyle(.teal)
                 }
             }
-            .padding([.top, .bottom], 8)
-            if goal > appliedThisMonth {
-                Text("Try to achieve \(goal) applications for this month!")
-            } else {
-                Text("Well done!")
-            }
+            
         }
-        .padding(16)
     }
 }
 
@@ -89,7 +101,7 @@ struct Analytics_GoalView: View {
         
         prepareDummyApplicationDataForAnalyticViews(container: &previewContainer)
         
-        return Analytics_GoalView()
+        return Analytics_FullScreen_GoalView()
             .modelContainer(previewContainer)
         
     }
