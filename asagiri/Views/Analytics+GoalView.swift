@@ -11,66 +11,80 @@
 //
 //  You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
 //
-//  AnalyticsView.swift
+//  Analytics+GoalView.swift
 //  asagiri
 //
-//  Created by irony on 04/12/2023.
+//  Created by irony on 18/12/2023.
 //
 
 import SwiftUI
 import SwiftData
 
-struct AnalyticsView: View {
-
-    @Binding var pathManager:PathManager
-
-    @State private var displayMenuBar: Bool = false
+struct Analytics_GoalView: View {
+    
+    @Query var applications: [Application]
+    
+    var monthStarts: Date {
+        let month = Calendar.current.dateComponents([.year, .month], from: .now)
+        return Calendar.current.date(from: month)!
+    }
+    
+    var appliedThisMonth: Int {
+        return applications.filter { $0.dateCreated >= monthStarts }.count
+    }
+    
+    var goal: Int {
+        if appliedThisMonth < 30 {
+            return 30
+        } else if appliedThisMonth < 60 {
+            return 60
+        } else if appliedThisMonth < 90 {
+            return 90
+        } else {
+            return appliedThisMonth
+        }
+    }
+    
+    func dateRange() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d"
+        let begins = formatter.string(from: monthStarts)
+        let curr = formatter.string(from: .now)
+        return "\(begins) - \(curr)"
+    }
     
     var body: some View {
-        ScrollView {
-            Analytics_TopView()
-            Divider()
-            Analytics_GoalView()
-        }
-        .padding(16)
-        .toolbar {
-            if displayMenuBar {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    Button {
-                        displayMenuBar = false
-                    } label: {
-                        Label("Menu", systemImage: "arrow.left")
-                    }
-                    
-                    NavigationLink(value: PageType.home, label: {
-                        Label("Home", systemImage: "house.fill")
-                    })
-                    
-                    NavigationLink(value: PageType.jd_list, label: {
-                        Label("JD List", systemImage: "bag.fill")
-                    })
-                    
-                    NavigationLink(value: PageType.settings, label: {
-                        Label("Settings", systemImage: "gear")
-                    })
-                    
-                    Label("Analytics", systemImage: "chart.pie")
-                        .foregroundColor(.black)
-                        .padding([.leading], 10)
-                }
-            } else {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    Button {
-                        displayMenuBar = true
-                    } label: {
-                        Label("Menu", systemImage: "line.3.horizontal")
-                    }
-                    
-                    Text("Analytics")
-                        .font(.title2)
+        VStack(alignment: .leading) {
+            Text("This month")
+                .font(.title3)
+            Text(dateRange())
+                .font(.subheadline)
+            HStack {
+                Text("\(appliedThisMonth)/\(goal)")
+                    .foregroundStyle(.blue)
+                    .font(.title)
+                
+                Spacer()
+                
+                ZStack(alignment: .leading) {
+                    RoundedRectangle(cornerSize: CGSize(width: 4, height: 4))
+                        .foregroundColor(.teal)
+                        .opacity(0.5)
+                        .frame(width: 180, height: 10)
+                
+                    RoundedRectangle(cornerSize: CGSize(width: 4, height: 4))
+                        .foregroundColor(.green)
+                        .frame(width: CGFloat((Float(appliedThisMonth) / Float(goal))) * 180, height: 10)
                 }
             }
+            .padding([.top, .bottom], 8)
+            if goal > appliedThisMonth {
+                Text("Try to achieve \(goal) applications for this month!")
+            } else {
+                Text("Well done!")
+            }
         }
+        .padding(16)
     }
 }
 
@@ -107,7 +121,8 @@ struct AnalyticsView: View {
             previewContainer.mainContext.insert($0)
         }
         
-        return AnalyticsView(pathManager: .constant(PathManager()))
+        return Analytics_GoalView()
             .modelContainer(previewContainer)
+        
     }
 }

@@ -11,66 +11,71 @@
 //
 //  You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
 //
-//  AnalyticsView.swift
+//  Analytics+TopView.swift
 //  asagiri
 //
-//  Created by irony on 04/12/2023.
+//  Created by irony on 18/12/2023.
 //
 
 import SwiftUI
 import SwiftData
 
-struct AnalyticsView: View {
-
-    @Binding var pathManager:PathManager
-
-    @State private var displayMenuBar: Bool = false
+struct Analytics_TopView: View {
+    
+    @Query var applications: [Application]
+    
+    var count: Int {
+        applications.count
+    }
+    
+    var appliedCount: Int {
+        applications.filter { $0.status > .preparation }.count
+    }
+    
+    var interviewCount: Int {
+        applications
+            .filter { $0.status >= .phoneScreen || $0.status >= .interview(round: 1) }
+            .count
+    }
     
     var body: some View {
-        ScrollView {
-            Analytics_TopView()
-            Divider()
-            Analytics_GoalView()
-        }
-        .padding(16)
-        .toolbar {
-            if displayMenuBar {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    Button {
-                        displayMenuBar = false
-                    } label: {
-                        Label("Menu", systemImage: "arrow.left")
-                    }
-                    
-                    NavigationLink(value: PageType.home, label: {
-                        Label("Home", systemImage: "house.fill")
-                    })
-                    
-                    NavigationLink(value: PageType.jd_list, label: {
-                        Label("JD List", systemImage: "bag.fill")
-                    })
-                    
-                    NavigationLink(value: PageType.settings, label: {
-                        Label("Settings", systemImage: "gear")
-                    })
-                    
-                    Label("Analytics", systemImage: "chart.pie")
-                        .foregroundColor(.black)
-                        .padding([.leading], 10)
-                }
+        VStack {
+            if applications.count < 5 {
+                Text("Add more applications to preview you stats")
             } else {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    Button {
-                        displayMenuBar = true
-                    } label: {
-                        Label("Menu", systemImage: "line.3.horizontal")
-                    }
-                    
-                    Text("Analytics")
-                        .font(.title2)
-                }
+                ChartWindowView(applications: applications)
+                    .frame(height: 540)
             }
+            HStack {
+                Spacer()
+                VStack {
+                    Text("\(count)")
+                        .font(.title)
+                        .foregroundStyle(.gray)
+                    Text("Apps")
+                        .font(.footnote)
+                }
+                Spacer()
+                VStack {
+                    Text("\(appliedCount)")
+                        .font(.title)
+                        .foregroundStyle(.green)
+                    Text("Applied")
+                        .font(.footnote)
+                }
+                Spacer()
+                VStack {
+                    Text("\(interviewCount)")
+                        .font(.title)
+                        .foregroundStyle(.blue)
+                    Text("Interviews")
+                        .font(.footnote)
+                }
+                Spacer()
+            }
+            .padding([.top], -24)
         }
+        .padding(8)
     }
 }
 
@@ -107,7 +112,7 @@ struct AnalyticsView: View {
             previewContainer.mainContext.insert($0)
         }
         
-        return AnalyticsView(pathManager: .constant(PathManager()))
+        return Analytics_TopView()
             .modelContainer(previewContainer)
     }
 }
