@@ -44,7 +44,7 @@ struct Analytics_TopView: View {
                 Text("Add more applications to preview you stats")
             } else {
                 ChartWindowView(applications: applications)
-                    .frame(height: 540)
+                    .frame(height: 480)
             }
             HStack {
                 Spacer()

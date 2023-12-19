@@ -31,6 +31,8 @@ struct AnalyticsView: View {
             Analytics_TopView()
             Divider()
             Analytics_GoalView()
+            Divider()
+            Analytics_FrequencyView()
         }
         .padding(16)
         .toolbar {

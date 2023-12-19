@@ -121,4 +121,5 @@ struct StaticDetailAbstractDiagramView: View, DynamicSunburstSubView {
          detailDepth: 3, disappearDepth: 7,
         startingPixel: 62, width: 24, narrowWidth: 4, padding: 2,
         hideLegend: false)
+    .frame(height: 480)
 }

@@ -25,28 +25,73 @@ struct Analytics_FrequencyView: View {
     
     @Query var applications: [Application]
     
-    func processGropingOfAppsPerWeek() -> [LabelValuePair] {
-        let dict = Dictionary(grouping: applications, by: {
-            Calendar.current.component(.weekOfYear, from: $0.dateCreated)
-        })
-        return dict.map { key, value in
-            LabelValuePair(label: "\(key)", value: value.count)
+    func processGropingOfAppsPerWeek() -> [(status: ApplicationStatus, data: [LabelValuePair])] {
+        let dict =
+        Dictionary(grouping: applications, by: { $0.status })
+            .map { cat, list in
+                (cat, Dictionary(grouping: list, by: {
+                    Calendar.current.component(.weekOfYear, from: $0.dateCreated)
+                }))
+            }
+        return dict
+            .map { cat, list in
+                (status: cat, data: list
+                    .map { key, value in
+                        LabelValuePair(label: "\(key)", value: value.count)
+                    }
+                )
+        }
+    }
+    
+    func computeDomains(dataset: [(status: ApplicationStatus, data: [LabelValuePair])]) -> [String] {
+        return dataset.map { $0.status.description }.sorted()
+    }
+    
+    func findEdges(dataset: [(status: ApplicationStatus, data: [LabelValuePair])]) -> (Int, Int) {
+        let allPairs = dataset.flatMap { $0.data }.map { Int($0.label)! }
+        let min = allPairs.min()!
+        let max = allPairs.max()!
+        
+        let current = Calendar.current.component(.weekOfYear, from: Date.now)
+        
+        // This year only or reviewing last year
+        if current >= max || current < min {
+            return (min, max)
+        } else {
+            
+            // Only display this year
+            return (min, current)
         }
     }
     
     var body: some View {
-        VStack {
-            Text("All Applications")
-                .font(.title2)
+        
+        let data = processGropingOfAppsPerWeek()
+        
+        let edges = findEdges(dataset: data)
+        
+        
+        VStack(alignment: .leading) {
+            Text("Applications per week")
+                .font(.title3)
+                .padding([.bottom], 16)
             Chart {
-                ForEach(processGropingOfAppsPerWeek()) {
-                    BarMark(x: .value($0.label, $0.label),
-                            y: .value("Value", $0.value))
+                ForEach(data, id: \.status) { cat, list in
+                    ForEach(list) {
+                        BarMark(x: .value($0.label, Int($0.label)!),
+                                y: .value("Value", $0.value)
+                        )
+                    }
+                    .foregroundStyle(by: .value("Status(type)", cat.description))
                 }
             }
+            .chartXScale(domain: [0, 53])
+            .chartYAxis(.hidden)
+            .chartForegroundStyleScale(domain: computeDomains(dataset: data), range: chartColors)
+            .chartLegend(.hidden)
             .frame(height: 180)
-            .padding(16)
         }
+        .padding(16)
     }
 }
 
