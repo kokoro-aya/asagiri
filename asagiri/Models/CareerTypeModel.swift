@@ -21,7 +21,8 @@ import Foundation
 import SwiftData
 
 @Model
-final class CareerType : Codable {
+final class CareerType : Codable, Comparable {
+    
     var name: String
     
     var symbol: String?
@@ -53,5 +54,10 @@ final class CareerType : Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
         try container.encode(symbol, forKey: .symbol)
+    }
+    
+    // For comparison purpose
+    static func < (lhs: CareerType, rhs: CareerType) -> Bool {
+        return lhs.name < rhs.name
     }
 }

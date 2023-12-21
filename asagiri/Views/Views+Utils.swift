@@ -111,6 +111,12 @@ func prepareDummyApplicationDataForAnalyticViews(container: inout ModelContainer
     ]
     
     applications.forEach {
-        container.mainContext.insert($0)
+        container.mainContext.insert($0)     
+    }
+}
+
+extension String {
+    var isNotEmpty: Bool {
+        return !self.isEmpty
     }
 }
