@@ -114,8 +114,18 @@ struct CreateNewApplicationView: View {
                     modelContext.insert(createdApplication)
                     
                     createdApplication.jobDescription = jobDescription
-                    createdApplication.resume = Resume(content: resume)
-                    createdApplication.cover = CoverLetter(content: cover)
+                    if self.resume.isNotEmpty {
+                        createdApplication.resume = Resume(content: resume)
+                    } else {
+                        createdApplication.resume = nil
+                    }
+                    
+                    if self.cover.isNotEmpty {
+                        createdApplication.cover = CoverLetter(content: cover)
+                    } else {
+                        createdApplication.cover = nil
+                    }
+                    
                     createdApplication.dateCreated = creationDate
                     
                     let newEvent = Event(type: .preparation, updateTime: creationDate)

@@ -72,27 +72,24 @@ struct ApplicationCard: View {
                 }
             }
             HStack {
-                if (app.resume != nil || app.cover != nil) {
-//                    Text("Preview")
-//                        .foregroundStyle(.gray)
-                    if (app.resume != nil) {
-                        Button {
-                            
-                        } label: {
-                            Text("Resume")
-                        }
+                if (app.resume != nil) {
+                    Button {
+                        
+                    } label: {
+                        Text("Resume")
                     }
-                    if (app.cover != nil) {
-                        Button {
-                            
-                        } label: {
-                            Text("Cover")
-                        }
-                    }
-                    NavigationLink(value: app, label: {
-                        Text("Detail")
-                    })
                 }
+                if (app.cover != nil) {
+                    Button {
+                        
+                    } label: {
+                        Text("Cover")
+                    }
+                }
+                NavigationLink(value: app, label: {
+                    Text("Detail")
+                })
+                
                 Spacer()
                 
                 let possibleNexts = self.app.status.possibleNexts()

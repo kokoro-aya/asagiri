@@ -26,13 +26,42 @@ struct JDListView: View {
     
     @Query private var jobDescriptions: [JobDescription]
     
+    @Query private var existingApps: [Application]
+    
+    @State private var showFinished: Bool = false
+    
+    var finishedJDs: [JobDescription] {
+        return jobDescriptions.filter { jd in existingApps.contains(where: { $0.jobDescription == jd }) }
+    }
+    
+    var unfinishedJDs: [JobDescription] {
+        return jobDescriptions.filter { !finishedJDs.contains($0) }
+    }
+    
     @State private var displayMenuBar: Bool = false
     
     var body: some View {
         ScrollView {
-            ForEach(jobDescriptions) { jd in
-                JobDescriptionCard(jd: jd, pathManager: $pathManager)
+            ForEach(unfinishedJDs) { jd in
+                JobDescriptionCard(jd: jd, completed: false, pathManager: $pathManager)
                     .padding([.leading, .trailing], 10)
+            }
+            if showFinished {
+                Button {
+                    showFinished = false
+                } label: {
+                    Label("Hide", systemImage: "minus")
+                }
+                ForEach(finishedJDs) { jd in
+                    JobDescriptionCard(jd: jd, completed: true, pathManager: $pathManager)
+                        .padding([.leading, .trailing], 10)
+                }
+            } else {
+                Button {
+                    showFinished = true
+                } label: {
+                    Label("Show completed JDs", systemImage: "plus")
+                }
             }
         }
         .padding([.top], 12)
@@ -100,7 +129,16 @@ struct JDListView: View {
         let jd3 = JobDescription(title: "devops", organization: Organization(name: "Company 3", website: "company3.com"), type: CareerType(name: "Devops"))
         let jd4 = JobDescription(title: "fullstack", organization: Organization(name: "Company 4", website: "company4.com"), type: CareerType(name: "Fullstack"))
         
-        let apps = [jd0, jd1, jd2, jd3, jd4]
+        let jds = [jd0, jd1, jd2, jd3, jd4]
+        
+        let app1 = Application(jobDescription: jd0, resume: Resume(content: "resume 1"), cover: CoverLetter(content: "cover 1"), dateCreated: .now, events: [])
+        let app2 = Application(jobDescription: jd4, resume: Resume(content: "resume 2"), cover: CoverLetter(content: "cover 2"), dateCreated: .now, events: [])
+        
+        let apps = [app1, app2]
+        
+        jds.forEach {
+            previewContainer.mainContext.insert($0)
+        }
         
         apps.forEach {
             previewContainer.mainContext.insert($0)

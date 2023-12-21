@@ -6,6 +6,7 @@ You can save your applications to track them, update them and visualize them.
 
 Features:
 
+- Filter or sort your applications
 - Update your applications in one click
 - Bring back your updates if they happened a week before
 - Archive or delete if you feel them useless
@@ -15,7 +16,6 @@ Features:
 Planned:
 
 - Tags
-- Filters
 - More comprehensive statistics page
 - PDF-related facilities
 

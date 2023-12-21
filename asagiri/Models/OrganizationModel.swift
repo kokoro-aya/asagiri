@@ -21,7 +21,8 @@ import Foundation
 import SwiftData
 
 @Model
-final class Organization : Codable {
+final class Organization : Codable, Comparable {
+
     var name: String
     var website: String
     
@@ -60,5 +61,10 @@ final class Organization : Codable {
         try container.encode(website, forKey: .website)
         
         try container.encode(positions, forKey: .positions)
+    }
+    
+    // For comparison purpose
+    static func < (lhs: Organization, rhs: Organization) -> Bool {
+        return lhs.name < rhs.name
     }
 }

@@ -42,6 +42,13 @@ struct SettingsView: View {
                     Spacer()
                         .frame(height: 16)
                     
+                    NavigationLink(value: PageType.company_list, label: {
+                        Text("Show companies")
+                    })
+                    
+                    Spacer()
+                        .frame(height: 16)
+                    
                     NavigationLink(value: PageType.export_import, label: {
                         Text("Export/Import")
                     })

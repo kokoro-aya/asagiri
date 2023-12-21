@@ -71,7 +71,7 @@ struct OrganizationListView: View {
                         Label("Menu", systemImage: "line.3.horizontal")
                     }
                     
-                    Text("Manage Tags")
+                    Text("Organization List")
                         .font(.title2)
                 }
             }

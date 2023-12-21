@@ -28,10 +28,13 @@ struct JobDescriptionCard: View {
     
     let jd: JobDescription
     
+    let completed: Bool
+    
     @State var detailed: Bool = false
     
-    init(jd: JobDescription, pathManager: Binding<PathManager>) {
+    init(jd: JobDescription, completed: Bool, pathManager: Binding<PathManager>) {
         self.jd = jd
+        self.completed = completed
         self._pathManager = pathManager
     }
     
@@ -47,15 +50,20 @@ struct JobDescriptionCard: View {
                 Spacer()
                 Text(jd.type?.name ?? "")
             }
+            .foregroundColor(completed ? .gray : .black)
             HStack(alignment: .bottom) {
                 if (jd.intro.count > 0) {
                     Text("\(jd.intro.prefix(136).description) ...")
+                        .foregroundColor(completed ? .gray : .black)
                 }
                 Spacer()
                 
-                NavigationLink(value: jd, label: {
-                    Text("Add an app.")
-                })
+                if !completed {
+                    NavigationLink(value: jd, label: {
+                        Text("Finish")
+                            .foregroundColor(.blue)
+                    })
+                }
                 
             }
         }
