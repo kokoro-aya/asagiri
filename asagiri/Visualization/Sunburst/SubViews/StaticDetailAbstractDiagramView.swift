@@ -22,11 +22,13 @@ import Charts
 
 struct StaticDetailAbstractDiagramView: View, DynamicSunburstSubView {
     
-    @State var dataSource: PaintNode
+    var dataSource: PaintNode
     
-    @State var domains: [String]
+    var domains: [String]
     
-    @State var chartColors: [Color]
+    var excludeInLegend: [String] = []
+    
+    var chartColors: [Color]
     
     let detailDepth: Int // 3
     
@@ -50,7 +52,9 @@ struct StaticDetailAbstractDiagramView: View, DynamicSunburstSubView {
         }
     }
     
-
+    var legendDomains: [String] {
+        return domains.filter { !excludeInLegend.contains($0) }
+    }
     
     var body: some View {
         ZStack {
@@ -58,8 +62,8 @@ struct StaticDetailAbstractDiagramView: View, DynamicSunburstSubView {
                 SectorMark(angle: .value(Text(verbatim: child.label), child.value), innerRadius: .fixed(0), outerRadius: .fixed(0), angularInset: 1)
                     .foregroundStyle(by: .value(Text(verbatim: child.label), child.label))
             }
-            .chartForegroundStyleScale(domain: domains, range: chartColors)
-            .chartLegend(position: .leading, alignment: .top)
+            .chartForegroundStyleScale(domain: legendDomains, range: chartColors)
+            .chartLegend(position: .topLeading, alignment: .top)
             .chartLegend(hideLegend ? .hidden : .visible)
             .padding(16)
             
@@ -116,5 +120,6 @@ struct StaticDetailAbstractDiagramView: View, DynamicSunburstSubView {
         domains: domains, chartColors: chartColors,
          detailDepth: 3, disappearDepth: 7,
         startingPixel: 62, width: 24, narrowWidth: 4, padding: 2,
-        hideLegend: true)
+        hideLegend: false)
+    .frame(height: 480)
 }

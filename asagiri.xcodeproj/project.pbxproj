@@ -47,6 +47,10 @@
 		F75561AA2B179EB6004FC072 /* FullSunburstDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75561A92B179EB6004FC072 /* FullSunburstDiagramView.swift */; };
 		F75561AC2B179EC5004FC072 /* DynamicSunburstDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75561AB2B179EC5004FC072 /* DynamicSunburstDiagramView.swift */; };
 		F75561AE2B17AD55004FC072 /* StaticDetailAbstractDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75561AD2B17AD55004FC072 /* StaticDetailAbstractDiagramView.swift */; };
+		F78532DE2B2FBF4800AB5916 /* Analytics+GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78532DD2B2FBF4800AB5916 /* Analytics+GoalView.swift */; };
+		F78532E02B2FBF5C00AB5916 /* Analytics+TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78532DF2B2FBF5B00AB5916 /* Analytics+TopView.swift */; };
+		F78532E22B2FBF6700AB5916 /* Analytics+FrequencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78532E12B2FBF6700AB5916 /* Analytics+FrequencyView.swift */; };
+		F78532E42B2FBF9300AB5916 /* Analytics+FullScreen+GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78532E32B2FBF9300AB5916 /* Analytics+FullScreen+GoalView.swift */; };
 		F7B9E4432B111C4C00964F46 /* ApplicationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4422B111C4C00964F46 /* ApplicationCard.swift */; };
 		F7B9E4452B1121C600964F46 /* CreateNewJDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */; };
 		F7B9E4472B11374100964F46 /* Views+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4462B11374100964F46 /* Views+Utils.swift */; };
@@ -127,6 +131,10 @@
 		F75561A92B179EB6004FC072 /* FullSunburstDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSunburstDiagramView.swift; sourceTree = "<group>"; };
 		F75561AB2B179EC5004FC072 /* DynamicSunburstDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicSunburstDiagramView.swift; sourceTree = "<group>"; };
 		F75561AD2B17AD55004FC072 /* StaticDetailAbstractDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticDetailAbstractDiagramView.swift; sourceTree = "<group>"; };
+		F78532DD2B2FBF4800AB5916 /* Analytics+GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Analytics+GoalView.swift"; sourceTree = "<group>"; };
+		F78532DF2B2FBF5B00AB5916 /* Analytics+TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Analytics+TopView.swift"; sourceTree = "<group>"; };
+		F78532E12B2FBF6700AB5916 /* Analytics+FrequencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Analytics+FrequencyView.swift"; sourceTree = "<group>"; };
+		F78532E32B2FBF9300AB5916 /* Analytics+FullScreen+GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Analytics+FullScreen+GoalView.swift"; sourceTree = "<group>"; };
 		F7B9E4422B111C4C00964F46 /* ApplicationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCard.swift; sourceTree = "<group>"; };
 		F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewJDView.swift; sourceTree = "<group>"; };
 		F7B9E4462B11374100964F46 /* Views+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views+Utils.swift"; sourceTree = "<group>"; };
@@ -206,6 +214,10 @@
 				F738D1602B153F82006AC134 /* SettingsView.swift */,
 				F7D34A6C2B1B93E800A7B005 /* ChartWindowView.swift */,
 				F7C708332B1E65CF00B87680 /* AnalyticsView.swift */,
+				F78532DF2B2FBF5B00AB5916 /* Analytics+TopView.swift */,
+				F78532DD2B2FBF4800AB5916 /* Analytics+GoalView.swift */,
+				F78532E12B2FBF6700AB5916 /* Analytics+FrequencyView.swift */,
+				F78532E32B2FBF9300AB5916 /* Analytics+FullScreen+GoalView.swift */,
 				F7D34A702B1CA2F600A7B005 /* Export+ImportView.swift */,
 				F7B9E4462B11374100964F46 /* Views+Utils.swift */,
 				F71827252B1A77F400A6BEE3 /* NavigateToCompanyCreateArguments.swift */,
@@ -509,6 +521,7 @@
 				F7D34A6F2B1B940C00A7B005 /* OrganizationListView.swift in Sources */,
 				F75561AE2B17AD55004FC072 /* StaticDetailAbstractDiagramView.swift in Sources */,
 				F71827282B1A780F00A6BEE3 /* JobTypeDropdownSelector.swift in Sources */,
+				F78532E02B2FBF5C00AB5916 /* Analytics+TopView.swift in Sources */,
 				F72BFF112B100AFC0090EED7 /* ApplicationStatus.swift in Sources */,
 				F75561AA2B179EB6004FC072 /* FullSunburstDiagramView.swift in Sources */,
 				F751E7912B067FAB007828D6 /* ContentView.swift in Sources */,
@@ -522,6 +535,7 @@
 				F718272A2B1A78A400A6BEE3 /* JobDescriptionCard.swift in Sources */,
 				F7C4C0C12B2DBEDE003DDCE4 /* ApplicationListSortingPart.swift in Sources */,
 				F75561A52B179DBF004FC072 /* LabelValuePair.swift in Sources */,
+				F78532DE2B2FBF4800AB5916 /* Analytics+GoalView.swift in Sources */,
 				F7D34A6B2B1B93C400A7B005 /* ApplicationPreviewView.swift in Sources */,
 				F7B9E4472B11374100964F46 /* Views+Utils.swift in Sources */,
 				F72BFF0D2B1008B60090EED7 /* OrganizationModel.swift in Sources */,
@@ -534,6 +548,8 @@
 				F71827262B1A77F400A6BEE3 /* NavigateToCompanyCreateArguments.swift in Sources */,
 				F75561A32B179DA9004FC072 /* DemoSource.swift in Sources */,
 				F72BFF072B10085A0090EED7 /* CreateNewApplicationView.swift in Sources */,
+				F78532E22B2FBF6700AB5916 /* Analytics+FrequencyView.swift in Sources */,
+				F78532E42B2FBF9300AB5916 /* Analytics+FullScreen+GoalView.swift in Sources */,
 				F72BFF1B2B10E64B0090EED7 /* EventModel.swift in Sources */,
 				F75561A72B179E4D004FC072 /* Visualization+Extensions.swift in Sources */,
 				F72BFF132B100B140090EED7 /* ResumeModel.swift in Sources */,

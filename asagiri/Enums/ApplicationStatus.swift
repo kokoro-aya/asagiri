@@ -20,7 +20,7 @@
 import Foundation
 import SwiftUI
 
-enum ApplicationStatus : Codable, Hashable, Identifiable {
+enum ApplicationStatus : Codable, Hashable, Identifiable, Comparable {
     
     var id: Self {
         return self

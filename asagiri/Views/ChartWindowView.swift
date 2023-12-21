@@ -42,24 +42,11 @@ struct ChartWindowView: View {
         self._domains = domains
     }
     
-    let chartColors: [Color] = [
-        Color(hex: 0x00aa90),
-        Color(hex: 0xe98b2a),
-        Color(hex: 0xd0104c),
-        Color(hex: 0x91ad70),
-        Color(hex: 0xb28fce),
-        Color(hex: 0xe16b8c),
-        Color(hex: 0xfc9f4d),
-        Color(hex: 0x5b622e),
-        Color(hex: 0x33a6b8),
-        Color(hex: 0x0c4842),
-    ]
-
-    
     var body: some View {
         StaticDetailAbstractDiagramView(
             dataSource: dataSource,
             domains: domains,
+            excludeInLegend: ["Pending"],
             chartColors: chartColors,
             detailDepth: 3,
             disappearDepth: 10,
@@ -118,8 +105,8 @@ func insertEventInto(paintNode node: PaintNode, events: [Event]) {
             var nextNode = findOrCreatePaintNode(node: node, label: "Not Started")
             insertEventInto(paintNode: nextNode, events: Array(events.dropFirst()))
         case .preparation:
-            var nextNode = findOrCreatePaintNode(node: node, label: "Preparation")
-            insertEventInto(paintNode: nextNode, events: Array(events.dropFirst()))
+            // Remove the `preparation` node since it's everywhere
+            insertEventInto(paintNode: node, events: Array(events.dropFirst()))
         case .applied:
             var nextNode = findOrCreatePaintNode(node: node, label: "Applied")
             insertEventInto(paintNode: nextNode, events: Array(events.dropFirst()))
@@ -184,21 +171,25 @@ func computeMaxInterviewRound(apps: [Application]) -> Int {
         
         let applications = [
             Application(jobDescription: JobDescription(title: "A", organization: Organization(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+                Event(type: .preparation, updateTime: createDateFromString("2023-10-11T12:00:00-08:00")),
                 Event(type: .applied, updateTime: createDateFromString("2023-10-12T12:00:00-08:00")),
                 Event(type: .rejected, updateTime: createDateFromString("2023-10-13T14:50:00-08:00"))
             ]),
             Application(jobDescription: JobDescription(title: "A", organization: Organization(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+                Event(type: .preparation, updateTime: createDateFromString("2023-10-10T12:00:00-08:00")),
                 Event(type: .applied, updateTime: createDateFromString("2023-10-11T12:00:00-08:00")),
                 Event(type: .interview(round: 1), updateTime: createDateFromString("2023-10-12T21:00:00-08:00")),
                 Event(type: .interview(round: 2), updateTime: createDateFromString("2023-10-16T15:20:00-08:00")),
                 Event(type: .interview(round: 3), updateTime: createDateFromString("2023-10-19T14:00:00-08:00"))
             ]),
             Application(jobDescription: JobDescription(title: "A", organization: Organization(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+                Event(type: .preparation, updateTime: createDateFromString("2023-10-11T12:00:00-08:00")),
                 Event(type: .applied, updateTime: createDateFromString("2023-10-17T12:00:00-08:00")),
                 Event(type: .interview(round: 1), updateTime: createDateFromString("2023-10-18T14:30:00-08:00")),
                 Event(type: .ghost, updateTime: createDateFromString("2023-10-22T14:20:00-08:00"))
             ]),
             Application(jobDescription: JobDescription(title: "A", organization: Organization(name: "B", website: "D"), type: CareerType(name: "C")), dateCreated: .now, events: [
+                Event(type: .preparation, updateTime: createDateFromString("2023-10-10T12:00:00-08:00")),
                 Event(type: .applied, updateTime: createDateFromString("2023-10-22T13:50:00-08:00"))
             ])
         ]

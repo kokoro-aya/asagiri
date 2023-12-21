@@ -19,7 +19,7 @@
 
 import Foundation
 
-struct LabelValuePair : Hashable {
+struct LabelValuePair : Hashable, Identifiable {
     let label: String
     let value: Int
     
