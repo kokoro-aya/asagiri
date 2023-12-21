@@ -12,13 +12,13 @@ Features:
 - Archive or delete if you feel them useless
 - Visualize your application statistics
 - Export/Import to JSON files
+- Statistics page
 
 Planned:
 
 - Tags
-- More comprehensive statistics page
 - PDF-related facilities
 
 Preview:
 
-![](https://i.v2ex.co/mhVHd9AZ.png)
+![](https://i.v2ex.co/M7CwwiNI.png)
