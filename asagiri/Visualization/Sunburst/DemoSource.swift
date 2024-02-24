@@ -76,29 +76,29 @@ let sampleDataSource = PaintNode(label: "Submitted", children: [
 
 let domains = ["Phone Screen", "OA", "1st Interview", "2nd Interview", "3rd Interview", "4th Interview", "Technical Test", "Accepted", "Rejected", "Ghosted"]
 
-//let chartColors: [Color] = [
-//    Color(hex: 0x00aa90),
-//    Color(hex: 0xe98b2a),
-//    Color(hex: 0xd0104c),
-//    Color(hex: 0x91ad70),
-//    Color(hex: 0xb28fce),
-//    Color(hex: 0xe16b8c),
-//    Color(hex: 0xfc9f4d),
-//    Color(hex: 0x5b622e),
-//    Color(hex: 0x33a6b8),
-//    Color(hex: 0x0c4842),
-//]
-
-
 let chartColors: [Color] = [
-    .gray,
-    .blue,
-    .yellow,
-    .brown,
-    .green,
-    .cyan,
-    .orange,
-    .red,
-    .purple,
-    .black
+    Color(hex: 0x00aa90),
+    Color(hex: 0xe98b2a),
+    Color(hex: 0xd0104c),
+    Color(hex: 0x91ad70),
+    Color(hex: 0xb28fce),
+    Color(hex: 0xe16b8c),
+    Color(hex: 0xfc9f4d),
+    Color(hex: 0x5b622e),
+    Color(hex: 0x33a6b8),
+    Color(hex: 0x0c4842),
 ]
+//
+//
+//let chartColors: [Color] = [
+//    .gray,
+//    .blue,
+//    .yellow,
+//    .brown,
+//    .green,
+//    .cyan,
+//    .orange,
+//    .red,
+//    .purple,
+//    .black
+//]

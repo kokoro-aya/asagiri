@@ -54,7 +54,7 @@ struct ChartWindowView: View {
             width: 24,
             narrowWidth: 4,
             padding: 2,
-            hideLegend: false)
+            hideLegend: true)
     }
 }
 

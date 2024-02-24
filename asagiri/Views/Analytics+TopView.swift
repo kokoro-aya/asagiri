@@ -34,7 +34,14 @@ struct Analytics_TopView: View {
     
     var interviewCount: Int {
         applications
-            .filter { $0.status >= .phoneScreen || $0.status >= .interview(round: 1) }
+            .filter { $0.events.contains(where: { ev in
+                switch ev.type {
+                case .interview(_): true
+                case .phoneScreen: true
+                case .technicalTest: true
+                default: false
+                } })
+            }
             .count
     }
     
