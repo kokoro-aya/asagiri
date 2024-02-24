@@ -20,6 +20,7 @@
 import Foundation
 import SwiftUI
 
+#if os(iOS)
 struct JobDescriptionCard: View {
     
     @Binding var pathManager:PathManager
@@ -71,4 +72,4 @@ struct JobDescriptionCard: View {
             .padding([.bottom], 12)
     }
 }
-
+#endif

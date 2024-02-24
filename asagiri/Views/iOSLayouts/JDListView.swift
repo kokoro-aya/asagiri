@@ -20,6 +20,7 @@
 import SwiftUI
 import SwiftData
 
+#if os(iOS)
 struct JDListView: View {
     
     @Binding var pathManager:PathManager
@@ -148,3 +149,4 @@ struct JDListView: View {
             .modelContainer(previewContainer)
     }
 }
+#endif

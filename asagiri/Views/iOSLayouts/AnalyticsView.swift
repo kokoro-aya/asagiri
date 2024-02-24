@@ -20,6 +20,7 @@
 import SwiftUI
 import SwiftData
 
+#if os(iOS)
 struct AnalyticsView: View {
 
     @Binding var pathManager:PathManager
@@ -86,3 +87,4 @@ struct AnalyticsView: View {
             .modelContainer(previewContainer)
     }
 }
+#endif

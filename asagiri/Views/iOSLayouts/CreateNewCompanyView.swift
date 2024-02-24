@@ -20,6 +20,7 @@
 import SwiftUI
 import SwiftData
 
+#if os(iOS)
 struct CreateNewOrganizationView: View {
     
     @State private var displayMenuBar: Bool = false
@@ -118,3 +119,4 @@ struct CreateNewOrganizationView: View {
             .modelContainer(previewContainer)
     }
 }
+#endif

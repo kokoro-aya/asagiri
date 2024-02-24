@@ -20,6 +20,7 @@
 import SwiftUI
 import SwiftData
 
+#if os(iOS)
 struct CreateNewJDView: View {
     
     @State private var displayMenuBar: Bool = false
@@ -281,3 +282,4 @@ struct CreateNewJDView: View {
         .modelContainer(previewContainer)
     }
 }
+#endif

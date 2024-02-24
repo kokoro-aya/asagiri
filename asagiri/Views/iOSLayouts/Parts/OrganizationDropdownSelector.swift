@@ -20,6 +20,7 @@
 import Foundation
 import SwiftUI
 
+#if os(iOS)
 struct OrganizationDropdownSelector : View {
     
     let allOrganizations: [Organization]
@@ -55,3 +56,4 @@ struct OrganizationDropdownSelector : View {
         }
     }
 }
+#endif

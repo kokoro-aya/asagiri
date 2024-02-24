@@ -20,6 +20,7 @@
 import SwiftUI
 import SwiftData
 
+#if os(iOS)
 struct ApplicationPreviewView: View {
     
     @State private var displayMenuBar: Bool = false
@@ -295,3 +296,4 @@ struct ApplicationPreviewView: View {
     
     
 }
+#endif

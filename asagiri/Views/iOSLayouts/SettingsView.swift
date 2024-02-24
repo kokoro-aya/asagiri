@@ -19,6 +19,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct SettingsView: View {
 
     @Binding var pathManager:PathManager
@@ -101,3 +102,4 @@ struct SettingsView: View {
 #Preview {
     SettingsView(pathManager: .constant(PathManager()))
 }
+#endif

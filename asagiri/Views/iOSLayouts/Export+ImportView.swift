@@ -71,6 +71,7 @@ struct ProfileDocument : FileDocument {
     
 }
 
+#if os(iOS)
 struct Export_ImportView: View {
     
     @Binding var pathManager:PathManager
@@ -394,3 +395,4 @@ func processImportFromFile(url: URL, modelContext: ModelContext, postCompletion:
     postCompletion()
     
 }
+#endif

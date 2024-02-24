@@ -11,7 +11,7 @@
 //
 //  You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
 //
-//  CareerManageView.swift
+//  TagManageView.swift
 //  asagiri
 //
 //  Created by irony on 27/11/2023.
@@ -21,11 +21,12 @@ import SwiftUI
 import SwiftData
 import SymbolPicker
 
-enum CareerEdit {
+#if os(iOS)
+enum TagEdit {
     case none, adding, editing
 }
 
-struct CareerManageView: View {
+struct TagManageView: View {
     
     @State private var displayMenuBar = false
     
@@ -33,36 +34,32 @@ struct CareerManageView: View {
     
     @Environment(\.modelContext) private var modelContext
     
-    @Query private var careerTypes: [CareerType]
+    @Query private var tags: [Tag]
     
     @State private var text = ""
     
-    @FocusState private var focusedCareer: CareerType?
+    @FocusState private var focusedTag: Tag?
     
-    @State private var editingCareer: CareerType?
+    @State private var editingTag: Tag?
     
-    @State private var editing: CareerEdit = .none
+    @State private var editing: TagEdit = .none
     
-    @State private var iconPlace: String = ""
-    
-    @State private var iconpicking: Bool = false
-    
-    var editingList: [CareerType] {
+    var editingList: [Tag] {
         if (editing == .adding) {
-            return careerTypes + [CareerType.empty]
+            return tags + [Tag.empty]
         } else {
-            return careerTypes
+            return tags
         }
     }
     
     func removeRows(at offsets: IndexSet) {
         for index in offsets {
-            if (0 ..< careerTypes.count).contains(index) {
-                let careerToRemove = careerTypes[index]
+            if (0 ..< tags.count).contains(index) {
+                let TagToRemove = tags[index]
                 
                 // TODO: Implement pre-delete logics to cast every related JD to uncategorized
                 
-                modelContext.delete(careerToRemove)
+                modelContext.delete(TagToRemove)
             }
         }
     }
@@ -71,90 +68,71 @@ struct CareerManageView: View {
             VStack {
                 List {
                     ForEach(editingList) { item in
-                        if item == CareerType.empty {
-                            TextField("New item", text:
-                                        $text)
-                            .focused($focusedCareer, equals: item)
-                            .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                    self.focusedCareer = item
-                                }
-                            }
-                            .onChange(of: focusedCareer) { foc in
-                                if (foc != item) {
-                                    if (text != "") {
-                                        modelContext.insert(CareerType(name: text))
-                                    }
-                                    text = ""
-                                    editing = .none
-                                }
-                            }
-                        } else {
-                            if (editing == .editing && editingCareer == item) {
-                                TextField("Edit item", text: $text) {
-                                    
-                                }
-                                .focused($focusedCareer, equals: item)
+                        if item == Tag.empty {
+                            TextField("New item", text: $text)
+                                .focused($focusedTag, equals: item)
                                 .onAppear {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                        self.focusedCareer = item
+                                        self.focusedTag = item
                                     }
                                 }
-                                .onChange(of: focusedCareer) { foc in
+                                .onChange(of: focusedTag) { foc in
+                                    if (foc != item) {
+                                        if (text != "") {
+                                            modelContext.insert(Tag(name: text))
+                                        }
+                                        text = ""
+                                        editing = .none
+                                    }
+                                }
+                        } else {
+                            if (editing == .editing && editingTag == item) {
+                                HStack {
+                                    
+                                    TextField("Edit item", text: $text) {
+                                        
+                                    }
+                                }
+                                .focused($focusedTag, equals: item)
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                        self.focusedTag = item
+                                    }
+                                }
+                                .onChange(of: focusedTag) { foc in
                                     if (foc != item) {
                                         if (text != "") {
                                             item.name = text
                                         }
                                         text = ""
                                         editing = .none
-                                        editingCareer = nil
+                                        editingTag = nil
                                     }
                                 }
                             } else {
-                                HStack {
-                                    if (item.symbol != nil) {
-                                        Image(systemName: item.symbol!)
+                                Text(item.name)
+                                    .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                        Button {
+                                            editingTag = item
+                                            editing = .editing
+                                        } label: {
+                                            Label("Edit", systemImage: "pencil")
+                                        }
+                                        .tint(.blue)
                                     }
-                                    Text(item.name)
-                                        .swipeActions(edge: .leading, allowsFullSwipe: false) {
-                                            Button {
-                                                editingCareer = item
-                                                editing = .editing
-                                            } label: {
-                                                Label("Edit", systemImage: "pencil")
-                                            }
-                                            .tint(.blue)
-                                            Button {
-                                                editingCareer = item
-                                                iconpicking = true
-                                            } label: {
-                                                Label("Icon", systemImage: "info.circle")
-                                            }
-                                        }
-                                        .sheet(isPresented: $iconpicking, onDismiss: {
-                                            
-                                            // There should be a bug because this function could be called two time for the sheet within an update
-                                            if (editingCareer != nil) {
-                                                editingCareer!.symbol = iconPlace
-                                            }
-                                            editingCareer = nil
-                                            iconpicking = false
-                                        }) {
-                                            SymbolPicker(symbol: $iconPlace)
-                                        }
-                                }
                             }
                         }
                     }
-                    // Disable for current since related logic not implemented yet
-//                    .onDelete(perform: removeRows)
+                    .onDelete(perform: removeRows)
+//                    .listRowBackground(Color.)
                 }
+//                .scrollContentBackground(.hidden)
                 Spacer()
                 Button {
                     
                     if (editing == .adding && text.count > 0) {
                         editing = .none
-                        self.focusedCareer = nil
+                        self.focusedTag = nil
                     }
                     
                     editing = .adding
@@ -199,32 +177,31 @@ struct CareerManageView: View {
                             Label("Menu", systemImage: "line.3.horizontal")
                         }
                         
-                        Text("Manage Careers")
+                        Text("Manage Tags")
                             .font(.title2)
                     }
                 }
             }
         }
     }
-
 #Preview {
     MainActor.assumeIsolated {
         var previewContainer: ModelContainer = initializePreviewContainer()
         
-        let careers = [
-            CareerType(name: "Front-end"),
-            CareerType(name: "Back-end"),
-            CareerType(name: "Fullstack"),
-            CareerType(name: "DevOps"),
-            CareerType(name: "UI"),
-            CareerType(name: "Technical Writer")
+        let Tags = [
+            Tag(name: "bodyshop"),
+            Tag(name: "local"),
+            Tag(name: "favorites"),
+            Tag(name: "babyfoot"),
+            Tag(name: "startup nation")
         ]
         
-        careers.forEach {
+        Tags.forEach {
             previewContainer.mainContext.insert($0)
         }
         
-        return CareerManageView(pathManager: .constant(PathManager()))
+        return TagManageView(pathManager: .constant(PathManager()))
             .modelContainer(previewContainer)
     }
 }
+#endif

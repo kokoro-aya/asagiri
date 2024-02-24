@@ -20,6 +20,7 @@
 import SwiftUI
 import SwiftData
 
+#if os(iOS)
 struct OrganizationListView: View {
     
     @State private var displayMenuBar = false
@@ -96,3 +97,4 @@ struct OrganizationListView: View {
             .modelContainer(previewContainer)
     }
 }
+#endif

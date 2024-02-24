@@ -20,6 +20,7 @@
 import SwiftUI
 import SwiftData
 
+#if os(iOS)
 struct ApplicationListView: View {
     
     @Binding var pathManager:PathManager
@@ -246,3 +247,4 @@ struct ApplicationListView: View {
             .modelContainer(previewContainer)
     }
 }
+#endif
