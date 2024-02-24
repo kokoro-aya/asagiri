@@ -20,6 +20,8 @@
 import SwiftUI
 import SwiftData
 
+#if os(iOS)
+
 class PathManager: ObservableObject {
     var path = NavigationPath()
 }
@@ -132,3 +134,4 @@ enum PageType {
         
     }
 }
+#endif

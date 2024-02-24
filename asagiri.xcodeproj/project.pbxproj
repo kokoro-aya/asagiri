@@ -51,6 +51,7 @@
 		F78532E02B2FBF5C00AB5916 /* Analytics+TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78532DF2B2FBF5B00AB5916 /* Analytics+TopView.swift */; };
 		F78532E22B2FBF6700AB5916 /* Analytics+FrequencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78532E12B2FBF6700AB5916 /* Analytics+FrequencyView.swift */; };
 		F78532E42B2FBF9300AB5916 /* Analytics+FullScreen+GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78532E32B2FBF9300AB5916 /* Analytics+FullScreen+GoalView.swift */; };
+		F78532E62B2FBFB000AB5916 /* Analytics+FullScreen+CareerCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78532E52B2FBFB000AB5916 /* Analytics+FullScreen+CareerCategoriesView.swift */; };
 		F7B9E4432B111C4C00964F46 /* ApplicationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4422B111C4C00964F46 /* ApplicationCard.swift */; };
 		F7B9E4452B1121C600964F46 /* CreateNewJDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */; };
 		F7B9E4472B11374100964F46 /* Views+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B9E4462B11374100964F46 /* Views+Utils.swift */; };
@@ -135,6 +136,7 @@
 		F78532DF2B2FBF5B00AB5916 /* Analytics+TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Analytics+TopView.swift"; sourceTree = "<group>"; };
 		F78532E12B2FBF6700AB5916 /* Analytics+FrequencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Analytics+FrequencyView.swift"; sourceTree = "<group>"; };
 		F78532E32B2FBF9300AB5916 /* Analytics+FullScreen+GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Analytics+FullScreen+GoalView.swift"; sourceTree = "<group>"; };
+		F78532E52B2FBFB000AB5916 /* Analytics+FullScreen+CareerCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Analytics+FullScreen+CareerCategoriesView.swift"; sourceTree = "<group>"; };
 		F7B9E4422B111C4C00964F46 /* ApplicationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCard.swift; sourceTree = "<group>"; };
 		F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewJDView.swift; sourceTree = "<group>"; };
 		F7B9E4462B11374100964F46 /* Views+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views+Utils.swift"; sourceTree = "<group>"; };
@@ -201,24 +203,13 @@
 		F72BFF042B1006100090EED7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F7B9E4412B111C4500964F46 /* Parts */,
-				F72BFF062B10085A0090EED7 /* CreateNewApplicationView.swift */,
-				F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */,
-				F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */,
-				F72BFF082B1008720090EED7 /* ApplicationListView.swift */,
-				F738D15E2B151907006AC134 /* JDListView.swift */,
-				F7D34A6A2B1B93C400A7B005 /* ApplicationPreviewView.swift */,
-				F7D34A6E2B1B940C00A7B005 /* OrganizationListView.swift */,
-				F7DF04CA2B14E9F700D661E1 /* CareerManageView.swift */,
-				F738D15C2B150D2D006AC134 /* TagManageView.swift */,
-				F738D1602B153F82006AC134 /* SettingsView.swift */,
+				F7CEECF62B8969600011A930 /* iOSLayouts */,
 				F7D34A6C2B1B93E800A7B005 /* ChartWindowView.swift */,
-				F7C708332B1E65CF00B87680 /* AnalyticsView.swift */,
 				F78532DF2B2FBF5B00AB5916 /* Analytics+TopView.swift */,
 				F78532DD2B2FBF4800AB5916 /* Analytics+GoalView.swift */,
 				F78532E12B2FBF6700AB5916 /* Analytics+FrequencyView.swift */,
 				F78532E32B2FBF9300AB5916 /* Analytics+FullScreen+GoalView.swift */,
-				F7D34A702B1CA2F600A7B005 /* Export+ImportView.swift */,
+				F78532E52B2FBFB000AB5916 /* Analytics+FullScreen+CareerCategoriesView.swift */,
 				F7B9E4462B11374100964F46 /* Views+Utils.swift */,
 				F71827252B1A77F400A6BEE3 /* NavigateToCompanyCreateArguments.swift */,
 				F7C4C0BB2B2CAB19003DDCE4 /* Comparators.swift */,
@@ -363,6 +354,26 @@
 				F71827232B1A77E400A6BEE3 /* CollapseToggle.swift */,
 			);
 			path = Parts;
+			sourceTree = "<group>";
+		};
+		F7CEECF62B8969600011A930 /* iOSLayouts */ = {
+			isa = PBXGroup;
+			children = (
+				F7B9E4412B111C4500964F46 /* Parts */,
+				F72BFF062B10085A0090EED7 /* CreateNewApplicationView.swift */,
+				F7B9E4442B1121C600964F46 /* CreateNewJDView.swift */,
+				F7B9E4482B114BDF00964F46 /* CreateNewCompanyView.swift */,
+				F72BFF082B1008720090EED7 /* ApplicationListView.swift */,
+				F738D15E2B151907006AC134 /* JDListView.swift */,
+				F7D34A6A2B1B93C400A7B005 /* ApplicationPreviewView.swift */,
+				F7D34A6E2B1B940C00A7B005 /* OrganizationListView.swift */,
+				F7DF04CA2B14E9F700D661E1 /* CareerManageView.swift */,
+				F738D15C2B150D2D006AC134 /* TagManageView.swift */,
+				F738D1602B153F82006AC134 /* SettingsView.swift */,
+				F7C708332B1E65CF00B87680 /* AnalyticsView.swift */,
+				F7D34A702B1CA2F600A7B005 /* Export+ImportView.swift */,
+			);
+			path = iOSLayouts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -544,6 +555,7 @@
 				F738D15F2B151907006AC134 /* JDListView.swift in Sources */,
 				F718272E2B1A7CA600A6BEE3 /* Sunburst+Subviews+Protocols.swift in Sources */,
 				F751E7932B067FAB007828D6 /* Item.swift in Sources */,
+				F78532E62B2FBFB000AB5916 /* Analytics+FullScreen+CareerCategoriesView.swift in Sources */,
 				F71827202B1A77AC00A6BEE3 /* OrganizationDropdownSelector.swift in Sources */,
 				F71827262B1A77F400A6BEE3 /* NavigateToCompanyCreateArguments.swift in Sources */,
 				F75561A32B179DA9004FC072 /* DemoSource.swift in Sources */,
@@ -735,6 +747,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = moe.irony.kirika.asagiri;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -764,6 +778,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = moe.irony.kirika.asagiri;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -24,7 +24,11 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
 
     var body: some View {
-       AppNavigationStack()
+        #if os(iOS)
+        AppNavigationStack()
+        #else
+        Text("macOS version")
+        #endif
     }
 }
 
